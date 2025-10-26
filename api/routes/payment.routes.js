@@ -1,11 +1,7 @@
 const express = require('express');
 const { Booking, Experience, Availability, User } = require('../models');
 const emailService = require('../services/email.service');
-
-// Initialize Stripe only if API key is available
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? require('stripe')(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripeService = require('../services/stripe.service');
 
 const router = express.Router();
 
@@ -15,6 +11,7 @@ const router = express.Router();
  */
 router.post('/stripe/create-intent', async (req, res) => {
   try {
+    const stripe = stripeService.getStripeClient();
     if (!stripe) {
       return res.status(503).json({ error: 'Stripe is not configured. Please set STRIPE_SECRET_KEY.' });
     }

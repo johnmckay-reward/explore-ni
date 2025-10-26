@@ -1,5 +1,5 @@
 const express = require('express');
-const { Experience, User, Category, Review, Availability, sequelize } = require('../models');
+const { Experience, User, Category, Review, Availability, HotelPartner, sequelize } = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -211,6 +211,75 @@ router.get('/experiences/:id', async (req, res) => {
   } catch (error) {
     console.error('Error fetching experience:', error);
     res.status(500).json({ error: 'Failed to fetch experience' });
+  }
+});
+
+/**
+ * GET /api/public/partner/:slug/experiences
+ * Get experiences for a hotel partner by slug
+ */
+router.get('/partner/:slug/experiences', async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    // Find the hotel partner
+    const partner = await HotelPartner.findOne({
+      where: { slug },
+    });
+
+    if (!partner) {
+      return res.status(404).json({ error: 'Partner not found' });
+    }
+
+    // For MVP, return all approved experiences
+    // In the future, this could be filtered by location, curated list, etc.
+    const experiences = await Experience.findAll({
+      where: { status: 'approved' },
+      include: [
+        {
+          model: User,
+          as: 'vendor',
+          attributes: ['id', 'firstName', 'lastName'],
+        },
+        {
+          model: Category,
+          as: 'categories',
+          attributes: ['id', 'name', 'slug'],
+        },
+        {
+          model: Review,
+          as: 'reviews',
+          attributes: ['rating'],
+        },
+      ],
+      order: [['createdAt', 'DESC']],
+    });
+
+    // Calculate average rating for each experience
+    const experiencesWithRating = experiences.map(exp => {
+      const expData = exp.toJSON();
+      const reviews = expData.reviews || [];
+      const averageRating = reviews.length > 0
+        ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+        : 0;
+      
+      return {
+        ...expData,
+        averageRating,
+      };
+    });
+
+    res.json({
+      hotelPartner: {
+        id: partner.id,
+        name: partner.name,
+        slug: partner.slug,
+      },
+      experiences: experiencesWithRating,
+    });
+  } catch (error) {
+    console.error('Error fetching partner experiences:', error);
+    res.status(500).json({ error: 'Failed to fetch experiences for partner' });
   }
 });
 

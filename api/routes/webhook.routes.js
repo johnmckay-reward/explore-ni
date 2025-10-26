@@ -2,11 +2,7 @@ const express = require('express');
 const { Booking, Experience, Availability, User, Voucher } = require('../models');
 const emailService = require('../services/email.service');
 const smsService = require('../services/sms.service');
-
-// Initialize Stripe only if API key is available
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? require('stripe')(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripeService = require('../services/stripe.service');
 
 const router = express.Router();
 
@@ -16,6 +12,7 @@ const router = express.Router();
  * This endpoint receives notifications from Stripe when payment events occur
  */
 router.post('/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
+  const stripe = stripeService.getStripeClient();
   if (!stripe) {
     return res.status(503).json({ error: 'Stripe is not configured. Please set STRIPE_SECRET_KEY.' });
   }
@@ -25,11 +22,12 @@ router.post('/stripe', express.raw({ type: 'application/json' }), async (req, re
 
   try {
     // Verify webhook signature
-    if (process.env.STRIPE_WEBHOOK_SECRET) {
+    const webhookSecret = stripeService.getWebhookSecret();
+    if (webhookSecret) {
       event = stripe.webhooks.constructEvent(
         req.body,
         sig,
-        process.env.STRIPE_WEBHOOK_SECRET
+        webhookSecret
       );
     } else {
       // If no webhook secret configured, just parse the body

@@ -1,10 +1,19 @@
 const sgMail = require('@sendgrid/mail');
 const { PDFDocument, rgb, StandardFonts } = require('pdf-lib');
+const settingsService = require('./settings.service');
 
-// Configure SendGrid with API key from environment
-if (process.env.SENDGRID_API_KEY) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-}
+/**
+ * Get SendGrid API key from settings and configure
+ * @returns {boolean} - true if configured, false otherwise
+ */
+const configureSendGrid = () => {
+  const apiKey = settingsService.getSetting('SENDGRID_API_KEY');
+  if (apiKey) {
+    sgMail.setApiKey(apiKey);
+    return true;
+  }
+  return false;
+};
 
 /**
  * Send a booking confirmation email to the customer
@@ -13,7 +22,7 @@ if (process.env.SENDGRID_API_KEY) {
  */
 const sendBookingConfirmation = async (bookingDetails) => {
   try {
-    if (!process.env.SENDGRID_API_KEY) {
+    if (!configureSendGrid()) {
       console.log('[Email Service] SendGrid API key not configured, skipping email');
       return;
     }
@@ -52,7 +61,7 @@ const sendBookingConfirmation = async (bookingDetails) => {
  */
 const sendPaymentReceipt = async (bookingDetails) => {
   try {
-    if (!process.env.SENDGRID_API_KEY) {
+    if (!configureSendGrid()) {
       console.log('[Email Service] SendGrid API key not configured, skipping email');
       return;
     }
@@ -92,7 +101,7 @@ const sendPaymentReceipt = async (bookingDetails) => {
  */
 const sendVendorNewRequest = async (bookingDetails) => {
   try {
-    if (!process.env.SENDGRID_API_KEY) {
+    if (!configureSendGrid()) {
       console.log('[Email Service] SendGrid API key not configured, skipping email');
       return;
     }
@@ -133,7 +142,7 @@ const sendVendorNewRequest = async (bookingDetails) => {
  */
 const sendBookingDeclined = async (bookingDetails) => {
   try {
-    if (!process.env.SENDGRID_API_KEY) {
+    if (!configureSendGrid()) {
       console.log('[Email Service] SendGrid API key not configured, skipping email');
       return;
     }
@@ -314,7 +323,7 @@ const generateVoucherPDF = async (voucher) => {
  */
 const sendVoucherEmail = async (voucher) => {
   try {
-    if (!process.env.SENDGRID_API_KEY) {
+    if (!configureSendGrid()) {
       console.log('[Email Service] SendGrid API key not configured, skipping email');
       return;
     }

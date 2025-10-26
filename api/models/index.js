@@ -6,6 +6,8 @@ const Availability = require('./Availability');
 const Voucher = require('./Voucher');
 const Review = require('./Review');
 const Category = require('./Category');
+const Setting = require('./Setting');
+const HotelPartner = require('./HotelPartner');
 
 // Define associations
 
@@ -110,4 +112,6 @@ module.exports = {
   Voucher,
   Review,
   Category,
+  Setting,
+  HotelPartner,
 };

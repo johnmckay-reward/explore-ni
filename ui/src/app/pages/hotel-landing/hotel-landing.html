@@ -1,0 +1,49 @@
+<div class="hotel-landing">
+  <!-- Hero Section -->
+  <div class="hero-section text-center py-5 bg-light">
+    <div class="container">
+      @if (loading()) {
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      } @else {
+        <h1 class="display-4 fw-bold mb-3">Experiences recommended by {{ hotelName() }}</h1>
+        <p class="lead text-muted">Discover the best of Northern Ireland</p>
+      }
+    </div>
+  </div>
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="container py-5">
+      <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ error() }}
+      </div>
+    </div>
+  }
+
+  <!-- Experiences Grid -->
+  @if (!loading() && !error() && experiences().length > 0) {
+    <div class="container py-5">
+      <div class="row g-4">
+        @for (experience of experiences(); track experience.id) {
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <app-experience-card [experience]="experience"></app-experience-card>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Empty State -->
+  @if (!loading() && !error() && experiences().length === 0) {
+    <div class="container py-5">
+      <div class="text-center py-5">
+        <i class="bi bi-inbox display-1 text-muted"></i>
+        <h3 class="mt-4">No experiences available</h3>
+        <p class="text-muted">Check back soon for new experiences!</p>
+      </div>
+    </div>
+  }
+</div>

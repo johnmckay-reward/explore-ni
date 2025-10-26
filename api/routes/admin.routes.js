@@ -2,6 +2,7 @@ const express = require('express');
 const { User, Experience } = require('../models');
 const { authMiddleware } = require('../middleware/auth.middleware');
 const { checkRole } = require('../middleware/rbac.middleware');
+const settingsService = require('../services/settings.service');
 
 const router = express.Router();
 
@@ -192,6 +193,45 @@ router.put('/experiences/:id/reject', async (req, res) => {
   } catch (error) {
     console.error('Error rejecting experience:', error);
     res.status(500).json({ error: 'Failed to reject experience' });
+  }
+});
+
+/**
+ * GET /api/admin/settings
+ * Get all settings (keys and descriptions only, NOT values)
+ */
+router.get('/settings', async (req, res) => {
+  try {
+    const settings = await settingsService.getAllSettings();
+    res.json(settings);
+  } catch (error) {
+    console.error('Error fetching settings:', error);
+    res.status(500).json({ error: 'Failed to fetch settings' });
+  }
+});
+
+/**
+ * PUT /api/admin/settings
+ * Update a setting value
+ * Body: { key: '...', value: '...' }
+ */
+router.put('/settings', async (req, res) => {
+  try {
+    const { key, value } = req.body;
+
+    if (!key || !value) {
+      return res.status(400).json({ error: 'Missing required fields: key and value' });
+    }
+
+    await settingsService.updateSetting(key, value);
+
+    res.json({
+      message: 'Setting updated successfully',
+      key,
+    });
+  } catch (error) {
+    console.error('Error updating setting:', error);
+    res.status(500).json({ error: error.message || 'Failed to update setting' });
   }
 });
 

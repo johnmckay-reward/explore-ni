@@ -1,10 +1,19 @@
 const twilio = require('twilio');
+const settingsService = require('./settings.service');
 
-// Initialize Twilio client only if credentials are available
-let twilioClient = null;
-if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-  twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-}
+/**
+ * Get Twilio client configured with settings
+ * @returns {object|null} - Twilio client or null if not configured
+ */
+const getTwilioClient = () => {
+  const accountSid = settingsService.getSetting('TWILIO_ACCOUNT_SID');
+  const authToken = settingsService.getSetting('TWILIO_AUTH_TOKEN');
+  
+  if (accountSid && authToken) {
+    return twilio(accountSid, authToken);
+  }
+  return null;
+};
 
 /**
  * Send an SMS message
@@ -14,19 +23,21 @@ if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
  */
 const sendSms = async (toPhoneNumber, messageBody) => {
   try {
+    const twilioClient = getTwilioClient();
     if (!twilioClient) {
       console.log('[SMS Service] Twilio not configured, skipping SMS');
       return;
     }
 
-    if (!process.env.TWILIO_PHONE_NUMBER) {
+    const phoneNumber = settingsService.getSetting('TWILIO_PHONE_NUMBER');
+    if (!phoneNumber) {
       console.log('[SMS Service] TWILIO_PHONE_NUMBER not configured, skipping SMS');
       return;
     }
 
     const message = await twilioClient.messages.create({
       body: messageBody,
-      from: process.env.TWILIO_PHONE_NUMBER,
+      from: phoneNumber,
       to: toPhoneNumber,
     });
 
