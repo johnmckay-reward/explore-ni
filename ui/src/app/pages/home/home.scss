@@ -1,22 +1,26 @@
-.hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+// Import global variables (like $secondary) from styles.scss
+@import '../../../variables';
 
-  .btn-primary {
-    margin-top: 1rem;
-  }
+// 1. New Hero Icon Styling
+.hero-icon {
+  font-size: 12rem; // Make the icon large
+  color: $secondary; // Use the brand's deep green
+  opacity: 0.15; // Make it subtle, like a watermark
+  transform: rotate(-15deg); // Give it a slight angle for visual interest
 }
 
+// 2. Category Card Specifics
 .category-card {
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  // The hover effect is now handled globally in styles.scss
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  .card-title {
+    color: $secondary; // Ensure title uses brand green
+    font-weight: 500;
   }
 }
 
+// 3. Section Spacing
 .featured-section {
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; // Keep the extra space at the bottom of the page
 }

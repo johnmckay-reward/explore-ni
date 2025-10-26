@@ -1,36 +1,54 @@
+// 1. Import variables, fonts, and Bootstrap overrides
+@import 'variables';
+
+// 2. Import icon font
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 
 /* You can add global styles to this file, and also import other style files */
 
-// 1. Define Brand Colors
-// Based on the Figma designs and proposal
-$ni-yellow: #ffc107; // The "sunset yellow"
-$ni-green: #344734;  // The "deep green" (from footer/overlays)
-
-// 2. Override Bootstrap Default Variables
-// We'll map the brand colors to Bootstrap's theme
-$primary: $ni-yellow;
-$secondary: $ni-green;
-
-// Set text color for primary buttons (yellow) to be dark for contrast
-$primary-text-emphasis: #212529;
-
 // 3. Import Bootstrap SCSS file
-// All variable overrides must come BEFORE this import.
+// All variable overrides are in _variables.scss and must come BEFORE this import.
 @import 'bootstrap/scss/bootstrap';
 
-// 4. Add Global Utility Classes
-// We see these full-width colored sections in the Figma
+// 4. Add Global Styles & Utility Classes
+
+// --- Global Typography ---
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  color: $secondary; // This variable now comes from _variables.scss
+}
+
+// --- Global Component Tweaks ---
+.card {
+  border: none;
+  box-shadow: 0 4px 12px rgba($ni-green, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba($ni-green, 0.12);
+  }
+}
+
+// --- New Utility Classes ---
 .section-bg-yellow {
   background-color: $primary;
+  color: $primary-text-emphasis;
 }
 
 .section-bg-green {
   background-color: $secondary;
-  color: #fff; // Set text to white for high contrast on the green
+  color: #fff;
 }
 
-// Global typography (if needed)
-// body {
-//   font-family: 'Your-Custom-Font', sans-serif;
-// }
+.btn-xl {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
