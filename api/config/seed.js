@@ -389,7 +389,6 @@ async function seedDatabase() {
       experienceId: exp1.id,
     });
 
-    // Reviews for exp 7-10
     await Review.create({
       rating: 5,
       comment: 'Our driver, \'Wee Stevie\', was an absolute legend. Told us his own stories. You see it on the news, but this is the real deal. A must-do in Belfast, nae doubt.',
@@ -417,8 +416,6 @@ async function seedDatabase() {
       customerId: customerShauna.id,
       experienceId: exp10.id,
     });
-
-    // === NEW REVIEWS START ===
 
     await Review.create({
       rating: 5,
@@ -448,7 +445,322 @@ async function seedDatabase() {
       experienceId: exp13.id,
     });
 
-    // === NEW REVIEWS END ===
+await Review.create({
+      rating: 3,
+      comment: 'It was alright, I suppose. The stones are strange, but sweet sufferin\' cats, the buses! Ye could hardly move for folk takin\' selfies. Our guide was sound, but it was just a bit of a geg. Glad I seen it, but wouldn\'t be rushin\' back.',
+      customerId: customerPaddy.id,
+      experienceId: exp1.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Absolutely massive. The way they\'ve done it is pure genius. Loved the wee ride thingy inside. Felt dead sorry for them all by the end. A class day out, highly recommend.',
+      customerId: customerShauna.id,
+      experienceId: exp2.id,
+    });
+
+    await Review.create({
+      rating: 2,
+      comment: 'Ach, I dunno. It\'s dear enough for what it is. It\'s a big fancy building, aye, but I was bored halfways round. Too much readin\'. Just wanted to see the necklace from the film, but it wasn\'t even there. Bit of a let-down.',
+      customerId: customerMary.id,
+      experienceId: exp2.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Broke the back of it! What a hike. Our guide knew the mountains like the back of his hand. Was absolutely gutthered by the end, but the views from the top... wise up. Stickin\' out.',
+      customerId: customerPaddy.id,
+      experienceId: exp3.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'Look, if you\'re into all that dragons stuff, it\'s probably class. But I haven\'t a baldy. The hedges are just trees, like. The guide was a laugh, telling us all the gossip, but it was lost on me. My fella loved it, though.',
+      customerId: customerMary.id,
+      experienceId: exp4.id,
+    });
+
+    await Review.create({
+      rating: 2,
+      comment: 'Are ye havin\' a laugh? Paid all that money to walk 20 feet across a wee bridge. The cliffs are lovely, right enough, but the bridge itself is a total rip-off. Save yer money and walk along the coast. It\'s the same view. Pure balls.',
+      customerId: customerPaddy.id,
+      experienceId: exp5.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Now you\'re talkin\'! Had a brilliant wee tour. The smell alone is worth the money. Our guide was great craic and the samples at the end... let\'s just say I was feelin\' no pain. Bought a bottle for my da.',
+      customerId: customerMary.id,
+      experienceId: exp6.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Powerful. Really powerful. Our driver knew everything, wasn\'t just readin\' from a script. Makes ye think, so it does. You can\'t come to Belfast and not do this. Proper eye-opener.',
+      customerId: customerPaddy.id,
+      experienceId: exp7.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'It was so good, I caught myself on! Loved every minute. Seeing the mural was class and the guide had us in stitches. Felt like I was one of the gang. Derry is a wee gem of a city.',
+      customerId: customerShauna.id,
+      experienceId: exp8.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'It\'s just a market, like. Had a wee bap which was grand, but it was fairly bunged. A lot of the stalls are just selling the same oul\' nick-nacks. It\'s handy for a wander if it\'s lashing, but don\'t go out of your way.',
+      customerId: customerMary.id,
+      experienceId: exp9.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'Jesus, Mary and Joseph, it was baltic. Fair play to the guide, he was dead on, and seeing the seals was great. But my hands were numb after 10 minutes. I was foundered. Probably class in the summer, but I was too cold to enjoy it.',
+      customerId: customerPaddy.id,
+      experienceId: exp10.id,
+    });
+
+    await Review.create({
+      rating: 1,
+      comment: 'Absolute disaster. The guide was half-cut, I\'m sure of it. Lost half the group after the first pub. The second one was full of stags and hens, pure bedlam. Didn\'t even get the free pint. Waste of money, wound up gettin\' a taxi home. Fumin\'.',
+      customerId: customerMary.id,
+      experienceId: exp11.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Deadly. It\'s a long oul\' slog up that boardwalk but holy moly, the view. Worth every single step. Was wrecked after, but buzzing. Our guide was a wee dote, kept the spirits up. Go on, get it booked!',
+      customerId: customerShauna.id,
+      experienceId: exp12.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'It\'s a grand wee walk, like. The history is interesting, but the guide was a bit dry. Felt a bit like a history lesson at school. The views of the Bogside are good from the top, mind you. Passed an hour.',
+      customerId: customerPaddy.id,
+      experienceId: exp13.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'Wasn\'t sure what to expect but it was actually brilliant. Our guide was from here and told us loads. The murals are unbelievable. Fair play to them. Glad we did it.',
+      customerId: customerMary.id,
+      experienceId: exp7.id,
+    });
+
+await Review.create({
+      rating: 2,
+      comment: 'Jesus, it was lashing. Pure hosin\' it down. Ye couldn\'t see yer hand in front o\' yer face. The stones were dead slippy and my good trainers are banjaxed. The guide was sound, but ye can\'t help the weather. Just a bit of a damp squib, so it was.',
+      customerId: customerShauna.id,
+      experienceId: exp1.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Honestly, pure magic. The building itself is somethin\' else. It\'s dead sad, like, but they\'ve done it proper class. The wee ride was brilliant, showing the shipyard. Took my da, he loved it. 10/10.',
+      customerId: customerPaddy.id,
+      experienceId: exp2.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'Here\'s me thinkin\' it\'d be a wee dander. Sweet suffering saints, I was wrecked. Our guide was away like a fiddler\'s elbow, left half of us trailin\' behind. The views were grand, right enough, but my legs were in bits. Not for the faint-hearted.',
+      customerId: customerShauna.id,
+      experienceId: exp3.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Right, I\'m a total nerd for this stuff, and it was the business. Got to wear a cloak and hold a sword, felt like Jon Snow. The guide was pure gas, had all the stories. Seeing the Dark Hedges was unreal. What a day, so it was.',
+      customerId: customerMary.id,
+      experienceId: exp4.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'My legs were like jelly. Pure brickin\' it. But I says to myself, "Catch yerself on!" and just went for it. The wee island is lovely and the view back is unreal. Bit of a queue, but worth the wait. Grand.',
+      customerId: customerShauna.id,
+      experienceId: exp5.id,
+    });
+
+    await Review.create({
+      rating: 2,
+      comment: 'Ach, it was just a walk round a factory, like. Smelled nice, but I\'m not a massive whiskey drinker. I was the designated driver, so I got a wee bottle of water while everyone else was gettin\' blocked. Bit of a rip-off if you\'re not drinkin\'.',
+      customerId: customerShauna.id,
+      experienceId: exp6.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Our driver Barry was an absolute gent. What that man doesn\'t know isn\'t worth knowing. You see the murals and it really hits home. So much history. Honestly, stop readin\' this and just book it. Deadly.',
+      customerId: customerMary.id,
+      experienceId: exp7.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'It was grand. The guide was nice and we saw the mural, which was class for a photo. But a lot of it was just walkin\' about. I thought we\'d get a free cream horn or somethin\'. It was... fine.',
+      customerId: customerPaddy.id,
+      experienceId: exp8.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'What a buzz! The place was jumpin\'. Had a Belfast Bap that was bigger than my head, and it was lovely. Good wee band playin\' in the corner. Bought some wee buns for later. Class mornin\' out.',
+      customerId: customerShauna.id,
+      experienceId: exp9.id,
+    });
+
+    await Review.create({
+      rating: 1,
+      comment: 'Foundered. Absolutely foundered. Couldn\'t feel my fingers after ten minutes. The guide was trying his best but I was too busy grievin\' about the cold. Saw one seal for about two seconds. Waste of a day, so it was.',
+      customerId: customerMary.id,
+      experienceId: exp10.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'It was... a pub crawl. The guide was sound, but the first pub was empty and the last one was that bunged ye couldn\'t get to the bar. The free shot was like paint stripper. Head\'s thumpin\' this mornin\'.',
+      customerId: customerPaddy.id,
+      experienceId: exp11.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'It\'s just a big wooden staircase, like. Goes on for miles. My knees were banjaxed. Got to the top and it was pure fog. Couldn\'t see a thing. Just my luck. Glad I did it to say I did, but I wouldn\'t be rushin\' back.',
+      customerId: customerPaddy.id,
+      experienceId: exp12.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Class. You can see the whole city. Our guide was a dote, really knew his stuff. Felt dead safe and it\'s mad to think how old the walls are. 10/10.',
+      customerId: customerMary.id,
+      experienceId: exp13.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'Aye, it\'s thick wi\' tourists, but ye have to see it, don\'t ye? The stones are mad. Our guide was great craic, tellin\' us all about Finn McCool. Good dander, but wear comfy shoes.',
+      customerId: customerMary.id,
+      experienceId: exp1.id,
+    });
+
+    await Review.create({
+      rating: 1,
+      comment: 'Pure shite. The guide didn\'t shut up for a solid hour. Just wanted to see the yoke from the film. Turns out it\'s not even here. And the price of the gift shop? Wind yer neck in. Pure balls.',
+      customerId: customerShauna.id,
+      experienceId: exp2.id,
+    });
+
+await Review.create({
+      rating: 5,
+      comment: 'Yeeeoooo! What a spot. Our guide told us all about Finn McCool batterin\' yon Scottish fella. Pure dead brilliant. The stones are mad lookin\'. Took about 50 photos. Class.',
+      customerId: customerPaddy.id,
+      experienceId: exp1.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'Ach, it was grand. The buildin\' is massive, right enough. But it was that dear to get in, and then ye have to pay a fortune for a wee sandwich. It\'s good, like, but bleedin\' pricey.',
+      customerId: customerMary.id,
+      experienceId: exp2.id,
+    });
+
+    await Review.create({
+      rating: 1,
+      comment: 'Never again. It was hosin\' it down, the wind was fit to cut ye in two, and I near broke my neck on a slippy rock. Seen nothin\' but fog. The guide was sound, but sweet divine, I was foundered. Home for a hot whiskey.',
+      customerId: customerShauna.id,
+      experienceId: exp3.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Right, I\'m a pure fanatic, so this was the business. Got a photo on the throne, so I did! Our guide, wee Ciaran, was an absolute geg. Knew all the gossip. Worth every penny. Deadly.',
+      customerId: customerShauna.id,
+      experienceId: exp4.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'My heart was in my mouth! Pure brickin\' it, but what a buzz! The views are stickin\' out. The fella running it was a good laugh too. "Away on wi\' ye!" he says. Class.',
+      customerId: customerPaddy.id,
+      experienceId: exp5.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'That\'s the good stuff. Lovely wee tour, smells amazing in there. The guide was dead nice. The samples at the end were lovely, had a wee buzz on. Bought a bottle for my brother\'s Christmas.',
+      customerId: customerMary.id,
+      experienceId: exp6.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'You can\'t come to Belfast and not do this. End of. Our driver, Liam, lived through it all. Honest, raw, and makes ye think. The murals are unbelievable. Absolutely essential.',
+      customerId: customerPaddy.id,
+      experienceId: exp7.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'It was a grand wee tour. The guide was a laugh and seeing the mural was great. Just felt a wee bit short, like. Could have done with more. Still, good craic!',
+      customerId: customerMary.id,
+      experienceId: exp8.id,
+    });
+
+    await Review.create({
+      rating: 2,
+      comment: 'It\'s just a big shed full of oul\' tat. My missus dragged me along. The food bit was alright, got a sausage roll, but the rest was just pure meh. Wouldn\'t be rushin\' back.',
+      customerId: customerPaddy.id,
+      experienceId: exp9.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Magic! The water was pure flat calm and the sun was splittin\' the stones. Saw loads of seals just chillin\' on the rocks. Our guide was a wee dote. 10/10, what a day!',
+      customerId: customerShauna.id,
+      experienceId: exp10.id,
+    });
+
+    await Review.create({
+      rating: 5,
+      comment: 'Absolute scenes. Our guide was a total headcase, in a good way! Took us to some proper wee gems. The craic was 90 from start to finish. Woke up this mornin\' feelin\' like I was hit by a bus, but worth it. Yeeeeooo!',
+      customerId: customerMary.id,
+      experienceId: exp11.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'My legs are banjaxed. Absolutely banjaxed. It just keeps goin\' up! But sweet Jesus, when ye get to the top... the view is unreal. Took my breath away. Well, what was left of it!',
+      customerId: customerShauna.id,
+      experienceId: exp12.id,
+    });
+
+    await Review.create({
+      rating: 3,
+      comment: 'Aye, it\'s a wall, alright. Grand walk, like. The guide knew his history, but my head was away with the fairies half the time. Good view, but it\'s just a dander round the town.',
+      customerId: customerPaddy.id,
+      experienceId: exp13.id,
+    });
+
+    await Review.create({
+      rating: 1,
+      comment: 'What a load of balls. It\'s just a pile of rocks. Paid all that money to see rocks. And the crowds! Ye couldn\'t swing a cat. I was pure scunnered. Avoid.',
+      customerId: customerMary.id,
+      experienceId: exp1.id,
+    });
+
+    await Review.create({
+      rating: 4,
+      comment: 'Really, really interesting. The guide was sound, but he was a wee bit quiet, had to strain to hear him. But the murals and the stories... powerful stuff. A must-do.',
+      customerId: customerShauna.id,
+      experienceId: exp7.id,
+    });
+
+    // === REVIEWS END ===
 
 
     console.log(`  ✓ ${await Review.count()} reviews left. Mostly good, aye.`);
