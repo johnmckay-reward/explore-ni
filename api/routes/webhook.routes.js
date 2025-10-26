@@ -1,6 +1,7 @@
 const express = require('express');
 const { Booking, Experience, Availability, User } = require('../models');
 const emailService = require('../services/email.service');
+const smsService = require('../services/sms.service');
 
 // Initialize Stripe only if API key is available
 const stripe = process.env.STRIPE_SECRET_KEY 
@@ -107,18 +108,32 @@ router.post('/stripe', express.raw({ type: 'application/json' }), async (req, re
           totalPrice: booking.totalPrice,
         });
       } else if (booking.experience.confirmationMode === 'manual') {
-        // For manual confirmation, send notification to vendor
-        await emailService.sendVendorNewRequest({
-          bookingId: booking.id,
-          customerName: booking.customerName,
-          customerEmail: booking.customerEmail,
-          vendorName: `${booking.experience.vendor.firstName} ${booking.experience.vendor.lastName}`,
-          vendorEmail: booking.experience.vendor.email,
-          experienceTitle: booking.experience.title,
-          bookingDate: booking.bookingDate,
-          quantity: booking.quantity,
-          totalPrice: booking.totalPrice,
-        });
+        // For manual confirmation, send notification to vendor based on their preferences
+        const vendor = booking.experience.vendor;
+        
+        // Check vendor's notification preference
+        if (vendor.notificationPreference === 'email' || vendor.notificationPreference === 'both') {
+          await emailService.sendVendorNewRequest({
+            bookingId: booking.id,
+            customerName: booking.customerName,
+            customerEmail: booking.customerEmail,
+            vendorName: `${vendor.firstName} ${vendor.lastName}`,
+            vendorEmail: vendor.email,
+            experienceTitle: booking.experience.title,
+            bookingDate: booking.bookingDate,
+            quantity: booking.quantity,
+            totalPrice: booking.totalPrice,
+          });
+        }
+        
+        if ((vendor.notificationPreference === 'sms' || vendor.notificationPreference === 'both') && vendor.phoneNumber) {
+          await smsService.sendVendorNewRequestSms(vendor, {
+            experienceTitle: booking.experience.title,
+            bookingDate: booking.bookingDate,
+            quantity: booking.quantity,
+            totalPrice: booking.totalPrice,
+          });
+        }
       }
 
       // Always send payment receipt
