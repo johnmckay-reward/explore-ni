@@ -6,6 +6,7 @@ const cors = require('cors');
 
 // Import models and database configuration
 const { sequelize, User, Experience, Booking, Availability, Voucher, Review, Category } = require('./models');
+const { seedDatabase } = require('./config/seed');
 
 // Import routes
 const authRoutes = require('./routes/auth.routes');
@@ -62,6 +63,10 @@ const startServer = async () => {
     await sequelize.sync({ force: true });
     console.log('Database & tables created!');
     console.log('Models initialized: User, Experience, Booking, Availability, Voucher, Review, Category');
+
+    // Seed the database with development data
+    // COMMENT OUT the line below if you don't want to seed data on startup
+    await seedDatabase();
 
     // Start the server and make it listen for connections
     app.listen(port, () => {
