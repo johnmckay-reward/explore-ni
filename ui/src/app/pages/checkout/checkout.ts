@@ -1,10 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience } from '../../services/public-experience.service';
 import { BookingService, CreateBookingRequest } from '../../services/booking.service';
+import { ToastService } from '../../services/toast.service';
 
 interface Availability {
   id: number;
@@ -31,13 +32,12 @@ export class Checkout implements OnInit {
   availableTimes = signal<Availability[]>([]);
   minDate!: NgbDateStruct;
 
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private experienceService: PublicExperienceService,
-    private bookingService: BookingService
-  ) {}
+  private fb = inject(FormBuilder);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private experienceService = inject(PublicExperienceService);
+  private bookingService = inject(BookingService);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     this.initForm();
@@ -147,6 +147,7 @@ export class Checkout implements OnInit {
       Object.keys(this.checkoutForm.controls).forEach(key => {
         this.checkoutForm.get(key)?.markAsTouched();
       });
+      this.toastService.error('Please fill in all required fields correctly');
       return;
     }
 
@@ -155,6 +156,7 @@ export class Checkout implements OnInit {
     
     if (!availability) {
       this.error.set('Please select a valid time slot');
+      this.toastService.error('Please select a valid time slot');
       return;
     }
 
@@ -174,12 +176,15 @@ export class Checkout implements OnInit {
     this.bookingService.createBooking(request).subscribe({
       next: (response) => {
         console.log('Booking created:', response);
+        this.toastService.success('Booking created successfully! Proceeding to payment...');
         // Navigate to payment page with booking ID
         this.router.navigate(['/payment', response.bookingId]);
       },
       error: (err) => {
         console.error('Error creating booking:', err);
-        this.error.set(err.error?.error || 'Failed to create booking. Please try again.');
+        const errorMsg = err.error?.error || 'Failed to create booking. Please try again.';
+        this.error.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.loading.set(false);
       }
     });

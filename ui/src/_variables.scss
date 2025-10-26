@@ -3,14 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
 
 // 2. Define Brand Colors
-$ni-yellow: #ffc107; // The "sunset yellow"
-$ni-green: #344734;  // The "deep green"
+$ni-yellow: #ffc107; // The "sunset yellow" - for primary CTAs, highlights
+$ni-green: #344734;  // The "deep green" - for headers, footers, standard buttons
 
 // 3. Override Bootstrap Default Variables
 
 // --- Theme Colors ---
-$primary: $ni-yellow;
-$secondary: $ni-green;
+// Note: Bootstrap's "primary" is typically the main brand color for CTAs
+// Bootstrap's "secondary" is typically the supporting color
+// We want Deep Green for standard/secondary and Sunset Yellow for primary CTAs
+$primary: $ni-yellow;    // Sunset Yellow for primary CTAs (Book Now, Pay, etc.)
+$secondary: $ni-green;   // Deep Green for headers, footers, standard buttons
+
+// Additional semantic colors
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
 
 // --- Text Contrast ---
 $primary-text-emphasis: #212529;
@@ -24,3 +33,6 @@ $link-hover-color: darken($ni-green, 10%);
 // --- Components ---
 $border-radius: 0.375rem;
 $card-border-radius: $border-radius;
+
+// --- Button Overrides ---
+// Ensure buttons use our brand colors appropriately

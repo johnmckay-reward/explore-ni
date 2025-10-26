@@ -52,3 +52,81 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   letter-spacing: 0.5px;
 }
+
+// --- Form Validation Styling ---
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: $danger;
+  background-image: none;
+}
+
+.invalid-feedback {
+  display: block;
+  color: $danger;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+// Form field with error - enhanced visual feedback
+.form-control:invalid:not(:placeholder-shown),
+.form-select:invalid:not(:placeholder-shown) {
+  border-color: $danger;
+}
+
+// --- Loading States ---
+.spinner-border.text-brand-green {
+  color: $ni-green !important;
+}
+
+.spinner-border.text-brand-yellow {
+  color: $ni-yellow !important;
+}
+
+// --- Rating Stars (align with brand) ---
+.ngb-rating {
+  .bi-star-fill {
+    color: $ni-yellow !important;
+  }
+}
+
+// --- Responsive Utilities ---
+@media (max-width: 767.98px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+// --- Button Brand Alignment ---
+// Ensure that standard buttons use deep green, CTAs use yellow
+.btn-secondary {
+  background-color: $ni-green;
+  border-color: $ni-green;
+  color: white;
+  
+  &:hover, &:focus {
+    background-color: darken($ni-green, 10%);
+    border-color: darken($ni-green, 10%);
+    color: white;
+  }
+}
+
+.btn-primary {
+  background-color: $ni-yellow;
+  border-color: $ni-yellow;
+  color: $primary-text-emphasis;
+  
+  &:hover, &:focus {
+    background-color: darken($ni-yellow, 10%);
+    border-color: darken($ni-yellow, 10%);
+    color: $primary-text-emphasis;
+  }
+}

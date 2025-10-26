@@ -3,13 +3,14 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core'; // Added Inject,
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router'; // Added Router, NavigationEnd
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
+import { ToastContainer } from './components/toast-container/toast-container';
 import { isPlatformBrowser } from '@angular/common'; // Added isPlatformBrowser
 import { filter } from 'rxjs/operators'; // Added filter
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet, Header, Footer, ToastContainer],
   templateUrl: `./app.html`,
   styleUrls: [`./app.scss`],
 })

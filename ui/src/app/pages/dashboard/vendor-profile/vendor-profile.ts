@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-vendor-profile',
@@ -16,11 +17,12 @@ export class VendorProfile implements OnInit {
   successMessage = '';
   errorMessage = '';
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private authService: AuthService
-  ) {
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
+
+  constructor() {
     this.profileForm = this.fb.group({
       phoneNumber: ['', [Validators.pattern(/^\+?[1-9]\d{1,14}$/)]],
       notificationPreference: ['email', Validators.required]
@@ -44,6 +46,7 @@ export class VendorProfile implements OnInit {
       error: (error) => {
         console.error('Error loading profile:', error);
         this.errorMessage = 'Failed to load profile. Please try again.';
+        this.toastService.error(this.errorMessage);
         this.loading = false;
       }
     });
@@ -51,6 +54,7 @@ export class VendorProfile implements OnInit {
 
   onSubmit(): void {
     if (this.profileForm.invalid) {
+      this.toastService.error('Please fill in all required fields correctly');
       return;
     }
 
@@ -61,6 +65,7 @@ export class VendorProfile implements OnInit {
     this.userService.updateProfile(this.profileForm.value).subscribe({
       next: (response) => {
         this.successMessage = 'Profile updated successfully!';
+        this.toastService.success(this.successMessage);
         this.loading = false;
         
         // Update the current user in auth service
@@ -74,6 +79,7 @@ export class VendorProfile implements OnInit {
       error: (error) => {
         console.error('Error updating profile:', error);
         this.errorMessage = error.error?.error || 'Failed to update profile. Please try again.';
+        this.toastService.error(this.errorMessage);
         this.loading = false;
       }
     });

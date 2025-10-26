@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,14 @@ export class Login {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   onSubmit() {
     if (!this.email || !this.password) {
       this.errorMessage = 'Please enter email and password';
+      this.toastService.error('Please enter email and password');
       return;
     }
 
@@ -31,11 +35,13 @@ export class Login {
       .subscribe({
         next: () => {
           this.isLoading = false;
+          this.toastService.success('Login successful! Welcome back.');
           this.router.navigate(['/']);
         },
         error: (err) => {
           this.isLoading = false;
           this.errorMessage = err.error?.error || 'Login failed. Please check your credentials.';
+          this.toastService.error(this.errorMessage);
         }
       });
   }
