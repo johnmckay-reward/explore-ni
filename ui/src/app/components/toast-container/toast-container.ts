@@ -8,7 +8,7 @@ import { ToastService } from '../../services/toast.service';
   imports: [NgbToastModule],
   template: `
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
-      @for (toast of toastService.getToasts()(); track toast.id) {
+      @for (toast of toastService.getToasts(); track toast.id) {
         <ngb-toast
           [autohide]="toast.autohide"
           [delay]="toast.delay"
