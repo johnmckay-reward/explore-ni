@@ -1,1 +1,4 @@
+@import '../../../../responsive-mixins';
+
 // Vendor approval specific styles
+@include admin-table-mobile;

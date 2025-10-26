@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -20,18 +21,22 @@ export class Register {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   onSubmit() {
     // Validate passwords match
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match';
+      this.toastService.error('Passwords do not match');
       return;
     }
 
     // Validate all fields are filled
     if (!this.firstName || !this.lastName || !this.email || !this.password) {
       this.errorMessage = 'Please fill in all fields';
+      this.toastService.error('Please fill in all fields');
       return;
     }
 
@@ -47,11 +52,13 @@ export class Register {
     }).subscribe({
       next: () => {
         this.isLoading = false;
+        this.toastService.success('Registration successful! Welcome to NI Experiences.');
         this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading = false;
         this.errorMessage = err.error?.error || 'Registration failed. Please try again.';
+        this.toastService.error(this.errorMessage);
       }
     });
   }

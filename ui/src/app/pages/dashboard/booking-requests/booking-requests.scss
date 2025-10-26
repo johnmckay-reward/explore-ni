@@ -1,6 +1,6 @@
 .booking-request-card {
   transition: box-shadow 0.3s ease;
-  border-left: 4px solid #0d6efd;
+  border-left: 4px solid #344734; // Use brand Deep Green instead of blue
 }
 
 .booking-request-card:hover {
@@ -13,4 +13,36 @@
 
 .booking-details p {
   line-height: 1.8;
+}
+
+// Responsive improvements for mobile
+@media (max-width: 767.98px) {
+  .booking-request-card {
+    .card-body {
+      padding: 1rem;
+    }
+    
+    .card-title {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .booking-details {
+    font-size: 0.9rem;
+    
+    p {
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+  }
+  
+  // Stack action buttons vertically on small screens
+  .d-grid {
+    gap: 0.75rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+  }
 }

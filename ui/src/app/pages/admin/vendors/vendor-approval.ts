@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../../services/admin.service';
 import { User } from '../../../services/auth.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-vendor-approval',
@@ -12,6 +13,7 @@ import { User } from '../../../services/auth.service';
 })
 export class VendorApproval implements OnInit {
   private adminService = inject(AdminService);
+  private toastService = inject(ToastService);
 
   pendingVendors = signal<User[]>([]);
   isLoading = signal(true);
@@ -31,7 +33,9 @@ export class VendorApproval implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set('Failed to load pending vendors');
+        const errorMsg = 'Failed to load pending vendors';
+        this.errorMessage.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.isLoading.set(false);
       }
     });
@@ -44,13 +48,15 @@ export class VendorApproval implements OnInit {
 
     this.adminService.approveVendor(userId).subscribe({
       next: () => {
+        this.toastService.success('Vendor approved successfully!');
         // Remove from list
         this.pendingVendors.update(vendors => 
           vendors.filter(v => v.id !== userId)
         );
       },
       error: (error) => {
-        alert('Failed to approve vendor: ' + (error.error?.error || 'Unknown error'));
+        const errorMsg = error.error?.error || 'Failed to approve vendor';
+        this.toastService.error(errorMsg);
       }
     });
   }
@@ -62,13 +68,15 @@ export class VendorApproval implements OnInit {
 
     this.adminService.rejectVendor(userId).subscribe({
       next: () => {
+        this.toastService.success('Vendor application rejected');
         // Remove from list
         this.pendingVendors.update(vendors => 
           vendors.filter(v => v.id !== userId)
         );
       },
       error: (error) => {
-        alert('Failed to reject vendor: ' + (error.error?.error || 'Unknown error'));
+        const errorMsg = error.error?.error || 'Failed to reject vendor';
+        this.toastService.error(errorMsg);
       }
     });
   }

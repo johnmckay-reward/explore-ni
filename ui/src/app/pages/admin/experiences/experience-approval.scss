@@ -1,1 +1,5 @@
+@import '../../../../responsive-mixins';
+
 // Experience approval specific styles
+@include admin-table-mobile;
+@include compact-cards-mobile;

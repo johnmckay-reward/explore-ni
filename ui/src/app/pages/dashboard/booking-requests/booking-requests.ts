@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingService, BookingDetails } from '../../../services/booking.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-booking-requests',
@@ -14,7 +15,8 @@ export class BookingRequests implements OnInit {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private bookingService: BookingService) {}
+  private bookingService = inject(BookingService);
+  private toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.loadBookingRequests();
@@ -32,6 +34,7 @@ export class BookingRequests implements OnInit {
       error: (error) => {
         console.error('Error loading booking requests:', error);
         this.errorMessage = 'Failed to load booking requests. Please try again.';
+        this.toastService.error(this.errorMessage);
         this.loading = false;
       }
     });
@@ -45,6 +48,7 @@ export class BookingRequests implements OnInit {
     this.bookingService.confirmBooking(bookingId).subscribe({
       next: (response) => {
         this.successMessage = 'Booking confirmed successfully!';
+        this.toastService.success(this.successMessage);
         // Remove the booking from the list
         this.bookings = this.bookings.filter(b => b.id !== bookingId);
         
@@ -56,6 +60,7 @@ export class BookingRequests implements OnInit {
       error: (error) => {
         console.error('Error confirming booking:', error);
         this.errorMessage = error.error?.error || 'Failed to confirm booking. Please try again.';
+        this.toastService.error(this.errorMessage);
       }
     });
   }
@@ -68,6 +73,7 @@ export class BookingRequests implements OnInit {
     this.bookingService.declineBooking(bookingId).subscribe({
       next: (response) => {
         this.successMessage = 'Booking declined successfully. Refund has been processed.';
+        this.toastService.success(this.successMessage);
         // Remove the booking from the list
         this.bookings = this.bookings.filter(b => b.id !== bookingId);
         
@@ -79,6 +85,7 @@ export class BookingRequests implements OnInit {
       error: (error) => {
         console.error('Error declining booking:', error);
         this.errorMessage = error.error?.error || 'Failed to decline booking. Please try again.';
+        this.toastService.error(this.errorMessage);
       }
     });
   }
