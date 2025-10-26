@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,6 +8,16 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
+  httpClient = inject(HttpClient);
+
+  message = '';
+
   protected readonly title = signal('ui');
+
+  ngOnInit(): void {
+    this.httpClient?.get('http://localhost:3000').subscribe((data: any) => {
+      this.message = data.message;
+    });
+  }
 }

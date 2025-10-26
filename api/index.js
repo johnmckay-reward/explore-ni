@@ -18,7 +18,9 @@ const port = process.env.PORT || 3000;
 // When someone visits this URL, this function will handle the request
 app.get('/', (req, res) => {
   // Send the "Hello World!" string as the response
-  res.send('Hello World!');
+  res.send({
+    message: 'Hello Explore NI!'
+  });
 });
 
 // Start the server and make it listen for connections on the specified port
