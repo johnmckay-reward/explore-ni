@@ -38,7 +38,7 @@ router.post('/stripe', express.raw({ type: 'application/json' }), async (req, re
     }
   } catch (err) {
     console.error('[Stripe Webhook] Signature verification failed:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    return res.status(400).json({ error: 'Webhook signature verification failed' });
   }
 
   // Handle the event
