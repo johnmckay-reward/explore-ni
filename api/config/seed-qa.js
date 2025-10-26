@@ -4,6 +4,8 @@
  * This script creates comprehensive test data for QA testing.
  * It extends the base seed script with additional test scenarios.
  * 
+ * ⚠️  WARNING: This script uses weak test passwords and should NEVER be run in production!
+ * 
  * Usage:
  *   node api/config/seed-qa.js
  * 
@@ -28,7 +30,15 @@ const {
 } = require('../models');
 
 async function seedQAData() {
+  // Safety check: prevent running in production
+  if (process.env.NODE_ENV === 'production') {
+    console.error('❌ ERROR: Cannot run QA seed script in production environment!');
+    console.error('   This script uses weak test passwords and is for testing only.');
+    process.exit(1);
+  }
+  
   console.log('🧪 QA Test Data Seeding - Comprehensive Test Environment Setup\n');
+  console.log('⚠️  Note: Using weak passwords for testing purposes only!\n');
   
   try {
     // Sync database
