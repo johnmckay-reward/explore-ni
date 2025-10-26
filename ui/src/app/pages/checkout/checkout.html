@@ -1,0 +1,192 @@
+<div class="container mt-5 mb-5">
+  @if (loading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (error()) {
+    <div class="alert alert-danger" role="alert">
+      {{ error() }}
+    </div>
+  } @else if (experience()) {
+    <div class="row">
+      <div class="col-lg-8">
+        <h2 class="mb-4">Complete Your Booking</h2>
+        
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ experience()!.title }}</h5>
+            <p class="card-text">{{ experience()!.description }}</p>
+            <p class="mb-0">
+              <strong>Location:</strong> {{ experience()!.location }}<br>
+              <strong>Duration:</strong> {{ experience()!.duration }} minutes<br>
+              <strong>Price:</strong> £{{ experience()!.price }} per person
+            </p>
+          </div>
+        </div>
+
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Booking Details</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="date" class="form-label">Select Date</label>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="yyyy-mm-dd"
+                      name="dp"
+                      formControlName="date"
+                      ngbDatepicker
+                      #d="ngbDatepicker"
+                      [minDate]="minDate"
+                      [markDisabled]="isDateDisabled"
+                      [class.is-invalid]="checkoutForm.get('date')?.invalid && checkoutForm.get('date')?.touched"
+                    />
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <i class="bi bi-calendar"></i>
+                    </button>
+                  </div>
+                  @if (checkoutForm.get('date')?.invalid && checkoutForm.get('date')?.touched) {
+                    <div class="invalid-feedback d-block">
+                      Please select a date
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="time" class="form-label">Select Time</label>
+                  <select
+                    class="form-select"
+                    id="time"
+                    formControlName="time"
+                    [class.is-invalid]="checkoutForm.get('time')?.invalid && checkoutForm.get('time')?.touched"
+                  >
+                    <option value="">Choose a time...</option>
+                    @for (slot of availableTimes(); track slot.id) {
+                      <option [value]="slot.id">
+                        {{ slot.startTime }} - {{ slot.endTime }} ({{ slot.availableSlots }} slots available)
+                      </option>
+                    }
+                  </select>
+                  @if (checkoutForm.get('time')?.invalid && checkoutForm.get('time')?.touched) {
+                    <div class="invalid-feedback d-block">
+                      Please select a time slot
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="quantity" class="form-label">Number of People</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    formControlName="quantity"
+                    min="1"
+                    [class.is-invalid]="checkoutForm.get('quantity')?.invalid && checkoutForm.get('quantity')?.touched"
+                  />
+                  @if (checkoutForm.get('quantity')?.invalid && checkoutForm.get('quantity')?.touched) {
+                    <div class="invalid-feedback">
+                      Quantity must be at least 1
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5 class="mb-0">Your Details</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="customerName" class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="customerName"
+                    formControlName="customerName"
+                    placeholder="Enter your full name"
+                    [class.is-invalid]="checkoutForm.get('customerName')?.invalid && checkoutForm.get('customerName')?.touched"
+                  />
+                  @if (checkoutForm.get('customerName')?.invalid && checkoutForm.get('customerName')?.touched) {
+                    <div class="invalid-feedback">
+                      Name is required (minimum 2 characters)
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="customerEmail" class="form-label">Email Address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="customerEmail"
+                    formControlName="customerEmail"
+                    placeholder="your@email.com"
+                    [class.is-invalid]="checkoutForm.get('customerEmail')?.invalid && checkoutForm.get('customerEmail')?.touched"
+                  />
+                  @if (checkoutForm.get('customerEmail')?.invalid && checkoutForm.get('customerEmail')?.touched) {
+                    <div class="invalid-feedback">
+                      Please enter a valid email address
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          @if (error()) {
+            <div class="alert alert-danger" role="alert">
+              {{ error() }}
+            </div>
+          }
+
+          <div class="d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/experience', experienceId]">
+              <i class="bi bi-arrow-left"></i> Back to Experience
+            </button>
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading()">
+              @if (loading()) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Processing...
+              } @else {
+                Proceed to Payment <i class="bi bi-arrow-right"></i>
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card sticky-top" style="top: 20px;">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Booking Summary</h5>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span>Price per person:</span>
+              <strong>£{{ experience()!.price }}</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span>Quantity:</span>
+              <strong>{{ checkoutForm.get('quantity')?.value || 1 }}</strong>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+              <h5>Total:</h5>
+              <h5 class="text-primary"><strong>£{{ calculateTotal() }}</strong></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

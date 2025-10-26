@@ -1,0 +1,61 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      @if (loading()) {
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      } @else if (booking()) {
+        <div class="card">
+          <div class="card-body text-center py-5">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+            <h1 class="mt-4 mb-3">Payment Successful!</h1>
+            <p class="lead">Your booking has been confirmed.</p>
+            
+            <div class="alert alert-info mt-4 text-start">
+              <h5 class="alert-heading">Booking Details</h5>
+              <hr>
+              <p class="mb-2"><strong>Booking ID:</strong> #{{ booking()!.id }}</p>
+              <p class="mb-2"><strong>Experience:</strong> {{ booking()!.experience.title }}</p>
+              <p class="mb-2"><strong>Date:</strong> {{ booking()!.availability.date }}</p>
+              <p class="mb-2"><strong>Time:</strong> {{ booking()!.availability.startTime }} - {{ booking()!.availability.endTime }}</p>
+              <p class="mb-2"><strong>Quantity:</strong> {{ booking()!.quantity }} {{ booking()!.quantity === 1 ? 'person' : 'people' }}</p>
+              <p class="mb-2"><strong>Total Paid:</strong> £{{ booking()!.totalPrice }}</p>
+              <p class="mb-0"><strong>Status:</strong> 
+                @if (booking()!.status === 'confirmed') {
+                  <span class="badge bg-success">Confirmed</span>
+                } @else {
+                  <span class="badge bg-warning">Pending Vendor Confirmation</span>
+                }
+              </p>
+            </div>
+
+            <p class="text-muted mb-4">
+              A confirmation email has been sent to <strong>{{ booking()!.customerEmail }}</strong>
+            </p>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <button class="btn btn-primary btn-lg" (click)="goToExperiences()">
+                Browse More Experiences
+              </button>
+              <button class="btn btn-outline-secondary btn-lg" (click)="goToHome()">
+                Return to Home
+              </button>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading">Booking Not Found</h4>
+          <p>We couldn't find the booking you're looking for.</p>
+          <hr>
+          <button class="btn btn-primary" (click)="goToHome()">
+            Return to Home
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
