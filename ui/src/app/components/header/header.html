@@ -54,10 +54,17 @@
       <!-- Auth Nav Links (Desktop) -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
         @if (currentUser()) {
-          <!-- Vendor Dashboard Link -->
+          <!-- Vendor Dashboard Dropdown -->
           @if (isVendor()) {
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/dashboard/my-listings" routerLinkActive="active">My Dashboard</a>
+            <li class="nav-item" ngbDropdown>
+              <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="vendorDropdown">
+                My Dashboard
+              </a>
+              <div ngbDropdownMenu aria-labelledby="vendorDropdown">
+                <a ngbDropdownItem routerLink="/dashboard/my-listings">My Listings</a>
+                <a ngbDropdownItem routerLink="/dashboard/requests">Booking Requests</a>
+                <a ngbDropdownItem routerLink="/dashboard/profile">Profile Settings</a>
+              </div>
             </li>
           }
           <!-- Admin Links -->
@@ -152,10 +159,16 @@
         <li class="nav-item mb-2">
           <span class="navbar-text text-white">Hi, {{ userFirstName() }}</span>
         </li>
-        <!-- Vendor Dashboard Link -->
+        <!-- Vendor Dashboard Links -->
         @if (isVendor()) {
           <li class="nav-item">
-            <a class="nav-link text-white" routerLink="/dashboard/my-listings" (click)="offcanvas.dismiss()">My Dashboard</a>
+            <a class="nav-link text-white" routerLink="/dashboard/my-listings" (click)="offcanvas.dismiss()">My Listings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/dashboard/requests" (click)="offcanvas.dismiss()">Booking Requests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/dashboard/profile" (click)="offcanvas.dismiss()">Profile Settings</a>
           </li>
         }
         <!-- Admin Links -->

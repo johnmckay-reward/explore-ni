@@ -37,6 +37,15 @@ const User = sequelize.define('User', {
     allowNull: false,
     defaultValue: 'active',
   },
+  phoneNumber: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  notificationPreference: {
+    type: DataTypes.ENUM('email', 'sms', 'both', 'none'),
+    allowNull: false,
+    defaultValue: 'email',
+  },
 });
 
 module.exports = User;

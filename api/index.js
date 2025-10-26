@@ -22,6 +22,9 @@ const bookingRoutes = require('./routes/booking.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const webhookRoutes = require('./routes/webhook.routes');
 
+// Import jobs
+const { startBookingTimeoutJob } = require('./jobs/bookingTimeouts');
+
 // Initialize the express application
 const app = express();
 
@@ -92,6 +95,9 @@ const startServer = async () => {
     app.listen(port, () => {
       console.log(`Example app listening at http://localhost:${port}`);
     });
+
+    // Start the booking timeout cron job
+    startBookingTimeoutJob();
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }

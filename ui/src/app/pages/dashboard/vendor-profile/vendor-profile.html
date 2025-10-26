@@ -1,0 +1,124 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="mb-0">Vendor Profile Settings</h2>
+        </div>
+        <div class="card-body">
+          @if (successMessage) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ successMessage }}
+              <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+            </div>
+          }
+
+          @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+            </div>
+          }
+
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                placeholder="+44 1234 567890"
+                [class.is-invalid]="profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched"
+              />
+              @if (profileForm.get('phoneNumber')?.invalid && profileForm.get('phoneNumber')?.touched) {
+                <div class="invalid-feedback">
+                  Please enter a valid phone number in international format (e.g., +44 1234567890)
+                </div>
+              }
+              <small class="form-text text-muted">
+                Enter your phone number in international format (e.g., +44 for UK)
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Notification Preference</label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="notifEmail"
+                  value="email"
+                  formControlName="notificationPreference"
+                />
+                <label class="form-check-label" for="notifEmail">
+                  Email Only
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="notifSms"
+                  value="sms"
+                  formControlName="notificationPreference"
+                />
+                <label class="form-check-label" for="notifSms">
+                  SMS Only
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="notifBoth"
+                  value="both"
+                  formControlName="notificationPreference"
+                />
+                <label class="form-check-label" for="notifBoth">
+                  Both Email and SMS
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="notifNone"
+                  value="none"
+                  formControlName="notificationPreference"
+                />
+                <label class="form-check-label" for="notifNone">
+                  None
+                </label>
+              </div>
+              <small class="form-text text-muted">
+                Choose how you'd like to receive notifications for new booking requests
+              </small>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="profileForm.invalid || loading"
+              >
+                @if (loading) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                }
+                Save Changes
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="loadProfile()"
+                [disabled]="loading"
+              >
+                Reset
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

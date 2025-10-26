@@ -53,6 +53,11 @@ const Experience = sequelize.define('Experience', {
     allowNull: false,
     defaultValue: 'auto',
   },
+  timeoutBehavior: {
+    type: DataTypes.ENUM('auto-confirm', 'auto-decline', 'escalate'),
+    allowNull: false,
+    defaultValue: 'auto-decline',
+  },
 });
 
 module.exports = Experience;

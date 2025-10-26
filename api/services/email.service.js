@@ -125,8 +125,49 @@ const sendVendorNewRequest = async (bookingDetails) => {
   }
 };
 
+/**
+ * Send a booking declined notification email to the customer
+ * @param {Object} bookingDetails - The booking details
+ * @returns {Promise<void>}
+ */
+const sendBookingDeclined = async (bookingDetails) => {
+  try {
+    if (!process.env.SENDGRID_API_KEY) {
+      console.log('[Email Service] SendGrid API key not configured, skipping email');
+      return;
+    }
+
+    const msg = {
+      to: bookingDetails.customerEmail,
+      from: 'noreply@explore-ni.com', // Use your verified sender
+      subject: `Booking Declined - ${bookingDetails.experienceTitle}`,
+      html: `
+        <h2>Booking Declined</h2>
+        <p>Dear ${bookingDetails.customerName},</p>
+        <p>We regret to inform you that your booking request has been declined by the vendor:</p>
+        <ul>
+          <li><strong>Experience:</strong> ${bookingDetails.experienceTitle}</li>
+          <li><strong>Date:</strong> ${bookingDetails.bookingDate}</li>
+          <li><strong>Quantity:</strong> ${bookingDetails.quantity}</li>
+          <li><strong>Total Price:</strong> £${bookingDetails.totalPrice}</li>
+          <li><strong>Booking ID:</strong> ${bookingDetails.bookingId}</li>
+        </ul>
+        <p>A full refund has been processed and will appear in your account within 5-10 business days.</p>
+        <p>We apologize for any inconvenience. Please browse our other experiences at <a href="${process.env.UI_BASE_URL}">Explore NI</a>.</p>
+      `,
+    };
+
+    await sgMail.send(msg);
+    console.log('[Email Service] Booking declined email sent to', bookingDetails.customerEmail);
+  } catch (error) {
+    console.error('[Email Service] Error sending booking declined email:', error);
+    // Don't throw - we don't want email failures to break the booking flow
+  }
+};
+
 module.exports = {
   sendBookingConfirmation,
   sendPaymentReceipt,
   sendVendorNewRequest,
+  sendBookingDeclined,
 };

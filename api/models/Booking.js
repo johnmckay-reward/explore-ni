@@ -79,6 +79,11 @@ const Booking = sequelize.define('Booking', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  isEscalated: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 module.exports = Booking;
