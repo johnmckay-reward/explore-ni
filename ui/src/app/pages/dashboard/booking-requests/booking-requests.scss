@@ -1,0 +1,16 @@
+.booking-request-card {
+  transition: box-shadow 0.3s ease;
+  border-left: 4px solid #0d6efd;
+}
+
+.booking-request-card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.booking-details {
+  font-size: 0.95rem;
+}
+
+.booking-details p {
+  line-height: 1.8;
+}

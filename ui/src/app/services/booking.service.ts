@@ -29,12 +29,14 @@ export interface BookingDetails {
   paymentStatus: string;
   customerName: string;
   customerEmail: string;
+  createdAt?: string;
   experience: {
     id: number;
     title: string;
     description: string;
     price: number;
     confirmationMode: string;
+    location?: string;
   };
   availability: {
     id: number;
@@ -82,6 +84,33 @@ export class BookingService {
     return this.http.post<CreatePaymentIntentResponse>(
       `${this.apiUrl}/payments/stripe/create-intent`, 
       request
+    );
+  }
+
+  /**
+   * Get all pending booking requests for the authenticated vendor
+   */
+  getVendorBookingRequests(): Observable<BookingDetails[]> {
+    return this.http.get<BookingDetails[]>(`${this.apiUrl}/bookings/requests`);
+  }
+
+  /**
+   * Confirm a pending booking
+   */
+  confirmBooking(bookingId: number): Observable<{ message: string; booking: BookingDetails }> {
+    return this.http.put<{ message: string; booking: BookingDetails }>(
+      `${this.apiUrl}/bookings/${bookingId}/confirm`,
+      {}
+    );
+  }
+
+  /**
+   * Decline a pending booking
+   */
+  declineBooking(bookingId: number): Observable<{ message: string; booking: BookingDetails }> {
+    return this.http.put<{ message: string; booking: BookingDetails }>(
+      `${this.apiUrl}/bookings/${bookingId}/decline`,
+      {}
     );
   }
 }

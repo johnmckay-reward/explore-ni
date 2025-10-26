@@ -8,6 +8,8 @@ import { ExperienceApproval } from './pages/admin/experiences/experience-approva
 import { MyListings } from './pages/dashboard/my-listings/my-listings';
 import { ExperienceForm } from './pages/dashboard/experience-form/experience-form';
 import { AvailabilityManager } from './pages/dashboard/availability-manager/availability-manager';
+import { VendorProfile } from './pages/dashboard/vendor-profile/vendor-profile';
+import { BookingRequests } from './pages/dashboard/booking-requests/booking-requests';
 import { ExperienceList } from './pages/experience-list/experience-list';
 import { ExperienceDetail } from './pages/experience-detail/experience-detail';
 import { Checkout } from './pages/checkout/checkout';
@@ -40,4 +42,6 @@ export const routes: Routes = [
   { path: 'dashboard/experience/new', component: ExperienceForm, canActivate: [vendorGuard] },
   { path: 'dashboard/experience/edit/:id', component: ExperienceForm, canActivate: [vendorGuard] },
   { path: 'dashboard/experience/:id/availability', component: AvailabilityManager, canActivate: [vendorGuard] },
+  { path: 'dashboard/profile', component: VendorProfile, canActivate: [vendorGuard] },
+  { path: 'dashboard/requests', component: BookingRequests, canActivate: [vendorGuard] },
 ];
