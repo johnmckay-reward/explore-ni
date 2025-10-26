@@ -2,11 +2,7 @@ const express = require('express');
 const { Voucher, Booking, Experience } = require('../models');
 const { authMiddleware } = require('../middleware/auth.middleware');
 const { checkRole } = require('../middleware/rbac.middleware');
-
-// Initialize Stripe only if API key is available
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? require('stripe')(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripeService = require('../services/stripe.service');
 
 const router = express.Router();
 
@@ -16,6 +12,7 @@ const router = express.Router();
  */
 router.post('/purchase-fixed', async (req, res) => {
   try {
+    const stripe = stripeService.getStripeClient();
     if (!stripe) {
       return res.status(503).json({ error: 'Stripe is not configured. Please set STRIPE_SECRET_KEY.' });
     }
@@ -71,6 +68,7 @@ router.post('/purchase-fixed', async (req, res) => {
  */
 router.post('/purchase-experience', async (req, res) => {
   try {
+    const stripe = stripeService.getStripeClient();
     if (!stripe) {
       return res.status(503).json({ error: 'Stripe is not configured. Please set STRIPE_SECRET_KEY.' });
     }
@@ -207,6 +205,7 @@ router.post('/apply', async (req, res) => {
     await booking.save();
 
     // If there's still an amount to pay, update the PaymentIntent
+    const stripe = stripeService.getStripeClient();
     if (newTotalPrice > 0 && booking.paymentIntentId && stripe) {
       try {
         const amountInPence = Math.round(parseFloat(newTotalPrice) * 100);

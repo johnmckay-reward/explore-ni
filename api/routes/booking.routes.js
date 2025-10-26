@@ -3,11 +3,7 @@ const { Booking, Experience, Availability, User } = require('../models');
 const { authMiddleware } = require('../middleware/auth.middleware');
 const { checkRole } = require('../middleware/rbac.middleware');
 const emailService = require('../services/email.service');
-
-// Initialize Stripe only if API key is available
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? require('stripe')(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripeService = require('../services/stripe.service');
 
 const router = express.Router();
 

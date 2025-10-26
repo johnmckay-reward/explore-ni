@@ -1,11 +1,7 @@
 const cron = require('node-cron');
 const { Booking, Experience, Availability, User } = require('../models');
 const emailService = require('../services/email.service');
-
-// Initialize Stripe only if API key is available
-const stripe = process.env.STRIPE_SECRET_KEY 
-  ? require('stripe')(process.env.STRIPE_SECRET_KEY)
-  : null;
+const stripeService = require('../services/stripe.service');
 
 // Business hours configuration (24-hour format)
 const BIZ_HOURS_START = 9; // 9 AM
@@ -109,6 +105,7 @@ const declineBooking = async (booking, experience, availability) => {
   await booking.save();
 
   // Issue refund via Stripe (if payment was made)
+  const stripe = stripeService.getStripeClient();
   if (stripe && booking.paymentIntentId) {
     try {
       await stripe.refunds.create({

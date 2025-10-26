@@ -8,8 +8,10 @@ const express = require('express');
 const cors = require('cors');
 
 // Import models and database configuration
-const { sequelize, User, Experience, Booking, Availability, Voucher, Review, Category } = require('./models');
+const { sequelize, User, Experience, Booking, Availability, Voucher, Review, Category, Setting, HotelPartner } = require('./models');
 const { seedDatabase } = require('./config/seed');
+const { seedSettings } = require('./config/seed-settings');
+const settingsService = require('./services/settings.service');
 
 // Import routes
 const authRoutes = require('./routes/auth.routes');
@@ -25,6 +27,9 @@ const voucherRoutes = require('./routes/voucher.routes');
 
 // Import jobs
 const { startBookingTimeoutJob } = require('./jobs/bookingTimeouts');
+
+// Import error handler middleware
+const errorHandler = require('./middleware/error.middleware');
 
 // Initialize the express application
 const app = express();
@@ -79,6 +84,9 @@ app.use('/api/vouchers', voucherRoutes);
 // Mount availability routes (has auth middleware, mount LAST among /api routes)
 app.use('/api', availabilityRoutes);
 
+// --- Error Handler (MUST be last) ---
+app.use(errorHandler);
+
 // --- Server Start ---
 
 // We wrap the server start in an async function
@@ -89,7 +97,13 @@ const startServer = async () => {
     // { force: true } drops the tables if they already exist (useful for in-memory dev)
     await sequelize.sync({ force: true });
     console.log('Database & tables created!');
-    console.log('Models initialized: User, Experience, Booking, Availability, Voucher, Review, Category');
+    console.log('Models initialized: User, Experience, Booking, Availability, Voucher, Review, Category, Setting, HotelPartner');
+
+    // Seed the settings table first
+    await seedSettings();
+
+    // Load settings into memory
+    await settingsService.loadSettings();
 
     // Seed the database with development data
     // COMMENT OUT the line below if you don't want to seed data on startup
