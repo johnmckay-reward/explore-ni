@@ -1,5 +1,5 @@
 const express = require('express');
-const { Experience, User, Category, Review, Availability } = require('../models');
+const { Experience, User, Category, Review, Availability, sequelize } = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -42,9 +42,13 @@ router.get('/experiences', async (req, res) => {
     const where = { status: 'approved' };
 
     // Filter by location (case-insensitive search)
-    // SQLite uses LIKE instead of ILIKE, and we use LOWER() for case-insensitivity
+    // SQLite uses LIKE which is case-insensitive by default for ASCII characters
+    // For full case-insensitivity, we use LOWER() on both sides
     if (location) {
-      where.location = { [Op.like]: `%${location}%` };
+      where[Op.and] = sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('location')),
+        { [Op.like]: `%${location.toLowerCase()}%` }
+      );
     }
 
     // Filter by price range
