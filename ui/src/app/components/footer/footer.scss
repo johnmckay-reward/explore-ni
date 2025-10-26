@@ -1,0 +1,26 @@
+.footer-logo {
+  height: 45px;
+  /* Adjust as needed */
+  width: auto;
+  opacity: 0.9;
+}
+
+.footer-heading {
+  color: #ffc107;
+  /* $ni-yellow */
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.75);
+  /* Lighter than default */
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #ffc107;
+  /* $ni-yellow */
+}

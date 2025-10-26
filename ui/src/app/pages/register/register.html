@@ -1,0 +1,99 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Register</h2>
+          
+          @if (errorMessage) {
+            <div class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <form (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                [(ngModel)]="firstName"
+                name="firstName"
+                required
+                placeholder="Enter your first name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                [(ngModel)]="lastName"
+                name="lastName"
+                required
+                placeholder="Enter your last name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                required
+                placeholder="Enter your email"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [(ngModel)]="password"
+                name="password"
+                required
+                placeholder="Enter your password"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                required
+                placeholder="Confirm your password"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">I want to register as</label>
+              <select class="form-select" id="role" [(ngModel)]="role" name="role">
+                <option value="customer">Customer</option>
+                <option value="vendor">Vendor</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
+              @if (isLoading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Registering...
+              } @else {
+                Register
+              }
+            </button>
+          </form>
+
+          <div class="text-center mt-3">
+            <p>Already have an account? <a routerLink="/login">Login here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
