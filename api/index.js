@@ -12,6 +12,7 @@ const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
 const experienceRoutes = require('./routes/experience.routes');
+const publicRoutes = require('./routes/public.routes');
 
 // Initialize the express application
 const app = express();
@@ -34,6 +35,9 @@ app.get('/', (req, res) => {
     message: 'Hello Explore NI!',
   });
 });
+
+// Mount public routes (no authentication required)
+app.use('/api/public', publicRoutes);
 
 // Mount authentication routes
 app.use('/api/auth', authRoutes);
