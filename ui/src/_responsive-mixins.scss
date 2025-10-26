@@ -1,0 +1,71 @@
+// Shared responsive mixins and utilities for the application
+
+// Breakpoints (aligned with Bootstrap)
+$mobile-max: 575.98px;
+$tablet-max: 767.98px;
+$desktop-min: 992px;
+
+// Mixin for auth pages (login/register) mobile styling
+@mixin auth-page-mobile {
+  @media (max-width: $tablet-max) {
+    .card {
+      border: none;
+      box-shadow: none;
+      
+      .card-body {
+        padding: 1.5rem 1rem;
+      }
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+    }
+    
+    .btn {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Mixin for admin tables mobile styling
+@mixin admin-table-mobile {
+  @media (max-width: $tablet-max) {
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .btn-group-sm > .btn,
+    .btn-sm {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.875rem;
+    }
+    
+    // Stack buttons vertically on mobile
+    .btn-group {
+      flex-direction: column;
+      width: 100%;
+      
+      .btn {
+        margin-bottom: 0.5rem;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+// Mixin for compact cards on mobile
+@mixin compact-cards-mobile {
+  @media (max-width: $tablet-max) {
+    .card-body {
+      padding: 1rem;
+    }
+    
+    .card-title {
+      font-size: 1.1rem;
+    }
+  }
+}

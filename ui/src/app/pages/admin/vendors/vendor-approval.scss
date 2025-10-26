@@ -1,29 +1,4 @@
-// Vendor approval specific styles
+@import '../../../../responsive-mixins';
 
-// Responsive table styling
-@media (max-width: 767.98px) {
-  .table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .btn-group-sm > .btn,
-  .btn-sm {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.875rem;
-  }
-  
-  // Stack buttons vertically on mobile
-  .btn-group {
-    flex-direction: column;
-    width: 100%;
-    
-    .btn {
-      margin-bottom: 0.5rem;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-}
+// Vendor approval specific styles
+@include admin-table-mobile;

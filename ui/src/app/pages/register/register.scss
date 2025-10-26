@@ -1,21 +1,4 @@
-// Register page styles
+@import '../../../responsive-mixins';
 
-// Responsive improvements for mobile
-@media (max-width: 767.98px) {
-  .card {
-    border: none;
-    box-shadow: none;
-    
-    .card-body {
-      padding: 1.5rem 1rem;
-    }
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-  }
-  
-  .btn {
-    font-size: 1rem;
-  }
-}
+// Register page styles
+@include auth-page-mobile;
