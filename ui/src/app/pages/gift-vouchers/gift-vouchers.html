@@ -1,0 +1,159 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      @if (!showPayment()) {
+      <!-- Voucher Form -->
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="card-title h2 mb-4">Purchase a Gift Voucher</h1>
+          <p class="text-muted mb-4">
+            Give the gift of unforgettable experiences in Northern Ireland!
+          </p>
+
+          @if (error()) {
+          <div class="alert alert-danger" role="alert">{{ error() }}</div>
+          }
+
+          <form [formGroup]="voucherForm" (ngSubmit)="submitForm()">
+            <!-- Amount Selection -->
+            <div class="mb-4">
+              <label class="form-label fw-bold">Select Amount</label>
+              <div class="d-flex gap-2 mb-2 flex-wrap">
+                @for (amount of predefinedAmounts; track amount) {
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  [class.active]="selectedAmount() === amount"
+                  (click)="selectAmount(amount)"
+                >
+                  £{{ amount }}
+                </button>
+                }
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  [class.active]="showCustomInput()"
+                  (click)="selectCustomAmount()"
+                >
+                  Custom Amount
+                </button>
+              </div>
+
+              @if (showCustomInput()) {
+              <div class="mt-2">
+                <div class="input-group" style="max-width: 200px">
+                  <span class="input-group-text">£</span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter amount"
+                    min="1"
+                    step="1"
+                    (input)="setCustomAmount($any($event.target).value)"
+                  />
+                </div>
+              </div>
+              }
+            </div>
+
+            <!-- Sender Name -->
+            <div class="mb-3">
+              <label for="senderName" class="form-label">Your Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="senderName"
+                formControlName="senderName"
+                placeholder="John Smith"
+                required
+              />
+            </div>
+
+            <!-- Recipient Name -->
+            <div class="mb-3">
+              <label for="recipientName" class="form-label">Recipient Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="recipientName"
+                formControlName="recipientName"
+                placeholder="Jane Doe"
+                required
+              />
+            </div>
+
+            <!-- Recipient Email -->
+            <div class="mb-3">
+              <label for="recipientEmail" class="form-label">Recipient Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="recipientEmail"
+                formControlName="recipientEmail"
+                placeholder="jane@example.com"
+                required
+              />
+            </div>
+
+            <!-- Message -->
+            <div class="mb-4">
+              <label for="message" class="form-label">Personal Message (Optional)</label>
+              <textarea
+                class="form-control"
+                id="message"
+                formControlName="message"
+                rows="3"
+                placeholder="Add a personal message to the recipient..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg w-100"
+              [disabled]="loading() || voucherForm.invalid || !getSelectedAmount()"
+            >
+              @if (loading()) {
+              <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              Processing...
+              } @else { Continue to Payment }
+            </button>
+          </form>
+        </div>
+      </div>
+      } @else {
+      <!-- Payment Section -->
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h1 class="card-title h2 mb-4">Complete Your Purchase</h1>
+          <p class="text-muted mb-4">Amount: £{{ getSelectedAmount() }}</p>
+
+          @if (error()) {
+          <div class="alert alert-danger" role="alert">{{ error() }}</div>
+          }
+
+          <div class="mb-4">
+            <div #paymentElement></div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-secondary" (click)="goBack()" [disabled]="processing()">
+              Back
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary flex-grow-1"
+              (click)="handlePayment()"
+              [disabled]="processing()"
+            >
+              @if (processing()) {
+              <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+              Processing...
+              } @else { Pay £{{ getSelectedAmount() }} }
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

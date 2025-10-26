@@ -84,6 +84,22 @@
       <!-- Booking Sidebar -->
       <div class="col-lg-4">
         <app-booking [experience]="experience"></app-booking>
+        
+        <!-- Gift This Experience Button -->
+        <div class="card mt-3 shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title">Give the Gift of Experience</h5>
+            <p class="card-text small text-muted">
+              Purchase this experience as a gift voucher for someone special
+            </p>
+            <a
+              [routerLink]="['/gift-experience', experience.id]"
+              class="btn btn-outline-primary w-100"
+            >
+              <i class="bi bi-gift me-2"></i>Gift This Experience
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   }
