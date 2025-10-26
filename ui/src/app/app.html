@@ -1,4 +1,21 @@
 <h1>Explore NI</h1>
-@if (message) {
-  <p>{{ message }}</p>
+
+<div>
+  <input
+    [(ngModel)]="newItemName"
+    placeholder="Enter item name"
+    (keyup.enter)="addItem()"
+  />
+  <button (click)="addItem()">Add Item</button>
+</div>
+
+<h2>Items from Database</h2>
+@if (items().length > 0) {
+  <ul>
+    @for (item of items(); track item.id) {
+      <li>{{ item.name }} (ID: {{ item.id }})</li>
+    }
+  </ul>
+} @else {
+  <p>Loading items or no items found...</p>
 }
