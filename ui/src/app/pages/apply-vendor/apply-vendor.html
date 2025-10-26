@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title mb-4 text-center">Become a Vendor</h2>
+          
+          @if (isSuccess()) {
+            <div class="alert alert-success" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              Your application has been submitted and is pending review.
+            </div>
+            <p class="text-center text-muted">
+              Our admin team will review your application and you'll be notified once approved.
+            </p>
+          } @else {
+            <p class="text-muted mb-4">
+              Join our community of experience providers! As a vendor, you'll be able to create and manage your own experience listings on our platform.
+            </p>
+
+            <div class="card bg-light mb-4">
+              <div class="card-body">
+                <h5 class="card-title">Benefits of becoming a vendor:</h5>
+                <ul class="mb-0">
+                  <li>List your unique experiences</li>
+                  <li>Reach thousands of potential customers</li>
+                  <li>Manage bookings and availability</li>
+                  <li>Grow your business</li>
+                </ul>
+              </div>
+            </div>
+
+            @if (errorMessage()) {
+              <div class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                {{ errorMessage() }}
+              </div>
+            }
+
+            <div class="d-grid">
+              <button 
+                class="btn btn-primary btn-lg" 
+                (click)="applyToBeVendor()"
+                [disabled]="isSubmitting()"
+              >
+                @if (isSubmitting()) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Submitting...
+                } @else {
+                  Apply to Become a Vendor
+                }
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

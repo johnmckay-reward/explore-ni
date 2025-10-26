@@ -54,6 +54,30 @@
       <!-- Auth Nav Links (Desktop) -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
         @if (currentUser()) {
+          <!-- Vendor Dashboard Link -->
+          @if (isVendor()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/dashboard/my-listings" routerLinkActive="active">My Dashboard</a>
+            </li>
+          }
+          <!-- Admin Links -->
+          @if (isAdmin()) {
+            <li class="nav-item" ngbDropdown>
+              <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="adminDropdown">
+                Admin
+              </a>
+              <div ngbDropdownMenu aria-labelledby="adminDropdown">
+                <a ngbDropdownItem routerLink="/admin/vendors">Vendor Approvals</a>
+                <a ngbDropdownItem routerLink="/admin/experiences">Experience Approvals</a>
+              </div>
+            </li>
+          }
+          <!-- Apply to Become Vendor (only for customers) -->
+          @if (isCustomer()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/apply-vendor" routerLinkActive="active">Become a Vendor</a>
+            </li>
+          }
           <!-- User Dropdown -->
           <li class="nav-item" ngbDropdown>
             <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="userDropdown">
@@ -61,7 +85,7 @@
             </a>
             <div ngbDropdownMenu aria-labelledby="userDropdown">
               <a ngbDropdownItem routerLink="/account/bookings">My Bookings</a>
-              <a ngSropdownItem routerLink="/account/profile">Profile</a>
+              <a ngbDropdownItem routerLink="/account/profile">Profile</a>
               <div class="dropdown-divider"></div>
               <button ngbDropdownItem (click)="logout()">Logout</button>
             </div>
@@ -128,6 +152,27 @@
         <li class="nav-item mb-2">
           <span class="navbar-text text-white">Hi, {{ userFirstName() }}</span>
         </li>
+        <!-- Vendor Dashboard Link -->
+        @if (isVendor()) {
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/dashboard/my-listings" (click)="offcanvas.dismiss()">My Dashboard</a>
+          </li>
+        }
+        <!-- Admin Links -->
+        @if (isAdmin()) {
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/admin/vendors" (click)="offcanvas.dismiss()">Vendor Approvals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/admin/experiences" (click)="offcanvas.dismiss()">Experience Approvals</a>
+          </li>
+        }
+        <!-- Apply to Become Vendor (only for customers) -->
+        @if (isCustomer()) {
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/apply-vendor" (click)="offcanvas.dismiss()">Become a Vendor</a>
+          </li>
+        }
         <li class="nav-item">
           <a class="nav-link text-white" routerLink="/account/bookings" (click)="offcanvas.dismiss()">My Bookings</a>
         </li>

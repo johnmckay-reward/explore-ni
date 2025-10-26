@@ -9,6 +9,9 @@ const { sequelize, User, Experience, Booking, Availability, Voucher, Review, Cat
 
 // Import routes
 const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const adminRoutes = require('./routes/admin.routes');
+const experienceRoutes = require('./routes/experience.routes');
 
 // Initialize the express application
 const app = express();
@@ -34,6 +37,15 @@ app.get('/', (req, res) => {
 
 // Mount authentication routes
 app.use('/api/auth', authRoutes);
+
+// Mount user routes
+app.use('/api/users', userRoutes);
+
+// Mount admin routes
+app.use('/api/admin', adminRoutes);
+
+// Mount experience routes
+app.use('/api/experiences', experienceRoutes);
 
 // --- Server Start ---
 

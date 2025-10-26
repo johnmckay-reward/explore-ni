@@ -32,6 +32,11 @@ const User = sequelize.define('User', {
     allowNull: false,
     defaultValue: 'customer',
   },
+  status: {
+    type: DataTypes.ENUM('active', 'pending_vendor', 'rejected'),
+    allowNull: false,
+    defaultValue: 'active',
+  },
 });
 
 module.exports = User;
