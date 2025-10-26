@@ -87,9 +87,9 @@ const updateSetting = async (key, value) => {
     // Update the cache
     global.appSettings[key] = value;
 
-    console.log(`[Settings Service] Updated setting: ${key}`);
+    console.log('[Settings Service] Updated setting:', key);
   } catch (error) {
-    console.error(`[Settings Service] Error updating setting ${key}:`, error);
+    console.error('[Settings Service] Error updating setting:', key, error);
     throw error;
   }
 };
