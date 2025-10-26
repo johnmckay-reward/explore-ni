@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience } from '../../services/public-experience.service';
 import { BookingService, CreateBookingRequest } from '../../services/booking.service';
@@ -16,7 +16,7 @@ interface Availability {
 
 @Component({
   selector: 'app-checkout',
-  imports: [CommonModule, ReactiveFormsModule, NgbDatepickerModule],
+  imports: [CommonModule, ReactiveFormsModule, NgbDatepickerModule, RouterLink],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
