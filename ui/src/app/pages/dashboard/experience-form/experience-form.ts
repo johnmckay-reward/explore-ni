@@ -44,7 +44,8 @@ export class ExperienceForm implements OnInit {
       location: ['', Validators.required],
       duration: ['', [Validators.required, Validators.min(1)]],
       price: ['', [Validators.required, Validators.min(0)]],
-      capacity: ['', [Validators.required, Validators.min(1)]]
+      capacity: ['', [Validators.required, Validators.min(1)]],
+      confirmationMode: ['auto']
     });
   }
 
@@ -58,7 +59,8 @@ export class ExperienceForm implements OnInit {
           location: experience.location,
           duration: experience.duration,
           price: experience.price,
-          capacity: experience.capacity
+          capacity: experience.capacity,
+          confirmationMode: (experience as any).confirmationMode || 'auto'
         });
         this.isLoading.set(false);
       },
