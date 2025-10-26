@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Epic 11 Test Validation Script
 # This script validates that the test environment is properly configured
+
+# Configuration
+TEST_FILE="ui/cypress/e2e/epic11-final-regression.cy.js"
 
 echo "=================================================="
 echo "Epic 11: Test Environment Validation"
@@ -71,6 +74,7 @@ fi
 # Check API server
 echo -n "Checking API server (http://localhost:3000)... "
 API_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/api/auth/health 2>/dev/null)
+# Note: 401 is expected as the health endpoint requires authentication
 if [ "$API_RESPONSE" == "401" ] || [ "$API_RESPONSE" == "200" ]; then
     echo -e "${GREEN}✓${NC} Running"
 else
@@ -92,8 +96,8 @@ fi
 
 # Check test file exists
 echo -n "Checking regression test file... "
-if [ -f "ui/cypress/e2e/epic11-final-regression.cy.js" ]; then
-    LINE_COUNT=$(wc -l < ui/cypress/e2e/epic11-final-regression.cy.js)
+if [ -f "$TEST_FILE" ]; then
+    LINE_COUNT=$(wc -l < "$TEST_FILE")
     echo -e "${GREEN}✓${NC} Found ($LINE_COUNT lines)"
 else
     echo -e "${RED}✗ Not found${NC}"
@@ -132,21 +136,25 @@ echo ""
 
 # Validate test structure
 echo "Analyzing test file structure..."
-PART1=$(grep -c "Part 1:" ui/cypress/e2e/epic11-final-regression.cy.js)
-PART2=$(grep -c "Part 2:" ui/cypress/e2e/epic11-final-regression.cy.js)
-PART3=$(grep -c "Part 3:" ui/cypress/e2e/epic11-final-regression.cy.js)
-PART4=$(grep -c "Part 4:" ui/cypress/e2e/epic11-final-regression.cy.js)
-PART5=$(grep -c "Part 5:" ui/cypress/e2e/epic11-final-regression.cy.js)
-PART6=$(grep -c "Part 6:" ui/cypress/e2e/epic11-final-regression.cy.js)
 
-echo "  Part 1: System Boot & Data Seeding - $PART1 section(s)"
-echo "  Part 2: UI/UX Polish Verification - $PART2 section(s)"
-echo "  Part 3: Booking & Voucher Redemption - $PART3 section(s)"
-echo "  Part 4: Vendor Dashboard - $PART4 section(s)"
-echo "  Part 5: Admin Dashboard & Security - $PART5 section(s)"
-echo "  Part 6: Shutdown - $PART6 section(s)"
+# Define test parts
+declare -a PARTS=(
+    "Part 1: System Boot & Data Seeding"
+    "Part 2: UI/UX Polish Verification"
+    "Part 3: Booking & Voucher Redemption"
+    "Part 4: Vendor Dashboard"
+    "Part 5: Admin Dashboard & Security"
+    "Part 6: Shutdown"
+)
 
-SCREENSHOT_COUNT=$(grep -c "cy.screenshot" ui/cypress/e2e/epic11-final-regression.cy.js)
+# Check each part
+for i in "${!PARTS[@]}"; do
+    PART_NUM=$((i + 1))
+    COUNT=$(grep -c "Part $PART_NUM:" "$TEST_FILE")
+    echo "  ${PARTS[$i]} - $COUNT section(s)"
+done
+
+SCREENSHOT_COUNT=$(grep -c "cy.screenshot" "$TEST_FILE")
 echo ""
 echo "  Screenshot commands: $SCREENSHOT_COUNT"
 echo "  Expected screenshots: 22"
@@ -169,7 +177,7 @@ echo -e "${GREEN}✓${NC} Test file ready for execution"
 echo ""
 echo "To run the regression test:"
 echo "  cd ui"
-echo "  npx cypress run --spec \"cypress/e2e/epic11-final-regression.cy.js\""
+echo "  npx cypress run --spec \"$TEST_FILE\""
 echo ""
 echo "For detailed instructions, see:"
 echo "  - EPIC11_README.md (Quick start)"
