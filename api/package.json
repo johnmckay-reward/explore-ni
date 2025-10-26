@@ -10,12 +10,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "@sendgrid/mail": "^8.1.6",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "stripe": "^19.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

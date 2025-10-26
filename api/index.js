@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 // Import the express library
 const express = require('express');
 
@@ -15,12 +18,19 @@ const adminRoutes = require('./routes/admin.routes');
 const experienceRoutes = require('./routes/experience.routes');
 const publicRoutes = require('./routes/public.routes');
 const availabilityRoutes = require('./routes/availability.routes');
+const bookingRoutes = require('./routes/booking.routes');
+const paymentRoutes = require('./routes/payment.routes');
+const webhookRoutes = require('./routes/webhook.routes');
 
 // Initialize the express application
 const app = express();
 
 // Enable CORS for all routes
 app.use(cors());
+
+// *** IMPORTANT: Webhooks need raw body, so add this BEFORE express.json() ***
+// Mount webhook routes first (they need raw body for signature verification)
+app.use('/api/webhooks', webhookRoutes);
 
 // *** ADDED: Enable express.json() middleware ***
 // This is crucial for parsing JSON request bodies (e.g., from a POST request)
@@ -55,6 +65,12 @@ app.use('/api/experiences', experienceRoutes);
 
 // Mount availability routes
 app.use('/api', availabilityRoutes);
+
+// Mount booking routes
+app.use('/api', bookingRoutes);
+
+// Mount payment routes
+app.use('/api/payments', paymentRoutes);
 
 // --- Server Start ---
 
