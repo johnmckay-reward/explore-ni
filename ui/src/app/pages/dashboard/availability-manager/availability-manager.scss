@@ -1,13 +1,7 @@
-.calendar-controls {
-  margin-bottom: 1rem;
+.table-responsive {
+  margin-top: 1rem;
 }
 
-:host ::ng-deep .cal-month-view {
-  .cal-day-cell {
-    min-height: 100px;
-  }
-
-  .cal-event {
-    cursor: pointer;
-  }
+th {
+  font-weight: 600;
 }

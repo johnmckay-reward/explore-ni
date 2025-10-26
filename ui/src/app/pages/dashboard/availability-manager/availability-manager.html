@@ -34,85 +34,54 @@
   } @else {
     <div class="card">
       <div class="card-body">
-        <div class="calendar-controls mb-3 d-flex justify-content-between align-items-center">
-          <div class="btn-group" role="group">
-            <button 
-              class="btn btn-outline-primary" 
-              [class.active]="view === CalendarView.Month"
-              (click)="view = CalendarView.Month"
-            >
-              Month
-            </button>
-            <button 
-              class="btn btn-outline-primary" 
-              [class.active]="view === CalendarView.Week"
-              (click)="view = CalendarView.Week"
-            >
-              Week
-            </button>
-            <button 
-              class="btn btn-outline-primary" 
-              [class.active]="view === CalendarView.Day"
-              (click)="view = CalendarView.Day"
-            >
-              Day
-            </button>
+        <h5 class="card-title">Availability Slots</h5>
+        
+        @if (availabilities().length === 0) {
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No availability slots have been set up yet. Click "Add Time Slot" to get started!
           </div>
-
-          <h4>
-            {{ viewDate | date: 'MMMM yyyy' }}
-          </h4>
-
-          <div class="btn-group" role="group">
-            <button 
-              class="btn btn-outline-secondary"
-              mwlCalendarPreviousView
-              [view]="view"
-              [(viewDate)]="viewDate"
-            >
-              Previous
-            </button>
-            <button 
-              class="btn btn-outline-secondary"
-              mwlCalendarToday
-              [(viewDate)]="viewDate"
-            >
-              Today
-            </button>
-            <button 
-              class="btn btn-outline-secondary"
-              mwlCalendarNextView
-              [view]="view"
-              [(viewDate)]="viewDate"
-            >
-              Next
-            </button>
+        } @else {
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Available Slots</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (slot of availabilities(); track slot.id) {
+                  <tr>
+                    <td>{{ slot.date }}</td>
+                    <td>{{ slot.startTime }}</td>
+                    <td>{{ slot.endTime }}</td>
+                    <td>{{ slot.availableSlots }}</td>
+                    <td>
+                      <button 
+                        class="btn btn-sm btn-outline-primary me-2" 
+                        (click)="openEditSlotModal(slotModal, slot)"
+                      >
+                        <i class="bi bi-pencil me-1"></i>
+                        Edit
+                      </button>
+                      <button 
+                        class="btn btn-sm btn-outline-danger" 
+                        (click)="deleteSlot(slot.id!)"
+                      >
+                        <i class="bi bi-trash me-1"></i>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
           </div>
-        </div>
-
-        <div [ngSwitch]="view">
-          <mwl-calendar-month-view
-            *ngSwitchCase="CalendarView.Month"
-            [viewDate]="viewDate"
-            [events]="events()"
-            (eventClicked)="handleEventClick($event.event, slotModal)"
-          >
-          </mwl-calendar-month-view>
-          <mwl-calendar-week-view
-            *ngSwitchCase="CalendarView.Week"
-            [viewDate]="viewDate"
-            [events]="events()"
-            (eventClicked)="handleEventClick($event.event, slotModal)"
-          >
-          </mwl-calendar-week-view>
-          <mwl-calendar-day-view
-            *ngSwitchCase="CalendarView.Day"
-            [viewDate]="viewDate"
-            [events]="events()"
-            (eventClicked)="handleEventClick($event.event, slotModal)"
-          >
-          </mwl-calendar-day-view>
-        </div>
+        }
       </div>
     </div>
   }

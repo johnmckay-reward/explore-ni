@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarView, CalendarModule } from 'angular-calendar';
-import { startOfDay, endOfDay, parseISO, format } from 'date-fns';
 import { ExperienceService, Experience } from '../../../services/experience.service';
 import { AvailabilityService, Availability } from '../../../services/availability.service';
 
 @Component({
   selector: 'app-availability-manager',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, CalendarModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './availability-manager.html',
   styleUrls: ['./availability-manager.scss']
 })
@@ -23,15 +21,10 @@ export class AvailabilityManager implements OnInit {
   private route = inject(ActivatedRoute);
   private modalService = inject(NgbModal);
 
-  // Calendar properties
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
-  viewDate: Date = new Date();
-  events = signal<CalendarEvent[]>([]);
-
   // Component state
   experience = signal<Experience | null>(null);
   experienceId = signal<number | null>(null);
+  availabilities = signal<Availability[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
 
@@ -78,7 +71,7 @@ export class AvailabilityManager implements OnInit {
   loadAvailability(experienceId: number) {
     this.availabilityService.getAvailability(experienceId).subscribe({
       next: (availabilities) => {
-        this.updateCalendarEvents(availabilities);
+        this.availabilities.set(availabilities);
       },
       error: (error) => {
         console.error('Failed to load availability:', error);
@@ -86,26 +79,11 @@ export class AvailabilityManager implements OnInit {
     });
   }
 
-  updateCalendarEvents(availabilities: Availability[]) {
-    const calendarEvents: CalendarEvent[] = availabilities.map(avail => ({
-      id: avail.id,
-      start: parseISO(`${avail.date}T${avail.startTime}`),
-      end: parseISO(`${avail.date}T${avail.endTime}`),
-      title: `${avail.startTime} - ${avail.endTime} (${avail.availableSlots} slots)`,
-      color: {
-        primary: '#1e90ff',
-        secondary: '#D1E8FF'
-      },
-      meta: avail
-    }));
-    this.events.set(calendarEvents);
-  }
-
   openAddSlotModal(content: any) {
     this.isEditMode.set(false);
     this.currentSlotId.set(null);
     this.slotForm.reset({
-      date: format(new Date(), 'yyyy-MM-dd'),
+      date: '',
       startTime: '09:00',
       endTime: '17:00',
       availableSlots: this.experience()?.capacity || 10
@@ -113,9 +91,8 @@ export class AvailabilityManager implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  openEditSlotModal(content: any, event: CalendarEvent) {
+  openEditSlotModal(content: any, availability: Availability) {
     this.isEditMode.set(true);
-    const availability = event.meta as Availability;
     this.currentSlotId.set(availability.id!);
     
     this.slotForm.patchValue({
@@ -183,10 +160,6 @@ export class AvailabilityManager implements OnInit {
         alert('Failed to delete slot: ' + (error.error?.error || 'Unknown error'));
       }
     });
-  }
-
-  handleEventClick(event: CalendarEvent, content: any) {
-    this.openEditSlotModal(content, event);
   }
 
   isFieldInvalid(fieldName: string): boolean {
