@@ -42,8 +42,9 @@ router.get('/experiences', async (req, res) => {
     const where = { status: 'approved' };
 
     // Filter by location (case-insensitive search)
+    // SQLite uses LIKE instead of ILIKE, and we use LOWER() for case-insensitivity
     if (location) {
-      where.location = { [Op.iLike]: `%${location}%` };
+      where.location = { [Op.like]: `%${location}%` };
     }
 
     // Filter by price range
