@@ -49,6 +49,16 @@ Availability.belongsTo(Experience, {
   as: 'experience',
 });
 
+// Booking and Availability
+Booking.belongsTo(Availability, {
+  foreignKey: 'availabilityId',
+  as: 'availability',
+});
+Availability.hasMany(Booking, {
+  foreignKey: 'availabilityId',
+  as: 'bookings',
+});
+
 // Experience and Voucher (for gifted experiences)
 Experience.hasMany(Voucher, {
   foreignKey: 'experienceId',

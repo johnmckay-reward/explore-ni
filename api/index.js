@@ -1,3 +1,6 @@
+// Load environment variables from .env file
+require('dotenv').config();
+
 // Import the express library
 const express = require('express');
 
@@ -15,12 +18,19 @@ const adminRoutes = require('./routes/admin.routes');
 const experienceRoutes = require('./routes/experience.routes');
 const publicRoutes = require('./routes/public.routes');
 const availabilityRoutes = require('./routes/availability.routes');
+const bookingRoutes = require('./routes/booking.routes');
+const paymentRoutes = require('./routes/payment.routes');
+const webhookRoutes = require('./routes/webhook.routes');
 
 // Initialize the express application
 const app = express();
 
 // Enable CORS for all routes
 app.use(cors());
+
+// *** IMPORTANT: Webhooks need raw body, so add this BEFORE express.json() ***
+// Mount webhook routes first (they need raw body for signature verification)
+app.use('/api/webhooks', webhookRoutes);
 
 // *** ADDED: Enable express.json() middleware ***
 // This is crucial for parsing JSON request bodies (e.g., from a POST request)
@@ -53,7 +63,13 @@ app.use('/api/admin', adminRoutes);
 // Mount experience routes
 app.use('/api/experiences', experienceRoutes);
 
-// Mount availability routes
+// Mount booking routes (MUST be before availability routes to avoid auth middleware)
+app.use('/api/bookings', bookingRoutes);
+
+// Mount payment routes (MUST be before availability routes to avoid auth middleware)
+app.use('/api/payments', paymentRoutes);
+
+// Mount availability routes (has auth middleware, mount LAST among /api routes)
 app.use('/api', availabilityRoutes);
 
 // --- Server Start ---

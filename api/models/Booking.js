@@ -41,6 +41,44 @@ const Booking = sequelize.define('Booking', {
       key: 'id',
     },
   },
+  availabilityId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Availabilities',
+      key: 'id',
+    },
+  },
+  paymentIntentId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  paymentStatus: {
+    type: DataTypes.ENUM('pending', 'succeeded', 'failed'),
+    allowNull: false,
+    defaultValue: 'pending',
+  },
+  transactionId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  commissionRate: {
+    type: DataTypes.DECIMAL(5, 4),
+    allowNull: true,
+    defaultValue: 0.15,
+  },
+  commissionAmount: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: true,
+  },
+  customerName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  customerEmail: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Booking;

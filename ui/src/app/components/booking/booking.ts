@@ -2,6 +2,7 @@ import { Component, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 import { PublicExperience } from '../../services/public-experience.service';
 
 interface Availability {
@@ -27,6 +28,8 @@ export class Booking implements OnInit {
   availableDates = signal<Set<string>>(new Set());
   availableTimes = signal<Availability[]>([]);
   minDate!: NgbDateStruct;
+  
+  constructor(private router: Router) {}
   
   ngOnInit() {
     this.initForm();
@@ -89,9 +92,8 @@ export class Booking implements OnInit {
   
   onSubmit() {
     if (this.bookingForm.valid) {
-      // This will be implemented in a future epic
-      console.log('Booking submitted:', this.bookingForm.value);
-      alert('Booking functionality will be available in the next epic!');
+      // Navigate to checkout page with experience ID
+      this.router.navigate(['/checkout', this.experience.id]);
     }
   }
 }

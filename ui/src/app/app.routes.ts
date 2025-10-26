@@ -10,6 +10,9 @@ import { ExperienceForm } from './pages/dashboard/experience-form/experience-for
 import { AvailabilityManager } from './pages/dashboard/availability-manager/availability-manager';
 import { ExperienceList } from './pages/experience-list/experience-list';
 import { ExperienceDetail } from './pages/experience-detail/experience-detail';
+import { Checkout } from './pages/checkout/checkout';
+import { Payment } from './pages/payment/payment';
+import { PaymentSuccess } from './pages/payment-success/payment-success';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
 
 export const routes: Routes = [
@@ -22,6 +25,11 @@ export const routes: Routes = [
   { path: 'experiences', component: ExperienceList },
   { path: 'category/:slug', component: ExperienceList },
   { path: 'experience/:id', component: ExperienceDetail },
+  
+  // Booking and payment routes
+  { path: 'checkout/:id', component: Checkout },
+  { path: 'payment/:bookingId', component: Payment },
+  { path: 'payment-success/:bookingId', component: PaymentSuccess },
   
   // Admin routes
   { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard] },

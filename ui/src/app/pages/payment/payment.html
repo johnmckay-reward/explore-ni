@@ -1,0 +1,110 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      @if (loading()) {
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading payment information...</p>
+        </div>
+      } @else if (success()) {
+        <div class="card">
+          <div class="card-body text-center py-5">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+            <h2 class="mt-3">Payment Already Completed</h2>
+            <p class="text-muted">This booking has already been paid for.</p>
+            <button class="btn btn-primary mt-3" (click)="goToExperiences()">
+              Browse More Experiences
+            </button>
+          </div>
+        </div>
+      } @else if (booking()) {
+        <h2 class="mb-4">Complete Your Payment</h2>
+
+        <!-- Booking Summary -->
+        <div class="card mb-4">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">Booking Summary</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h6 class="card-title">{{ booking()!.experience.title }}</h6>
+                <p class="mb-2">
+                  <i class="bi bi-calendar3"></i> 
+                  {{ booking()!.availability.date }} at {{ booking()!.availability.startTime }}
+                </p>
+                <p class="mb-2">
+                  <i class="bi bi-people"></i> 
+                  {{ booking()!.quantity }} {{ booking()!.quantity === 1 ? 'person' : 'people' }}
+                </p>
+                <p class="mb-0">
+                  <i class="bi bi-person"></i> 
+                  {{ booking()!.customerName }} ({{ booking()!.customerEmail }})
+                </p>
+              </div>
+              <div class="col-md-4 text-md-end">
+                <h3 class="text-primary mb-0">£{{ booking()!.totalPrice }}</h3>
+                <small class="text-muted">Total Amount</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+              <i class="bi bi-credit-card"></i> Payment Details
+            </h5>
+          </div>
+          <div class="card-body">
+            @if (error()) {
+              <div class="alert alert-danger" role="alert">
+                <i class="bi bi-exclamation-triangle"></i> {{ error() }}
+              </div>
+            }
+
+            <!-- Stripe Payment Element will be mounted here -->
+            <div #paymentElement id="payment-element" class="mb-4"></div>
+
+            <div class="alert alert-info" role="alert">
+              <small>
+                <i class="bi bi-lock-fill"></i> 
+                Your payment is secure and encrypted. We use Stripe to process payments.
+              </small>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button 
+                class="btn btn-primary btn-lg" 
+                (click)="handlePayment()"
+                [disabled]="processing()"
+              >
+                @if (processing()) {
+                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Processing Payment...
+                } @else {
+                  <i class="bi bi-lock-fill"></i> Pay £{{ booking()!.totalPrice }}
+                }
+              </button>
+            </div>
+
+            <p class="text-center text-muted mt-3 mb-0">
+              <small>
+                By completing this payment, you agree to our terms and conditions.
+              </small>
+            </p>
+          </div>
+        </div>
+
+        <!-- Test Card Info -->
+        <div class="alert alert-warning mt-4" role="alert">
+          <strong>Test Mode:</strong> Use test card number <code>4242 4242 4242 4242</code> 
+          with any future expiry date and any 3-digit CVC.
+        </div>
+      }
+    </div>
+  </div>
+</div>
