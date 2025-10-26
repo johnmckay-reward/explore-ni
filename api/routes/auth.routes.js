@@ -58,14 +58,14 @@ router.post('/register', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role, status: user.status },
       JWT_SECRET,
       { expiresIn: ACCESS_TOKEN_EXPIRY }
     );
 
     // Generate refresh token
     const refreshToken = jwt.sign(
-      { id: user.id, email: user.email, role: user.role, type: 'refresh' },
+      { id: user.id, email: user.email, role: user.role, status: user.status, type: 'refresh' },
       JWT_SECRET,
       { expiresIn: REFRESH_TOKEN_EXPIRY }
     );
@@ -78,6 +78,7 @@ router.post('/register', async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         role: user.role,
+        status: user.status,
       },
       token,
       refreshToken,
@@ -115,14 +116,14 @@ router.post('/login', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
+      { id: user.id, email: user.email, role: user.role, status: user.status },
       JWT_SECRET,
       { expiresIn: ACCESS_TOKEN_EXPIRY }
     );
 
     // Generate refresh token
     const refreshToken = jwt.sign(
-      { id: user.id, email: user.email, role: user.role, type: 'refresh' },
+      { id: user.id, email: user.email, role: user.role, status: user.status, type: 'refresh' },
       JWT_SECRET,
       { expiresIn: REFRESH_TOKEN_EXPIRY }
     );
@@ -135,6 +136,7 @@ router.post('/login', async (req, res) => {
         lastName: user.lastName,
         email: user.email,
         role: user.role,
+        status: user.status,
       },
       token,
       refreshToken,
@@ -167,14 +169,14 @@ router.post('/refresh', async (req, res) => {
 
     // Generate new access token
     const newToken = jwt.sign(
-      { id: decoded.id, email: decoded.email, role: decoded.role },
+      { id: decoded.id, email: decoded.email, role: decoded.role, status: decoded.status },
       JWT_SECRET,
       { expiresIn: ACCESS_TOKEN_EXPIRY }
     );
 
     // Generate new refresh token
     const newRefreshToken = jwt.sign(
-      { id: decoded.id, email: decoded.email, role: decoded.role, type: 'refresh' },
+      { id: decoded.id, email: decoded.email, role: decoded.role, status: decoded.status, type: 'refresh' },
       JWT_SECRET,
       { expiresIn: REFRESH_TOKEN_EXPIRY }
     );

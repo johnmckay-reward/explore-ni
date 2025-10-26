@@ -39,6 +39,11 @@ const Experience = sequelize.define('Experience', {
       key: 'id',
     },
   },
+  status: {
+    type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+    allowNull: false,
+    defaultValue: 'pending',
+  },
 });
 
 module.exports = Experience;
