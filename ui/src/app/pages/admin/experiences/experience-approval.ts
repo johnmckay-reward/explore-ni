@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../../services/admin.service';
 import { Experience } from '../../../services/experience.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-experience-approval',
@@ -12,6 +13,7 @@ import { Experience } from '../../../services/experience.service';
 })
 export class ExperienceApproval implements OnInit {
   private adminService = inject(AdminService);
+  private toastService = inject(ToastService);
 
   pendingExperiences = signal<Experience[]>([]);
   isLoading = signal(true);
@@ -31,7 +33,9 @@ export class ExperienceApproval implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set('Failed to load pending experiences');
+        const errorMsg = 'Failed to load pending experiences';
+        this.errorMessage.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.isLoading.set(false);
       }
     });
@@ -44,13 +48,15 @@ export class ExperienceApproval implements OnInit {
 
     this.adminService.approveExperience(experienceId).subscribe({
       next: () => {
+        this.toastService.success('Experience approved successfully!');
         // Remove from list
         this.pendingExperiences.update(experiences => 
           experiences.filter(e => e.id !== experienceId)
         );
       },
       error: (error) => {
-        alert('Failed to approve experience: ' + (error.error?.error || 'Unknown error'));
+        const errorMsg = error.error?.error || 'Failed to approve experience';
+        this.toastService.error(errorMsg);
       }
     });
   }
@@ -62,13 +68,15 @@ export class ExperienceApproval implements OnInit {
 
     this.adminService.rejectExperience(experienceId).subscribe({
       next: () => {
+        this.toastService.success('Experience rejected');
         // Remove from list
         this.pendingExperiences.update(experiences => 
           experiences.filter(e => e.id !== experienceId)
         );
       },
       error: (error) => {
-        alert('Failed to reject experience: ' + (error.error?.error || 'Unknown error'));
+        const errorMsg = error.error?.error || 'Failed to reject experience';
+        this.toastService.error(errorMsg);
       }
     });
   }

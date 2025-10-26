@@ -1,8 +1,9 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { ToastService } from '../../../services/toast.service';
 
 interface Setting {
   key: string;
@@ -24,10 +25,9 @@ export class AdminSettings implements OnInit {
   errorMessages: { [key: string]: string } = {};
   loading = signal(false);
 
-  constructor(
-    private http: HttpClient,
-    private fb: FormBuilder
-  ) {}
+  private http = inject(HttpClient);
+  private fb = inject(FormBuilder);
+  private toastService = inject(ToastService);
 
   ngOnInit() {
     this.loadSettings();
@@ -53,6 +53,7 @@ export class AdminSettings implements OnInit {
       },
       error: (error) => {
         console.error('Error loading settings:', error);
+        this.toastService.error('Failed to load settings');
         this.loading.set(false);
       },
     });
@@ -61,6 +62,7 @@ export class AdminSettings implements OnInit {
   saveSetting(key: string) {
     const form = this.settingForms[key];
     if (!form || form.invalid) {
+      this.toastService.error('Please enter a valid value');
       return;
     }
 
@@ -74,7 +76,9 @@ export class AdminSettings implements OnInit {
       .subscribe({
         next: () => {
           this.savingStates[key] = false;
-          this.successMessages[key] = 'Setting saved successfully';
+          const successMsg = 'Setting saved successfully';
+          this.successMessages[key] = successMsg;
+          this.toastService.success(successMsg);
           
           // Clear the input field after successful save
           form.reset();
@@ -86,7 +90,9 @@ export class AdminSettings implements OnInit {
         },
         error: (error) => {
           this.savingStates[key] = false;
-          this.errorMessages[key] = error.error?.error || 'Failed to save setting';
+          const errorMsg = error.error?.error || 'Failed to save setting';
+          this.errorMessages[key] = errorMsg;
+          this.toastService.error(errorMsg);
           
           // Clear error message after 5 seconds
           setTimeout(() => {

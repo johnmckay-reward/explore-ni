@@ -1,10 +1,11 @@
-import { Component, OnInit, signal, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadStripe, Stripe, StripeElements, StripePaymentElement } from '@stripe/stripe-js';
 import { BookingService, BookingDetails } from '../../services/booking.service';
 import { VoucherService } from '../../services/voucher.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-payment',
@@ -38,12 +39,11 @@ export class Payment implements OnInit {
   // In production, this should come from environment config
   private readonly STRIPE_PUBLISHABLE_KEY = 'pk_test_your_publishable_key_here';
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private bookingService: BookingService,
-    private voucherService: VoucherService
-  ) {}
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private bookingService = inject(BookingService);
+  private voucherService = inject(VoucherService);
+  private toastService = inject(ToastService);
 
   async ngOnInit() {
     // Get booking ID from route
@@ -79,13 +79,17 @@ export class Payment implements OnInit {
         },
         error: (err) => {
           console.error('Error loading booking:', err);
-          this.error.set('Failed to load booking details');
+          const errorMsg = 'Failed to load booking details';
+          this.error.set(errorMsg);
+          this.toastService.error(errorMsg);
           this.loading.set(false);
         }
       });
     } catch (err) {
       console.error('Error in payment initialization:', err);
-      this.error.set('Failed to initialize payment');
+      const errorMsg = 'Failed to initialize payment';
+      this.error.set(errorMsg);
+      this.toastService.error(errorMsg);
       this.loading.set(false);
     }
   }
@@ -132,6 +136,7 @@ export class Payment implements OnInit {
 
   applyVoucher() {
     if (!this.voucherCode) {
+      this.toastService.warning('Please enter a voucher code');
       return;
     }
 
@@ -160,11 +165,16 @@ export class Payment implements OnInit {
         // If total is now 0, booking is fully paid
         if (this.currentTotal() === 0) {
           this.success.set(true);
+          this.toastService.success('Voucher applied successfully! Your booking is fully paid.');
+        } else {
+          this.toastService.success(`Voucher applied! New total: £${this.currentTotal().toFixed(2)}`);
         }
       },
       error: (err) => {
         console.error('Error applying voucher:', err);
-        this.voucherError.set(err.error?.error || 'Failed to apply voucher');
+        const errorMsg = err.error?.error || 'Failed to apply voucher';
+        this.voucherError.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.applyingVoucher.set(false);
       }
     });
@@ -172,7 +182,9 @@ export class Payment implements OnInit {
 
   async handlePayment() {
     if (!this.stripe || !this.elements) {
-      this.error.set('Payment system not initialized');
+      const errorMsg = 'Payment system not initialized';
+      this.error.set(errorMsg);
+      this.toastService.error(errorMsg);
       return;
     }
 
@@ -189,13 +201,17 @@ export class Payment implements OnInit {
 
       if (error) {
         // Payment failed
-        this.error.set(error.message || 'Payment failed');
+        const errorMsg = error.message || 'Payment failed';
+        this.error.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.processing.set(false);
       }
       // If successful, user will be redirected to return_url
     } catch (err) {
       console.error('Error processing payment:', err);
-      this.error.set('An unexpected error occurred');
+      const errorMsg = 'An unexpected error occurred';
+      this.error.set(errorMsg);
+      this.toastService.error(errorMsg);
       this.processing.set(false);
     }
   }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ExperienceService } from '../../../services/experience.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-experience-form',
@@ -16,6 +17,7 @@ export class ExperienceForm implements OnInit {
   private experienceService = inject(ExperienceService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private toastService = inject(ToastService);
 
   experienceForm!: FormGroup;
   isEditMode = signal(false);
@@ -65,7 +67,9 @@ export class ExperienceForm implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set('Failed to load experience');
+        const errorMsg = 'Failed to load experience';
+        this.errorMessage.set(errorMsg);
+        this.toastService.error(errorMsg);
         this.isLoading.set(false);
       }
     });
@@ -76,6 +80,7 @@ export class ExperienceForm implements OnInit {
       Object.keys(this.experienceForm.controls).forEach(key => {
         this.experienceForm.get(key)?.markAsTouched();
       });
+      this.toastService.error('Please fill in all required fields correctly');
       return;
     }
 
@@ -90,11 +95,17 @@ export class ExperienceForm implements OnInit {
 
     request.subscribe({
       next: () => {
+        const successMsg = this.isEditMode() 
+          ? 'Experience updated successfully!' 
+          : 'Experience created successfully!';
+        this.toastService.success(successMsg);
         this.router.navigate(['/dashboard/my-listings']);
       },
       error: (error) => {
         this.isSubmitting.set(false);
-        this.errorMessage.set(error.error?.error || 'Failed to save experience');
+        const errorMsg = error.error?.error || 'Failed to save experience';
+        this.errorMessage.set(errorMsg);
+        this.toastService.error(errorMsg);
       }
     });
   }
