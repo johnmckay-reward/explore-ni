@@ -18,3 +18,36 @@
     transform: scale(1);
   }
 }
+
+// Responsive improvements for mobile
+@media (max-width: 767.98px) {
+  .card {
+    margin-bottom: 1rem;
+    
+    .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  // Make voucher input and button stack on very small screens
+  @media (max-width: 575.98px) {
+    .input-group {
+      flex-direction: column;
+      
+      .form-control,
+      .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+      
+      .btn {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -9,3 +9,15 @@
 .card-header {
   font-weight: 500;
 }
+
+// Responsive improvements for mobile
+@media (max-width: 767.98px) {
+  .btn-lg {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .card-header h5 {
+    font-size: 1.1rem;
+  }
+}

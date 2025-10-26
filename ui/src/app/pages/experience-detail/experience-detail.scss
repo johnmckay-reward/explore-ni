@@ -13,12 +13,12 @@
 
   .info-item {
     padding: 0.5rem;
-    border-left: 3px solid #667eea;
+    border-left: 3px solid #344734; // Use brand Deep Green
     background-color: #f8f9fa;
 
     i {
       margin-right: 0.5rem;
-      color: #667eea;
+      color: #344734; // Use brand Deep Green
     }
   }
 }
@@ -32,5 +32,36 @@
   p {
     line-height: 1.8;
     white-space: pre-wrap;
+  }
+}
+
+// Responsive improvements for mobile
+@media (max-width: 767.98px) {
+  .image-gallery {
+    margin-bottom: 1.5rem;
+    
+    img {
+      max-height: 250px;
+    }
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    
+    .info-item {
+      padding: 0.75rem;
+    }
+  }
+  
+  .description {
+    h3 {
+      font-size: 1.25rem;
+    }
+    
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
   }
 }
