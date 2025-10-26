@@ -16,12 +16,23 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-        </li>
+        @if (currentUser()) {
+          <li class="nav-item" ngbDropdown>
+            <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="userDropdown">
+              {{ userFullName() }}
+            </a>
+            <div ngbDropdownMenu aria-labelledby="userDropdown">
+              <button ngbDropdownItem (click)="logout()">Logout</button>
+            </div>
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+          </li>
+        }
       </ul>
     </div>
   </div>

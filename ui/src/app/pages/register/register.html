@@ -79,7 +79,14 @@
                 <option value="vendor">Vendor</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Register</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
+              @if (isLoading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Registering...
+              } @else {
+                Register
+              }
+            </button>
           </form>
 
           <div class="text-center mt-3">

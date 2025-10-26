@@ -36,7 +36,14 @@
                 placeholder="Enter your password"
               />
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="isLoading">
+              @if (isLoading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Logging in...
+              } @else {
+                Login
+              }
+            </button>
           </form>
 
           <div class="text-center mt-3">

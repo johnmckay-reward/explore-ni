@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -17,8 +18,9 @@ export class Register {
   confirmPassword = '';
   role = 'customer';
   errorMessage = '';
+  isLoading = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit() {
     // Validate passwords match
@@ -33,15 +35,24 @@ export class Register {
       return;
     }
 
-    // TODO: Implement actual registration logic with API call
-    console.log('Registration attempt:', {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.register({
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
+      password: this.password,
       role: this.role,
+    }).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err.error?.error || 'Registration failed. Please try again.';
+      }
     });
-
-    // For now, just navigate to login
-    this.router.navigate(['/login']);
   }
 }
