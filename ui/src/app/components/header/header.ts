@@ -1,30 +1,52 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, TemplateRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbCollapse,
+  NgbDropdown,
+  NgbDropdownMenu,
+  NgbDropdownToggle,
+  NgbDropdownItem,
+  NgbOffcanvas // 1. Import NgbOffcanvas
+} from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle],
+  standalone: true,
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NgbCollapse,
+    NgbDropdown,
+    NgbDropdownMenu,
+    NgbDropdownToggle,
+    NgbDropdownItem,
+  ],
   templateUrl: './header.html',
-  styleUrl: './header.scss',
+  styleUrls: ['./header.scss'],
 })
 export class Header {
-  isMenuCollapsed = true;
-  
-  // Inject auth service
+  // 6. Inject NgbOffcanvas and remove isMenuCollapsed
   private authService = inject(AuthService);
-  
-  // Get current user from auth service
+  private offcanvasService = inject(NgbOffcanvas);
+
   currentUser = this.authService.currentUser;
-  
-  // Computed property for user's full name
-  userFullName = computed(() => {
+
+  userFirstName = computed(() => {
     const user = this.currentUser();
-    return user ? `${user.firstName} ${user.lastName}` : '';
+    return user ? user.firstName : '';
   });
 
   logout() {
     this.authService.logout();
   }
+
+  // 7. Method to open the offcanvas
+  openOffcanvas(content: TemplateRef<any>) {
+    this.offcanvasService.open(content, {
+      position: 'start', // This makes it slide from the left
+      panelClass: 'offcanvas-custom' // Apply custom class
+    });
+  }
 }
+
