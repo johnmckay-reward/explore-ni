@@ -63,14 +63,14 @@ app.use('/api/admin', adminRoutes);
 // Mount experience routes
 app.use('/api/experiences', experienceRoutes);
 
-// Mount availability routes
-app.use('/api', availabilityRoutes);
+// Mount booking routes (MUST be before availability routes to avoid auth middleware)
+app.use('/api/bookings', bookingRoutes);
 
-// Mount booking routes
-app.use('/api', bookingRoutes);
-
-// Mount payment routes
+// Mount payment routes (MUST be before availability routes to avoid auth middleware)
 app.use('/api/payments', paymentRoutes);
+
+// Mount availability routes (has auth middleware, mount LAST among /api routes)
+app.use('/api', availabilityRoutes);
 
 // --- Server Start ---
 

@@ -7,7 +7,7 @@ const router = express.Router();
  * POST /api/bookings
  * Create a new booking (first step of checkout)
  */
-router.post('/bookings', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { experienceId, availabilityId, quantity, customerDetails } = req.body;
 
@@ -79,7 +79,7 @@ router.post('/bookings', async (req, res) => {
  * GET /api/bookings/:id
  * Get booking details by ID
  */
-router.get('/bookings/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
