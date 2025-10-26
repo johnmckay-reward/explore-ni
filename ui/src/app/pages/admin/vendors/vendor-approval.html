@@ -1,0 +1,61 @@
+<div class="container py-4">
+  <h2 class="mb-4">Vendor Approval Queue</h2>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (pendingVendors().length === 0) {
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      No pending vendor applications.
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Application Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vendor of pendingVendors(); track vendor.id) {
+            <tr>
+              <td>{{ vendor.firstName }} {{ vendor.lastName }}</td>
+              <td>{{ vendor.email }}</td>
+              <td>{{ vendor.createdAt | date:'short' }}</td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-success me-2" 
+                  (click)="approveVendor(vendor.id)"
+                >
+                  <i class="bi bi-check-circle me-1"></i>
+                  Approve
+                </button>
+                <button 
+                  class="btn btn-sm btn-danger" 
+                  (click)="rejectVendor(vendor.id)"
+                >
+                  <i class="bi bi-x-circle me-1"></i>
+                  Reject
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

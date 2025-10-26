@@ -1,0 +1,67 @@
+<div class="container py-4">
+  <h2 class="mb-4">Experience Approval Queue</h2>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (pendingExperiences().length === 0) {
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      No pending experiences.
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Vendor</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (experience of pendingExperiences(); track experience.id) {
+            <tr>
+              <td>{{ experience.title }}</td>
+              <td>
+                @if (experience.vendor) {
+                  {{ experience.vendor.firstName }} {{ experience.vendor.lastName }}
+                }
+              </td>
+              <td>{{ experience.location }}</td>
+              <td>£{{ experience.price }}</td>
+              <td>
+                <button 
+                  class="btn btn-sm btn-success me-2" 
+                  (click)="approveExperience(experience.id)"
+                >
+                  <i class="bi bi-check-circle me-1"></i>
+                  Approve
+                </button>
+                <button 
+                  class="btn btn-sm btn-danger" 
+                  (click)="rejectExperience(experience.id)"
+                >
+                  <i class="bi bi-x-circle me-1"></i>
+                  Reject
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

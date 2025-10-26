@@ -1,12 +1,11 @@
 import { Component, computed, inject, TemplateRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
-  NgbCollapse,
   NgbDropdown,
   NgbDropdownMenu,
   NgbDropdownToggle,
   NgbDropdownItem,
-  NgbOffcanvas // 1. Import NgbOffcanvas
+  NgbOffcanvas
 } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,7 +15,6 @@ import { AuthService } from '../../services/auth.service';
   imports: [
     RouterLink,
     RouterLinkActive,
-    NgbCollapse,
     NgbDropdown,
     NgbDropdownMenu,
     NgbDropdownToggle,
@@ -36,6 +34,15 @@ export class Header {
     const user = this.currentUser();
     return user ? user.firstName : '';
   });
+
+  userRole = computed(() => {
+    const user = this.currentUser();
+    return user ? user.role : '';
+  });
+
+  isVendor = computed(() => this.userRole() === 'vendor');
+  isAdmin = computed(() => this.userRole() === 'admin');
+  isCustomer = computed(() => this.userRole() === 'customer');
 
   logout() {
     this.authService.logout();

@@ -9,6 +9,8 @@ export interface User {
   lastName: string;
   email: string;
   role: string;
+  status: string;
+  createdAt?: string;
 }
 
 export interface AuthResponse {
@@ -93,6 +95,29 @@ export class AuthService {
    */
   getToken(): string | null {
     return this.token();
+  }
+
+  /**
+   * Apply to become a vendor
+   */
+  applyToBeVendor(): Observable<{ message: string; user: User }> {
+    return this.http.post<{ message: string; user: User }>(`http://localhost:3000/api/users/apply-vendor`, {}).pipe(
+      tap(response => {
+        // Update the current user with new role and status
+        if (response && response.user) {
+          this.currentUser.set(response.user);
+          localStorage.setItem('user', JSON.stringify(response.user));
+        }
+      })
+    );
+  }
+
+  /**
+   * Update current user data
+   */
+  updateCurrentUser(user: User): void {
+    this.currentUser.set(user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   /**

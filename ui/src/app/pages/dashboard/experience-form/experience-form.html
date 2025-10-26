@@ -1,0 +1,153 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title mb-4">
+            @if (isEditMode()) {
+              Edit Experience
+            } @else {
+              Create New Experience
+            }
+          </h2>
+
+          @if (errorMessage()) {
+            <div class="alert alert-danger" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              {{ errorMessage() }}
+            </div>
+          }
+
+          @if (isLoading()) {
+            <div class="text-center py-5">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          } @else {
+            <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="title" 
+                  formControlName="title"
+                  [class.is-invalid]="isFieldInvalid('title')"
+                >
+                @if (isFieldInvalid('title')) {
+                  <div class="invalid-feedback">
+                    {{ getFieldError('title') }}
+                  </div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                <textarea 
+                  class="form-control" 
+                  id="description" 
+                  rows="4"
+                  formControlName="description"
+                  [class.is-invalid]="isFieldInvalid('description')"
+                ></textarea>
+                @if (isFieldInvalid('description')) {
+                  <div class="invalid-feedback">
+                    {{ getFieldError('description') }}
+                  </div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="location" 
+                  formControlName="location"
+                  [class.is-invalid]="isFieldInvalid('location')"
+                >
+                @if (isFieldInvalid('location')) {
+                  <div class="invalid-feedback">
+                    {{ getFieldError('location') }}
+                  </div>
+                }
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="duration" class="form-label">Duration (minutes) <span class="text-danger">*</span></label>
+                  <input 
+                    type="number" 
+                    class="form-control" 
+                    id="duration" 
+                    formControlName="duration"
+                    [class.is-invalid]="isFieldInvalid('duration')"
+                  >
+                  @if (isFieldInvalid('duration')) {
+                    <div class="invalid-feedback">
+                      {{ getFieldError('duration') }}
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="price" class="form-label">Price (£) <span class="text-danger">*</span></label>
+                  <input 
+                    type="number" 
+                    class="form-control" 
+                    id="price" 
+                    step="0.01"
+                    formControlName="price"
+                    [class.is-invalid]="isFieldInvalid('price')"
+                  >
+                  @if (isFieldInvalid('price')) {
+                    <div class="invalid-feedback">
+                      {{ getFieldError('price') }}
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="capacity" class="form-label">Capacity <span class="text-danger">*</span></label>
+                  <input 
+                    type="number" 
+                    class="form-control" 
+                    id="capacity" 
+                    formControlName="capacity"
+                    [class.is-invalid]="isFieldInvalid('capacity')"
+                  >
+                  @if (isFieldInvalid('capacity')) {
+                    <div class="invalid-feedback">
+                      {{ getFieldError('capacity') }}
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 mt-4">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary"
+                  [disabled]="isSubmitting()"
+                >
+                  @if (isSubmitting()) {
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Saving...
+                  } @else if (isEditMode()) {
+                    Update Experience
+                  } @else {
+                    Create Experience
+                  }
+                </button>
+                <a routerLink="/dashboard/my-listings" class="btn btn-outline-secondary">
+                  Cancel
+                </a>
+              </div>
+            </form>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

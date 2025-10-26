@@ -1,0 +1,75 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Experience Listings</h2>
+    <a routerLink="/dashboard/experience/new" class="btn btn-primary">
+      <i class="bi bi-plus-circle me-2"></i>
+      Create New Experience
+    </a>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (experiences().length === 0) {
+    <div class="alert alert-info" role="alert">
+      <i class="bi bi-info-circle-fill me-2"></i>
+      You haven't created any experiences yet. Click the "Create New Experience" button to get started!
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Capacity</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (experience of experiences(); track experience.id) {
+            <tr>
+              <td>{{ experience.title }}</td>
+              <td>{{ experience.location }}</td>
+              <td>£{{ experience.price }}</td>
+              <td>{{ experience.capacity }}</td>
+              <td>
+                <span [className]="getStatusBadgeClass(experience.status)">
+                  {{ experience.status | titlecase }}
+                </span>
+              </td>
+              <td>
+                <a 
+                  [routerLink]="['/dashboard/experience/edit', experience.id]" 
+                  class="btn btn-sm btn-outline-primary me-2"
+                >
+                  <i class="bi bi-pencil me-1"></i>
+                  Edit
+                </a>
+                <button 
+                  class="btn btn-sm btn-outline-danger" 
+                  (click)="deleteExperience(experience.id)"
+                >
+                  <i class="bi bi-trash me-1"></i>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
