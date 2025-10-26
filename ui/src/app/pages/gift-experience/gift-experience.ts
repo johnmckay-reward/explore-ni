@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadStripe, Stripe, StripeElements, StripePaymentElement } from '@stripe/stripe-js';
 import { VoucherService } from '../../services/voucher.service';
-import { PublicExperienceService, Experience } from '../../services/public-experience.service';
+import { PublicExperienceService, PublicExperience } from '../../services/public-experience.service';
 
 @Component({
   selector: 'app-gift-experience',
@@ -16,7 +16,7 @@ export class GiftExperience implements OnInit {
   @ViewChild('paymentElement', { static: false }) paymentElement!: ElementRef;
 
   experienceId!: number;
-  experience = signal<Experience | null>(null);
+  experience = signal<PublicExperience | null>(null);
   voucherForm!: FormGroup;
 
   // Payment state
@@ -59,12 +59,12 @@ export class GiftExperience implements OnInit {
 
   loadExperience() {
     this.loading.set(true);
-    this.experienceService.getExperience(this.experienceId).subscribe({
-      next: (experience) => {
+    this.experienceService.getExperienceById(this.experienceId).subscribe({
+      next: (experience: PublicExperience) => {
         this.experience.set(experience);
         this.loading.set(false);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error loading experience:', err);
         this.error.set('Failed to load experience details');
         this.loading.set(false);
