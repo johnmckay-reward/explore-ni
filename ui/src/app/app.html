@@ -1,21 +1,7 @@
-<h1>Explore NI</h1>
+<app-header></app-header>
 
-<div>
-  <input
-    [(ngModel)]="newItemName"
-    placeholder="Enter item name"
-    (keyup.enter)="addItem()"
-  />
-  <button class="btn btn-primary" (click)="addItem()">Add Item</button>
-</div>
+<main class="min-vh-100">
+  <router-outlet></router-outlet>
+</main>
 
-<h2>Items from Database</h2>
-@if (items().length > 0) {
-  <ul>
-    @for (item of items(); track item.id) {
-      <li>{{ item.name }} (ID: {{ item.id }})</li>
-    }
-  </ul>
-} @else {
-  <p>Loading items or no items found...</p>
-}
+<app-footer></app-footer>
