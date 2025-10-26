@@ -8,8 +8,9 @@ This runbook provides step-by-step instructions for common administrative and op
 2. [Admin Tasks](#admin-tasks)
 3. [Vendor Management](#vendor-management)
 4. [System Configuration](#system-configuration)
-5. [Monitoring & Troubleshooting](#monitoring--troubleshooting)
-6. [Backup & Recovery](#backup--recovery)
+5. [QA Testing Procedures](#qa-testing-procedures)
+6. [Monitoring & Troubleshooting](#monitoring--troubleshooting)
+7. [Backup & Recovery](#backup--recovery)
 
 ---
 
@@ -295,6 +296,124 @@ This runbook provides step-by-step instructions for common administrative and op
    - Visit `/partner/grand-hotel`
    - Verify hotel name displays
    - Check experiences load correctly
+
+---
+
+## QA Testing Procedures
+
+### Running Pre-Launch QA Tests
+
+**Objective:** Execute comprehensive QA test suite before production deployment.
+
+**When to run:**
+- Before major releases
+- After significant feature changes
+- Before production deployment
+- Quarterly for regression testing
+
+**Procedure:**
+
+1. **Prepare QA Environment:**
+   ```bash
+   # Ensure clean environment
+   cd api
+   rm database.sqlite  # Delete old database
+   
+   # Seed QA test data
+   node config/seed-qa.js
+   
+   # Start API server
+   npm start
+   ```
+
+2. **Configure API Keys:**
+   - Login as admin: `admin@exploreni.com` / `admin123`
+   - Navigate to `/admin/settings`
+   - Configure all API keys with **TEST MODE** credentials:
+     - Stripe (Test Mode: `sk_test_...`)
+     - Twilio (Test account)
+     - SendGrid (Test account)
+
+3. **Run Manual Tests:**
+   - Open `QA_TEST_PLAN.md`
+   - Execute each test case in order
+   - Mark results: `[x] PASS` or `[x] FAIL`
+   - Document issues with screenshots
+
+4. **Run Automated E2E Tests:**
+   ```bash
+   cd ui
+   
+   # Interactive mode (recommended for debugging)
+   npm run cypress:open
+   
+   # Headless mode (for full suite)
+   npm run cypress:run
+   ```
+
+5. **Review Results:**
+   - Check test summary in `QA_TEST_PLAN.md`
+   - Review Cypress videos: `ui/cypress/videos/`
+   - Review failure screenshots: `ui/cypress/screenshots/`
+   - Update "Known Issues" section
+
+6. **Generate Test Report:**
+   - Calculate pass rate
+   - Document critical issues
+   - Get stakeholder sign-off
+
+**Success Criteria:**
+- All critical path tests (P0) pass
+- Pass rate ≥ 95%
+- No P0 or P1 bugs remain unfixed
+- Stakeholder approval obtained
+
+### QA Test Accounts
+
+**Admin:**
+- Email: `admin@exploreni.com`
+- Password: `admin123`
+
+**Vendors:**
+- Active: `davy@exploreni.com` / `vendor123`
+- Active: `siobhan@exploreni.com` / `vendor123`
+- Pending: `ciaran@exploreni.com` / `vendor123`
+
+**Customers:**
+- `mary@exploreni.com` / `customer123`
+- `paddy@exploreni.com` / `customer123`
+- `shauna@exploreni.com` / `customer123`
+
+### QA Test Data
+
+**Experiences:**
+- City Bike Tour (auto-confirm, £100)
+- Private Art Class (manual-confirm, £80)
+- Pending Test Experience (pending approval)
+
+**Vouchers:**
+- `QA-TEST-50` (£50 fixed amount)
+- `QA-BIKE-TOUR` (City Bike Tour experience)
+
+**Hotel Partner:**
+- Slug: `test-hotel`
+- URL: `/partner/test-hotel`
+
+### Resetting QA Environment
+
+```bash
+# From api directory
+cd api
+
+# Delete database
+rm database.sqlite
+
+# Re-seed with QA data
+node config/seed-qa.js
+
+# Restart server
+npm start
+```
 
 ---
 
