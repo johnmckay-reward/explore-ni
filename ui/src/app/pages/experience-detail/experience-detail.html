@@ -1,0 +1,90 @@
+<div class="container mt-4">
+  @if (loading) {
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  } @else if (experience) {
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-lg-8">
+        <!-- Image Gallery -->
+        <div class="image-gallery mb-4">
+          @if (experience.imageUrl) {
+            <img
+              [src]="experience.imageUrl"
+              [alt]="experience.title"
+              class="img-fluid rounded"
+            />
+          } @else {
+            <img
+              src="https://via.placeholder.com/800x400?text=Experience+Image"
+              [alt]="experience.title"
+              class="img-fluid rounded"
+            />
+          }
+        </div>
+
+        <!-- Experience Details -->
+        <div class="experience-details">
+          <h1 class="mb-3">{{ experience.title }}</h1>
+
+          <div class="d-flex align-items-center mb-3">
+            <ngb-rating
+              [rate]="experience.averageRating || 0"
+              [readonly]="true"
+              [max]="5"
+            ></ngb-rating>
+            <span class="ms-2">
+              {{ experience.averageRating ? experience.averageRating.toFixed(1) : 'No reviews' }}
+              @if (experience.reviews && experience.reviews.length > 0) {
+                ({{ experience.reviews.length }} reviews)
+              }
+            </span>
+          </div>
+
+          <div class="info-grid mb-4">
+            <div class="info-item">
+              <i class="bi bi-geo-alt"></i>
+              <strong>Location:</strong> {{ experience.location }}
+            </div>
+            <div class="info-item">
+              <i class="bi bi-clock"></i>
+              <strong>Duration:</strong> {{ experience.duration }} minutes
+            </div>
+            <div class="info-item">
+              <i class="bi bi-person"></i>
+              <strong>Hosted by:</strong> {{ vendorName }}
+            </div>
+            <div class="info-item">
+              <i class="bi bi-tag"></i>
+              <strong>Category:</strong> {{ categoryNames }}
+            </div>
+            <div class="info-item">
+              <i class="bi bi-people"></i>
+              <strong>Capacity:</strong> {{ experience.capacity }} people
+            </div>
+          </div>
+
+          <div class="description mb-4">
+            <h3>About this experience</h3>
+            <p>{{ experience.description || 'No description available.' }}</p>
+          </div>
+
+          <!-- Reviews Section -->
+          @if (experience.reviews) {
+            <app-reviews-list [reviews]="experience.reviews"></app-reviews-list>
+          }
+        </div>
+      </div>
+
+      <!-- Booking Sidebar -->
+      <div class="col-lg-4">
+        <app-booking [experience]="experience"></app-booking>
+      </div>
+    </div>
+  }
+</div>

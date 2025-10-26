@@ -1,35 +1,54 @@
 <div class="container mt-5">
-  <div class="bg-light p-5 rounded-3 text-center">
+  <!-- Hero Section -->
+  <div class="bg-light p-5 rounded-3 text-center hero-section">
     <h1 class="display-4">Welcome to Explore NI</h1>
     <p class="lead">Discover amazing experiences across Northern Ireland</p>
-    <hr class="my-4">
+    <hr class="my-4" />
     <p>Book unique experiences, from outdoor adventures to cultural tours.</p>
+    <a class="btn btn-primary btn-lg" [routerLink]="['/experiences']">Browse All Experiences</a>
   </div>
 
-  <div class="row mt-5">
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Outdoor Adventures</h5>
-          <p class="card-text">Explore the stunning landscapes of Northern Ireland with guided tours and activities.</p>
-        </div>
+  <!-- Categories Section -->
+  @if (categories.length > 0) {
+    <div class="categories-section mt-5">
+      <h2 class="mb-4">Explore by Category</h2>
+      <div class="row">
+        @for (category of categories; track category.id) {
+          <div class="col-md-4 mb-3">
+            <div class="card category-card" [routerLink]="['/category', category.slug]">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ category.name }}</h5>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Cultural Experiences</h5>
-          <p class="card-text">Immerse yourself in the rich history and culture of Northern Ireland.</p>
+  }
+
+  <!-- Featured Experiences Section -->
+  <div class="featured-section mt-5">
+    <h2 class="mb-4">Featured Experiences</h2>
+
+    @if (loading) {
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">Food & Drink</h5>
-          <p class="card-text">Taste the best of local cuisine and beverages in unique settings.</p>
-        </div>
+    } @else if (error) {
+      <div class="alert alert-danger">{{ error }}</div>
+    } @else if (featuredExperiences.length > 0) {
+      <div class="row">
+        @for (experience of featuredExperiences; track experience.id) {
+          <div class="col-md-4 mb-4">
+            <app-experience-card [experience]="experience"></app-experience-card>
+          </div>
+        }
       </div>
-    </div>
+    } @else {
+      <div class="alert alert-info">No experiences available at the moment.</div>
+    }
   </div>
 </div>
+

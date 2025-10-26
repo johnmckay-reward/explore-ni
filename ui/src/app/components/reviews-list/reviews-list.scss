@@ -1,0 +1,17 @@
+.reviews-list {
+  .reviews-container {
+    .review-item {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      background-color: #f8f9fa;
+
+      .review-comment {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        line-height: 1.6;
+      }
+    }
+  }
+}

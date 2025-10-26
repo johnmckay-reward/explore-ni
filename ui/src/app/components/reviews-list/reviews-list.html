@@ -1,0 +1,30 @@
+<div class="reviews-list">
+  <h4 class="mb-4">Reviews</h4>
+
+  @if (reviews && reviews.length > 0) {
+    <div class="reviews-container">
+      @for (review of reviews; track review.id) {
+        <div class="review-item">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <strong>
+                {{ review.customer?.firstName }} {{ review.customer?.lastName }}
+              </strong>
+              <div>
+                <ngb-rating [rate]="review.rating" [readonly]="true" [max]="5"></ngb-rating>
+              </div>
+            </div>
+            @if (review.createdAt) {
+              <small class="text-muted">{{ review.createdAt | date: 'short' }}</small>
+            }
+          </div>
+          @if (review.comment) {
+            <p class="review-comment">{{ review.comment }}</p>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="text-muted">No reviews yet.</p>
+  }
+</div>
