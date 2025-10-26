@@ -1,0 +1,50 @@
+<div class="filter-sidebar">
+  <h5>Filter Experiences</h5>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <input
+      type="text"
+      class="form-control"
+      id="location"
+      [(ngModel)]="location"
+      placeholder="Search by location..."
+    />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Price Range</label>
+    <div class="row g-2">
+      <div class="col">
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="minPrice"
+          placeholder="Min £"
+          min="0"
+        />
+      </div>
+      <div class="col">
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="maxPrice"
+          placeholder="Max £"
+          min="0"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Minimum Rating</label>
+    <div>
+      <ngb-rating [(rate)]="rating" [max]="5"></ngb-rating>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn btn-outline-secondary" (click)="clearFilters()">Clear Filters</button>
+  </div>
+</div>

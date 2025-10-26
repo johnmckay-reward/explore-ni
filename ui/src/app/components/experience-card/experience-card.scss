@@ -1,0 +1,20 @@
+.experience-card {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+}

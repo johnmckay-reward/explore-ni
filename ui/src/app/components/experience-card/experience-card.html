@@ -1,0 +1,29 @@
+<div class="card h-100 experience-card" [routerLink]="['/experience', experience.id]">
+  <img
+    [src]="experience.imageUrl || 'https://via.placeholder.com/400x200?text=Experience'"
+    class="card-img-top"
+    [alt]="experience.title"
+  />
+  <div class="card-body">
+    <h5 class="card-title">{{ experience.title }}</h5>
+    <p class="card-text text-muted">
+      <i class="bi bi-geo-alt"></i> {{ experience.location }}
+    </p>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div>
+        <ngb-rating
+          [rate]="experience.averageRating || 0"
+          [readonly]="true"
+          [max]="5"
+        ></ngb-rating>
+        <small class="text-muted ms-2">
+          {{ experience.averageRating ? experience.averageRating.toFixed(1) : 'No reviews' }}
+        </small>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="price">£{{ experience.price }}</span>
+      <small class="text-muted">{{ experience.duration }} mins</small>
+    </div>
+  </div>
+</div>

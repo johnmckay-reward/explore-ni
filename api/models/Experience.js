@@ -31,6 +31,10 @@ const Experience = sequelize.define('Experience', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   vendorId: {
     type: DataTypes.INTEGER,
     allowNull: false,

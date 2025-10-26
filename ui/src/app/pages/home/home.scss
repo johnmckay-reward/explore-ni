@@ -1,0 +1,26 @@
+// Import global variables (like $secondary) from styles.scss
+@import '../../../variables';
+
+// 1. New Hero Icon Styling
+.hero-icon {
+  font-size: 12rem; // Make the icon large
+  color: $secondary; // Use the brand's deep green
+  opacity: 0.15; // Make it subtle, like a watermark
+  transform: rotate(-15deg); // Give it a slight angle for visual interest
+}
+
+// 2. Category Card Specifics
+.category-card {
+  cursor: pointer;
+  // The hover effect is now handled globally in styles.scss
+
+  .card-title {
+    color: $secondary; // Ensure title uses brand green
+    font-weight: 500;
+  }
+}
+
+// 3. Section Spacing
+.featured-section {
+  margin-bottom: 3rem; // Keep the extra space at the bottom of the page
+}

@@ -7,6 +7,8 @@ import { VendorApproval } from './pages/admin/vendors/vendor-approval';
 import { ExperienceApproval } from './pages/admin/experiences/experience-approval';
 import { MyListings } from './pages/dashboard/my-listings/my-listings';
 import { ExperienceForm } from './pages/dashboard/experience-form/experience-form';
+import { ExperienceList } from './pages/experience-list/experience-list';
+import { ExperienceDetail } from './pages/experience-detail/experience-detail';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
 
 export const routes: Routes = [
@@ -14,6 +16,11 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'apply-vendor', component: ApplyVendor, canActivate: [authGuard] },
+  
+  // Public marketplace routes
+  { path: 'experiences', component: ExperienceList },
+  { path: 'category/:slug', component: ExperienceList },
+  { path: 'experience/:id', component: ExperienceDetail },
   
   // Admin routes
   { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard] },
