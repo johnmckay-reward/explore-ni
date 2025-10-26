@@ -1,12 +1,70 @@
-<footer class="bg-dark text-white mt-5 py-4">
+<footer class="section-bg-green text-white mt-5 pt-5 pb-4">
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h5>Explore NI</h5>
-        <p>Discover the best experiences in Northern Ireland</p>
+      <div class="col-12 text-center mb-4">
+        <img src="ni-experiences-plain.png" alt="NI Experiences Logo" class="footer-logo">
       </div>
-      <div class="col-md-6 text-md-end">
-        <p>&copy; 2025 Explore NI. All rights reserved.</p>
+
+      <div class="col-lg-7">
+        <div class="row">
+          <div class="col-md-4 col-6 mb-3 mb-lg-0">
+            <h5 class="footer-heading">Quick Links</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a routerLink="/" class="nav-link p-0 footer-link">Home</a></li>
+              <li class="nav-item mb-2"><a routerLink="/destinations" class="nav-link p-0 footer-link">Destinations</a>
+              </li>
+              <li class="nav-item mb-2"><a routerLink="/about" class="nav-link p-0 footer-link">About Us</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-6 mb-3 mb-lg-0">
+            <h5 class="footer-heading">Experiences</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a routerLink="/experiences" class="nav-link p-0 footer-link">Activities</a>
+              </li>
+              <li class="nav-item mb-2"><a routerLink="/events" class="nav-link p-0 footer-link">Events</a></li>
+              <li class="nav-item mb-2"><a routerLink="/hot-deals" class="nav-link p-0 footer-link">Hot Deals</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-12 mb-3 mb-lg-0">
+            <h5 class="footer-heading">Support</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2"><a routerLink="/contact" class="nav-link p-0 footer-link">Contact Us</a></li>
+              <li class="nav-item mb-2"><a routerLink="/faq" class="nav-link p-0 footer-link">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5 mt-4 mt-lg-0">
+        <h5 class="footer-heading">Contact</h5>
+        <ul class="list-unstyled">
+          <li class="d-flex align-items-center mb-2">
+            <i class="bi bi-telephone fs-5 me-2"></i>
+            <span>(620) 555-0127</span>
+          </li>
+          <li class="d-flex align-items-center mb-2">
+            <i class="bi bi-envelope fs-5 me-2"></i>
+            <span>Niexp@example.com</span>
+          </li>
+          <li class="d-flex align-items-start">
+            <i class="bi bi-geo-alt fs-5 me-2"></i>
+            <span>3891 Ranchview Dr. Richardson, California 62639</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="text-white-50 my-4">
+
+    <div class="row">
+      <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+        <small>&copy; 2025 NI Experiences. All Rights Reserved.</small>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <small>
+          <a routerLink="/privacy" class="footer-link me-3">Privacy Policy</a>
+          <a routerLink="/terms" class="footer-link">Terms of Use</a>
+        </small>
       </div>
     </div>
   </div>
