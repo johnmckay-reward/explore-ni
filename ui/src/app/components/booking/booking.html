@@ -4,14 +4,77 @@
       <h5 class="card-title">Book This Experience</h5>
       <p class="price mb-3">£{{ experience.price }} per person</p>
 
-      <div class="alert alert-info">
-        <i class="bi bi-info-circle"></i>
-        Booking functionality will be available soon. Please check back later!
-      </div>
+      @if (experience.availabilities && experience.availabilities.length > 0) {
+        <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="date" class="form-label">Select Date</label>
+            <ngb-datepicker
+              formControlName="date"
+              [minDate]="minDate"
+              [markDisabled]="isDateDisabled"
+              [displayMonths]="1"
+              [dayTemplate]="dayTemplate"
+            >
+            </ngb-datepicker>
+          </div>
 
-      <button class="btn btn-primary w-100" disabled>
-        Coming Soon
-      </button>
+          @if (availableTimes().length > 0) {
+            <div class="mb-3">
+              <label for="time" class="form-label">Select Time</label>
+              <select 
+                class="form-select" 
+                id="time" 
+                formControlName="time"
+              >
+                <option value="">Choose a time...</option>
+                @for (slot of availableTimes(); track slot.id) {
+                  <option [value]="slot.id">
+                    {{ slot.startTime }} - {{ slot.endTime }} ({{ slot.availableSlots }} slots available)
+                  </option>
+                }
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="quantity" class="form-label">Number of Tickets</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="quantity" 
+                formControlName="quantity"
+                min="1"
+              >
+            </div>
+
+            <button 
+              type="submit" 
+              class="btn btn-primary w-100"
+              [disabled]="bookingForm.invalid"
+            >
+              Book Now
+            </button>
+          }
+        </form>
+      } @else {
+        <div class="alert alert-info">
+          <i class="bi bi-info-circle"></i>
+          No availability set for this experience yet. Please check back later!
+        </div>
+
+        <button class="btn btn-primary w-100" disabled>
+          Not Available
+        </button>
+      }
     </div>
   </div>
 </div>
+
+<ng-template #dayTemplate let-date let-disabled="disabled">
+  <span 
+    class="custom-day" 
+    [class.text-muted]="disabled"
+  >
+    {{ date.day }}
+  </span>
+</ng-template>
+

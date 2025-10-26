@@ -7,6 +7,7 @@ import { VendorApproval } from './pages/admin/vendors/vendor-approval';
 import { ExperienceApproval } from './pages/admin/experiences/experience-approval';
 import { MyListings } from './pages/dashboard/my-listings/my-listings';
 import { ExperienceForm } from './pages/dashboard/experience-form/experience-form';
+import { AvailabilityManager } from './pages/dashboard/availability-manager/availability-manager';
 import { ExperienceList } from './pages/experience-list/experience-list';
 import { ExperienceDetail } from './pages/experience-detail/experience-detail';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
@@ -30,4 +31,5 @@ export const routes: Routes = [
   { path: 'dashboard/my-listings', component: MyListings, canActivate: [vendorGuard] },
   { path: 'dashboard/experience/new', component: ExperienceForm, canActivate: [vendorGuard] },
   { path: 'dashboard/experience/edit/:id', component: ExperienceForm, canActivate: [vendorGuard] },
+  { path: 'dashboard/experience/:id/availability', component: AvailabilityManager, canActivate: [vendorGuard] },
 ];

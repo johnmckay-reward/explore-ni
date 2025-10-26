@@ -14,6 +14,7 @@ const userRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
 const experienceRoutes = require('./routes/experience.routes');
 const publicRoutes = require('./routes/public.routes');
+const availabilityRoutes = require('./routes/availability.routes');
 
 // Initialize the express application
 const app = express();
@@ -51,6 +52,9 @@ app.use('/api/admin', adminRoutes);
 
 // Mount experience routes
 app.use('/api/experiences', experienceRoutes);
+
+// Mount availability routes
+app.use('/api', availabilityRoutes);
 
 // --- Server Start ---
 

@@ -1,0 +1,186 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2>Manage Availability</h2>
+      @if (experience()) {
+        <p class="text-muted mb-0">{{ experience()!.title }}</p>
+      }
+    </div>
+    <div>
+      <a [routerLink]="['/dashboard/my-listings']" class="btn btn-outline-secondary me-2">
+        <i class="bi bi-arrow-left me-2"></i>
+        Back to Listings
+      </a>
+      <button class="btn btn-primary" (click)="openAddSlotModal(slotModal)">
+        <i class="bi bi-plus-circle me-2"></i>
+        Add Time Slot
+      </button>
+    </div>
+  </div>
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else {
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Availability Slots</h5>
+        
+        @if (availabilities().length === 0) {
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No availability slots have been set up yet. Click "Add Time Slot" to get started!
+          </div>
+        } @else {
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Available Slots</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (slot of availabilities(); track slot.id) {
+                  <tr>
+                    <td>{{ slot.date }}</td>
+                    <td>{{ slot.startTime }}</td>
+                    <td>{{ slot.endTime }}</td>
+                    <td>{{ slot.availableSlots }}</td>
+                    <td>
+                      <button 
+                        class="btn btn-sm btn-outline-primary me-2" 
+                        (click)="openEditSlotModal(slotModal, slot)"
+                      >
+                        <i class="bi bi-pencil me-1"></i>
+                        Edit
+                      </button>
+                      <button 
+                        class="btn btn-sm btn-outline-danger" 
+                        (click)="deleteSlot(slot.id!)"
+                      >
+                        <i class="bi bi-trash me-1"></i>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Modal for adding/editing time slots -->
+<ng-template #slotModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">
+      @if (isEditMode()) {
+        Edit Availability Slot
+      } @else {
+        Add Availability Slot
+      }
+    </h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="slotForm">
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input 
+          type="date" 
+          class="form-control" 
+          id="date" 
+          formControlName="date"
+          [class.is-invalid]="isFieldInvalid('date')"
+        >
+        @if (isFieldInvalid('date')) {
+          <div class="invalid-feedback">{{ getFieldError('date') }}</div>
+        }
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="startTime" class="form-label">Start Time</label>
+          <input 
+            type="time" 
+            class="form-control" 
+            id="startTime" 
+            formControlName="startTime"
+            [class.is-invalid]="isFieldInvalid('startTime')"
+          >
+          @if (isFieldInvalid('startTime')) {
+            <div class="invalid-feedback">{{ getFieldError('startTime') }}</div>
+          }
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="endTime" class="form-label">End Time</label>
+          <input 
+            type="time" 
+            class="form-control" 
+            id="endTime" 
+            formControlName="endTime"
+            [class.is-invalid]="isFieldInvalid('endTime')"
+          >
+          @if (isFieldInvalid('endTime')) {
+            <div class="invalid-feedback">{{ getFieldError('endTime') }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="availableSlots" class="form-label">Available Slots</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="availableSlots" 
+          formControlName="availableSlots"
+          [class.is-invalid]="isFieldInvalid('availableSlots')"
+          min="1"
+        >
+        @if (isFieldInvalid('availableSlots')) {
+          <div class="invalid-feedback">{{ getFieldError('availableSlots') }}</div>
+        }
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    @if (isEditMode() && currentSlotId()) {
+      <button 
+        type="button" 
+        class="btn btn-danger me-auto" 
+        (click)="deleteSlot(currentSlotId()!)"
+      >
+        <i class="bi bi-trash me-1"></i>
+        Delete
+      </button>
+    }
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitSlot()">
+      @if (isEditMode()) {
+        Update
+      } @else {
+        Create
+      }
+    </button>
+  </div>
+</ng-template>

@@ -102,7 +102,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, location, duration, price, capacity } = req.body;
+    const { title, description, location, duration, price, capacity, confirmationMode } = req.body;
     const userId = req.user.id;
     const userRole = req.user.role;
 
@@ -125,6 +125,7 @@ router.put('/:id', async (req, res) => {
     if (duration !== undefined) experience.duration = duration;
     if (price !== undefined) experience.price = price;
     if (capacity !== undefined) experience.capacity = capacity;
+    if (confirmationMode !== undefined) experience.confirmationMode = confirmationMode;
 
     await experience.save();
 
@@ -135,6 +136,48 @@ router.put('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error updating experience:', error);
     res.status(500).json({ error: 'Failed to update experience' });
+  }
+});
+
+/**
+ * PUT /api/experiences/:id/confirmation-mode
+ * Update the confirmation mode for an experience
+ */
+router.put('/:id/confirmation-mode', checkRole(['vendor']), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { mode } = req.body;
+    const vendorId = req.user.id;
+
+    // Validate mode
+    if (!mode || !['auto', 'manual'].includes(mode)) {
+      return res.status(400).json({
+        error: 'Invalid mode. Must be either "auto" or "manual"',
+      });
+    }
+
+    const experience = await Experience.findByPk(id);
+    if (!experience) {
+      return res.status(404).json({ error: 'Experience not found' });
+    }
+
+    // Security check: only the vendor who owns this can update
+    if (experience.vendorId !== vendorId) {
+      return res.status(403).json({
+        error: 'Forbidden: You do not have permission to update this experience',
+      });
+    }
+
+    experience.confirmationMode = mode;
+    await experience.save();
+
+    res.json({
+      message: 'Confirmation mode updated successfully',
+      experience,
+    });
+  } catch (error) {
+    console.error('Error updating confirmation mode:', error);
+    res.status(500).json({ error: 'Failed to update confirmation mode' });
   }
 });
 
