@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -32,48 +32,37 @@ export class ExperienceService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   /**
-   * Get authorization headers
-   */
-  private getHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
-
-  /**
    * Create a new experience
    */
   createExperience(experience: Experience): Observable<any> {
-    return this.http.post(this.apiUrl, experience, { headers: this.getHeaders() });
+    return this.http.post(this.apiUrl, experience);
   }
 
   /**
    * Get vendor's listings
    */
   getMyListings(): Observable<Experience[]> {
-    return this.http.get<Experience[]>(`${this.apiUrl}/my-listings`, { headers: this.getHeaders() });
+    return this.http.get<Experience[]>(`${this.apiUrl}/my-listings`);
   }
 
   /**
    * Get a specific experience
    */
   getExperience(id: number): Observable<Experience> {
-    return this.http.get<Experience>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+    return this.http.get<Experience>(`${this.apiUrl}/${id}`);
   }
 
   /**
    * Update an experience
    */
   updateExperience(id: number, experience: Partial<Experience>): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, experience, { headers: this.getHeaders() });
+    return this.http.put(`${this.apiUrl}/${id}`, experience);
   }
 
   /**
    * Delete an experience
    */
   deleteExperience(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`, { headers: this.getHeaders() });
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
