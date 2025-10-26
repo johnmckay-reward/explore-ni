@@ -21,6 +21,7 @@ const availabilityRoutes = require('./routes/availability.routes');
 const bookingRoutes = require('./routes/booking.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const webhookRoutes = require('./routes/webhook.routes');
+const voucherRoutes = require('./routes/voucher.routes');
 
 // Import jobs
 const { startBookingTimeoutJob } = require('./jobs/bookingTimeouts');
@@ -71,6 +72,9 @@ app.use('/api/bookings', bookingRoutes);
 
 // Mount payment routes (MUST be before availability routes to avoid auth middleware)
 app.use('/api/payments', paymentRoutes);
+
+// Mount voucher routes
+app.use('/api/vouchers', voucherRoutes);
 
 // Mount availability routes (has auth middleware, mount LAST among /api routes)
 app.use('/api', availabilityRoutes);
