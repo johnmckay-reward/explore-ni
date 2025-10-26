@@ -48,6 +48,11 @@ const Experience = sequelize.define('Experience', {
     allowNull: false,
     defaultValue: 'pending',
   },
+  confirmationMode: {
+    type: DataTypes.ENUM('auto', 'manual'),
+    allowNull: false,
+    defaultValue: 'auto',
+  },
 });
 
 module.exports = Experience;

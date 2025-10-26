@@ -182,7 +182,13 @@ router.get('/experiences/:id', async (req, res) => {
         {
           model: Availability,
           as: 'availabilities',
+          where: {
+            date: {
+              [Op.gte]: new Date().toISOString().split('T')[0], // Only future dates
+            },
+          },
           attributes: ['id', 'date', 'startTime', 'endTime', 'availableSlots'],
+          required: false, // LEFT JOIN so experiences without availability are still returned
         },
       ],
     });
