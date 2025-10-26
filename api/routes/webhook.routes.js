@@ -1,5 +1,5 @@
 const express = require('express');
-const { Booking, Experience, Availability, User } = require('../models');
+const { Booking, Experience, Availability, User, Voucher } = require('../models');
 const emailService = require('../services/email.service');
 const smsService = require('../services/sms.service');
 
@@ -47,6 +47,15 @@ router.post('/stripe', express.raw({ type: 'application/json' }), async (req, re
     const paymentIntent = event.data.object;
     
     try {
+      // Check if this is a voucher purchase
+      const voucherType = paymentIntent.metadata.voucherType;
+      
+      if (voucherType) {
+        // Handle voucher payment
+        await handleVoucherPayment(paymentIntent);
+        return res.json({ received: true });
+      }
+
       // Get booking ID from metadata
       const bookingId = paymentIntent.metadata.bookingId;
       
@@ -155,8 +164,60 @@ router.post('/stripe', express.raw({ type: 'application/json' }), async (req, re
     }
   }
 
-  // Return a response to acknowledge receipt of the event
   res.json({ received: true });
 });
+
+/**
+ * Handle voucher payment success
+ * @param {Object} paymentIntent - The Stripe PaymentIntent object
+ */
+async function handleVoucherPayment(paymentIntent) {
+  try {
+    const metadata = paymentIntent.metadata;
+    const voucherType = metadata.voucherType;
+
+    // Generate unique voucher code
+    const code = `GIFT-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+    // Prepare voucher data
+    const voucherData = {
+      code,
+      type: voucherType,
+      initialValue: parseFloat(metadata.amount),
+      currentBalance: parseFloat(metadata.amount),
+      isEnabled: true,
+      senderName: metadata.senderName,
+      recipientName: metadata.recipientName,
+      recipientEmail: metadata.recipientEmail,
+      message: metadata.message || null,
+    };
+
+    // Add experience-specific fields
+    if (voucherType === 'experience' && metadata.experienceId) {
+      voucherData.experienceId = parseInt(metadata.experienceId);
+      voucherData.experienceTitle = metadata.experienceTitle;
+    }
+
+    // Create the voucher
+    const voucher = await Voucher.create(voucherData);
+
+    // Send voucher email with PDF
+    await emailService.sendVoucherEmail({
+      code: voucher.code,
+      type: voucher.type,
+      initialValue: voucher.initialValue,
+      senderName: voucher.senderName,
+      recipientName: voucher.recipientName,
+      recipientEmail: voucher.recipientEmail,
+      message: voucher.message,
+      experienceTitle: voucherData.experienceTitle,
+    });
+
+    console.log('[Stripe Webhook] Voucher created and email sent:', voucher.code);
+  } catch (error) {
+    console.error('[Stripe Webhook] Error processing voucher payment:', error);
+    throw error;
+  }
+}
 
 module.exports = router;

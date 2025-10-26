@@ -5,6 +5,7 @@ import { Register } from './pages/register/register';
 import { ApplyVendor } from './pages/apply-vendor/apply-vendor';
 import { VendorApproval } from './pages/admin/vendors/vendor-approval';
 import { ExperienceApproval } from './pages/admin/experiences/experience-approval';
+import { AdminVouchers } from './pages/admin/vouchers/admin-vouchers';
 import { MyListings } from './pages/dashboard/my-listings/my-listings';
 import { ExperienceForm } from './pages/dashboard/experience-form/experience-form';
 import { AvailabilityManager } from './pages/dashboard/availability-manager/availability-manager';
@@ -15,6 +16,8 @@ import { ExperienceDetail } from './pages/experience-detail/experience-detail';
 import { Checkout } from './pages/checkout/checkout';
 import { Payment } from './pages/payment/payment';
 import { PaymentSuccess } from './pages/payment-success/payment-success';
+import { GiftVouchers } from './pages/gift-vouchers/gift-vouchers';
+import { GiftExperience } from './pages/gift-experience/gift-experience';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
 
 export const routes: Routes = [
@@ -33,9 +36,14 @@ export const routes: Routes = [
   { path: 'payment/:bookingId', component: Payment },
   { path: 'payment-success/:bookingId', component: PaymentSuccess },
   
+  // Gift voucher routes
+  { path: 'gift-vouchers', component: GiftVouchers },
+  { path: 'gift-experience/:id', component: GiftExperience },
+  
   // Admin routes
   { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard] },
   { path: 'admin/experiences', component: ExperienceApproval, canActivate: [adminGuard] },
+  { path: 'admin/vouchers', component: AdminVouchers, canActivate: [adminGuard] },
   
   // Vendor dashboard routes
   { path: 'dashboard/my-listings', component: MyListings, canActivate: [vendorGuard] },

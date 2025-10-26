@@ -12,6 +12,11 @@ const Voucher = sequelize.define('Voucher', {
     allowNull: false,
     unique: true,
   },
+  type: {
+    type: DataTypes.ENUM('fixed_amount', 'experience'),
+    allowNull: false,
+    defaultValue: 'fixed_amount',
+  },
   initialValue: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
@@ -19,6 +24,30 @@ const Voucher = sequelize.define('Voucher', {
   currentBalance: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
+  },
+  isEnabled: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  senderName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  recipientName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  recipientEmail: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    validate: {
+      isEmail: true,
+    },
+  },
+  message: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   expiryDate: {
     type: DataTypes.DATE,
@@ -28,13 +57,6 @@ const Voucher = sequelize.define('Voucher', {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,
-  },
-  recipientEmail: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    validate: {
-      isEmail: true,
-    },
   },
   experienceId: {
     type: DataTypes.INTEGER,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgbCarouselModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience } from '../../services/public-experience.service';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
@@ -8,7 +8,7 @@ import { Booking } from '../../components/booking/booking';
 
 @Component({
   selector: 'app-experience-detail',
-  imports: [CommonModule, NgbCarouselModule, NgbRatingModule, ReviewsList, Booking],
+  imports: [CommonModule, RouterLink, NgbCarouselModule, NgbRatingModule, ReviewsList, Booking],
   templateUrl: './experience-detail.html',
   styleUrls: ['./experience-detail.scss']
 })

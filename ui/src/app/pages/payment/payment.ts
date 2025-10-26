@@ -1,12 +1,14 @@
 import { Component, OnInit, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadStripe, Stripe, StripeElements, StripePaymentElement } from '@stripe/stripe-js';
 import { BookingService, BookingDetails } from '../../services/booking.service';
+import { VoucherService } from '../../services/voucher.service';
 
 @Component({
   selector: 'app-payment',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './payment.html',
   styleUrls: ['./payment.scss']
 })
@@ -20,6 +22,14 @@ export class Payment implements OnInit {
   error = signal<string | null>(null);
   success = signal(false);
 
+  // Voucher state
+  voucherCode = '';
+  voucherApplied = signal(false);
+  voucherBalance = signal<number | null>(null);
+  voucherError = signal<string | null>(null);
+  applyingVoucher = signal(false);
+  currentTotal = signal(0);
+
   private stripe: Stripe | null = null;
   private elements: StripeElements | null = null;
   private paymentElementInstance: StripePaymentElement | null = null;
@@ -31,7 +41,8 @@ export class Payment implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private voucherService: VoucherService
   ) {}
 
   async ngOnInit() {
@@ -53,6 +64,7 @@ export class Payment implements OnInit {
       this.bookingService.getBooking(this.bookingId).subscribe({
         next: async (booking) => {
           this.booking.set(booking);
+          this.currentTotal.set(parseFloat(booking.totalPrice.toString()));
           
           // Check if already paid
           if (booking.paymentStatus === 'succeeded') {
@@ -116,6 +128,46 @@ export class Payment implements OnInit {
       console.error('Error initializing Stripe:', err);
       this.error.set('Failed to initialize payment system');
     }
+  }
+
+  applyVoucher() {
+    if (!this.voucherCode) {
+      return;
+    }
+
+    this.applyingVoucher.set(true);
+    this.voucherError.set(null);
+
+    this.voucherService.applyVoucher({
+      code: this.voucherCode,
+      bookingId: this.bookingId,
+    }).subscribe({
+      next: (response) => {
+        this.voucherApplied.set(true);
+        this.voucherBalance.set(parseFloat(response.voucher.currentBalance.toString()));
+        this.currentTotal.set(parseFloat(response.booking.totalPrice.toString()));
+        
+        // Update booking state
+        const currentBooking = this.booking();
+        if (currentBooking) {
+          currentBooking.totalPrice = response.booking.totalPrice;
+          currentBooking.paymentStatus = response.booking.paymentStatus as any;
+          this.booking.set({ ...currentBooking });
+        }
+
+        this.applyingVoucher.set(false);
+
+        // If total is now 0, booking is fully paid
+        if (this.currentTotal() === 0) {
+          this.success.set(true);
+        }
+      },
+      error: (err) => {
+        console.error('Error applying voucher:', err);
+        this.voucherError.set(err.error?.error || 'Failed to apply voucher');
+        this.applyingVoucher.set(false);
+      }
+    });
   }
 
   async handlePayment() {
