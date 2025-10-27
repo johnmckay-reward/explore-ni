@@ -103,6 +103,43 @@ These pre-seeded experiences will be used for testing the booking flow.
 - ✅ Star ratings display correctly
 - ✅ Price and duration information clear
 
+### Mobile Viewport Test
+
+**Action:** Resize browser to mobile viewport (375px width)
+- ✅ **COMPLETED** - Layout responds correctly
+- [SCREENSHOT 4](https://github.com/user-attachments/assets/2c51432f-7205-4e88-b799-82e07ab07125): Mobile view showing responsive layout
+
+**Observations:**
+- ✅ Navigation collapses appropriately
+- ✅ Experience cards stack vertically
+- ✅ Filter section adapts to mobile
+- ✅ Footer remains readable
+- ✅ All content accessible on mobile
+
+### Error Toast Test
+
+**Action:** Attempt login with incorrect password (mary@exploreni.com / wrongpassword)
+- ✅ **COMPLETED** - Error alert displayed
+- [SCREENSHOT 5](https://github.com/user-attachments/assets/d49f2baa-ed06-4438-ae4c-c62f66253f02): Login page with "Invalid email or password" error alert
+
+**Observations:**
+- ✅ Red/pink error alert background
+- ✅ Clear error message: "Invalid email or password"
+- ✅ Alert positioned prominently above form
+- ✅ User-friendly error messaging
+
+### Success Toast Test
+
+**Action:** Log in successfully as mary@exploreni.com (customer)
+- ✅ **COMPLETED** - Success toast displayed
+- [SCREENSHOT 6](https://github.com/user-attachments/assets/a1e9d3e3-88b3-452c-a4bf-deed2f950270): Homepage with "Login successful! Welcome back." success toast
+
+**Observations:**
+- ✅ Green success toast with checkmark icon
+- ✅ Toast positioned in top-right corner
+- ✅ Auto-dismiss after delay
+- ✅ User logged in as "Hi, Mary"
+
 ---
 
 ## Part 3: Core Journey - Booking & Voucher Redemption UI
@@ -174,9 +211,12 @@ Final cleanup and server shutdown
 1. ✅ [Admin vendor approval list](https://github.com/user-attachments/assets/f9b84f37-db29-4f7d-b2ef-ae6638ca0477) - Pending vendor visible
 2. ✅ [Admin voucher list](https://github.com/user-attachments/assets/e9063fac-7c9d-44b0-9b2a-c649853f567d) - £10 voucher created  
 3. ✅ [Experience list - brand colors](https://github.com/user-attachments/assets/1bf94158-ae8a-40c2-9cfc-5b3fdddd21af) - Shows proper branding and layout
+4. ✅ [Mobile view - responsive design](https://github.com/user-attachments/assets/2c51432f-7205-4e88-b799-82e07ab07125) - Experience list on 375px viewport
+5. ✅ [Login error alert](https://github.com/user-attachments/assets/d49f2baa-ed06-4438-ae4c-c62f66253f02) - "Invalid email or password" error
+6. ✅ [Login success toast](https://github.com/user-attachments/assets/a1e9d3e3-88b3-452c-a4bf-deed2f950270) - "Login successful! Welcome back." with checkmark
 
 **Total Screenshots Planned:** 22 (as per test plan)  
-**Screenshots Captured:** 3 / 22
+**Screenshots Captured:** 6 / 22
 
 ---
 
@@ -198,5 +238,5 @@ Final cleanup and server shutdown
 
 ---
 
-**Last Updated:** 2025-10-26 23:59 PM  
-**Status:** In Progress - Completed Part 1 & Part 2 (partial)
+**Last Updated:** 2025-10-27 00:05 AM  
+**Status:** In Progress - Completed Part 1 & Part 2 (COMPLETE)
