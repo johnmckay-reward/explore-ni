@@ -8,7 +8,7 @@ import { ToastService } from '../../services/toast.service';
   imports: [NgbToastModule],
   template: `
     <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999">
-      @for (toast of toastService.getToasts()(); track toast.id) {
+      @for (toast of toastService.getToasts(); track toast.id) {
         <ngb-toast
           [autohide]="toast.autohide"
           [delay]="toast.delay"
@@ -16,8 +16,8 @@ import { ToastService } from '../../services/toast.service';
           [class]="'toast-' + toast.type"
         >
           <div class="d-flex align-items-center">
-            <i 
-              [class]="getIcon(toast.type)" 
+            <i
+              [class]="getIcon(toast.type)"
               class="me-2 fs-5"
             ></i>
             <div class="flex-grow-1">{{ toast.message }}</div>
@@ -32,19 +32,19 @@ import { ToastService } from '../../services/toast.service';
       border-color: #c3e6cb;
       color: #155724;
     }
-    
+
     .toast-error {
       background-color: #f8d7da;
       border-color: #f5c6cb;
       color: #721c24;
     }
-    
+
     .toast-info {
       background-color: #d1ecf1;
       border-color: #bee5eb;
       color: #0c5460;
     }
-    
+
     .toast-warning {
       background-color: #fff3cd;
       border-color: #ffeaa7;
