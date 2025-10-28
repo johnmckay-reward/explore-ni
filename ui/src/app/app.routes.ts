@@ -20,6 +20,16 @@ import { PaymentSuccess } from './pages/payment-success/payment-success';
 import { GiftVouchers } from './pages/gift-vouchers/gift-vouchers';
 import { GiftExperience } from './pages/gift-experience/gift-experience';
 import { HotelLanding } from './pages/hotel-landing/hotel-landing';
+import { Destinations } from './pages/destinations/destinations';
+import { HotDeals } from './pages/hot-deals/hot-deals';
+import { About } from './pages/about/about';
+import { Contact } from './pages/contact/contact';
+import { Events } from './pages/events/events';
+import { Faq } from './pages/faq/faq';
+import { Privacy } from './pages/privacy/privacy';
+import { Terms } from './pages/terms/terms';
+import { AccountBookings } from './pages/account/bookings/account-bookings';
+import { AccountProfile } from './pages/account/profile/account-profile';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
 
 export const routes: Routes = [
@@ -28,6 +38,16 @@ export const routes: Routes = [
   { path: 'login', component: Login, title: 'Login | NI Experiences' },
   { path: 'register', component: Register, title: 'Create an Account | NI Experiences' },
   { path: 'apply-vendor', component: ApplyVendor, canActivate: [authGuard], title: 'Apply to be a Vendor | NI Experiences' },
+
+  // Public informational routes
+  { path: 'destinations', component: Destinations, title: 'Destinations | NI Experiences' },
+  { path: 'hot-deals', component: HotDeals, title: 'Hot Deals | NI Experiences' },
+  { path: 'about', component: About, title: 'About Us | NI Experiences' },
+  { path: 'contact', component: Contact, title: 'Contact Us | NI Experiences' },
+  { path: 'events', component: Events, title: 'Events | NI Experiences' },
+  { path: 'faq', component: Faq, title: 'FAQ | NI Experiences' },
+  { path: 'privacy', component: Privacy, title: 'Privacy Policy | NI Experiences' },
+  { path: 'terms', component: Terms, title: 'Terms of Use | NI Experiences' },
 
   // Public marketplace routes
   { path: 'experiences', component: ExperienceList, title: 'All Experiences | NI Experiences' },
@@ -45,6 +65,10 @@ export const routes: Routes = [
   // Gift voucher routes
   { path: 'gift-vouchers', component: GiftVouchers, title: 'Gift Vouchers | NI Experiences' },
   { path: 'gift-experience/:id', component: GiftExperience, title: 'Gift an Experience | NI Experiences' },
+
+  // Account routes (for authenticated users)
+  { path: 'account/bookings', component: AccountBookings, canActivate: [authGuard], title: 'My Bookings | NI Experiences' },
+  { path: 'account/profile', component: AccountProfile, canActivate: [authGuard], title: 'My Profile | NI Experiences' },
 
   // Admin routes
   { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard], title: 'Admin: Vendor Approvals | NI Experiences' },
