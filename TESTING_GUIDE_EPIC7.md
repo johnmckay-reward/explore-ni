@@ -117,7 +117,7 @@ curl -X POST http://localhost:3000/api/vouchers/apply \
 ### 4. Admin Voucher Management
 
 **Steps:**
-1. Login as admin (admin@exploreni.com / admin123)
+1. Login as admin (admin@niexperiences.co.uk / admin123)
 2. Navigate to `http://localhost:4200/admin/vouchers`
 3. View the vouchers list
 

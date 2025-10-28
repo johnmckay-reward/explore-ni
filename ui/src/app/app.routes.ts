@@ -24,39 +24,39 @@ import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
 
 export const routes: Routes = [
   // Core public routes
-  { path: '', component: Home, title: 'Discover Local Experiences | Experience NI' },
-  { path: 'login', component: Login, title: 'Login | Experience NI' },
-  { path: 'register', component: Register, title: 'Create an Account | Experience NI' },
-  { path: 'apply-vendor', component: ApplyVendor, canActivate: [authGuard], title: 'Apply to be a Vendor | Experience NI' },
+  { path: '', component: Home, title: 'Discover Local Experiences | NI Experiences' },
+  { path: 'login', component: Login, title: 'Login | NI Experiences' },
+  { path: 'register', component: Register, title: 'Create an Account | NI Experiences' },
+  { path: 'apply-vendor', component: ApplyVendor, canActivate: [authGuard], title: 'Apply to be a Vendor | NI Experiences' },
 
   // Public marketplace routes
-  { path: 'experiences', component: ExperienceList, title: 'All Experiences | Experience NI' },
-  { path: 'category/:slug', component: ExperienceList, title: 'Browse Category | Experience NI' }, // Note: Dynamic title needs a TitleStrategy
-  { path: 'experience/:id', component: ExperienceDetail, title: 'Experience Details | Experience NI' }, // Note: Dynamic title needs a TitleStrategy
+  { path: 'experiences', component: ExperienceList, title: 'All Experiences | NI Experiences' },
+  { path: 'category/:slug', component: ExperienceList, title: 'Browse Category | NI Experiences' }, // Note: Dynamic title needs a TitleStrategy
+  { path: 'experience/:id', component: ExperienceDetail, title: 'Experience Details | NI Experiences' }, // Note: Dynamic title needs a TitleStrategy
 
   // Hotel partner landing page
-  { path: 'partner/:slug', component: HotelLanding, title: 'Partner Offers | Experience NI' },
+  { path: 'partner/:slug', component: HotelLanding, title: 'Partner Offers | NI Experiences' },
 
   // Booking and payment routes
-  { path: 'checkout/:id', component: Checkout, title: 'Checkout | Experience NI' },
-  { path: 'payment/:bookingId', component: Payment, title: 'Secure Payment | Experience NI' },
-  { path: 'payment-success/:bookingId', component: PaymentSuccess, title: 'Booking Confirmed | Experience NI' },
+  { path: 'checkout/:id', component: Checkout, title: 'Checkout | NI Experiences' },
+  { path: 'payment/:bookingId', component: Payment, title: 'Secure Payment | NI Experiences' },
+  { path: 'payment-success/:bookingId', component: PaymentSuccess, title: 'Booking Confirmed | NI Experiences' },
 
   // Gift voucher routes
-  { path: 'gift-vouchers', component: GiftVouchers, title: 'Gift Vouchers | Experience NI' },
-  { path: 'gift-experience/:id', component: GiftExperience, title: 'Gift an Experience | Experience NI' },
+  { path: 'gift-vouchers', component: GiftVouchers, title: 'Gift Vouchers | NI Experiences' },
+  { path: 'gift-experience/:id', component: GiftExperience, title: 'Gift an Experience | NI Experiences' },
 
   // Admin routes
-  { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard], title: 'Admin: Vendor Approvals | Experience NI' },
-  { path: 'admin/experiences', component: ExperienceApproval, canActivate: [adminGuard], title: 'Admin: Experience Approvals | Experience NI' },
-  { path: 'admin/vouchers', component: AdminVouchers, canActivate: [adminGuard], title: 'Admin: Manage Vouchers | Experience NI' },
-  { path: 'admin/settings', component: AdminSettings, canActivate: [adminGuard], title: 'Admin: Settings | Experience NI' },
+  { path: 'admin/vendors', component: VendorApproval, canActivate: [adminGuard], title: 'Admin: Vendor Approvals | NI Experiences' },
+  { path: 'admin/experiences', component: ExperienceApproval, canActivate: [adminGuard], title: 'Admin: Experience Approvals | NI Experiences' },
+  { path: 'admin/vouchers', component: AdminVouchers, canActivate: [adminGuard], title: 'Admin: Manage Vouchers | NI Experiences' },
+  { path: 'admin/settings', component: AdminSettings, canActivate: [adminGuard], title: 'Admin: Settings | NI Experiences' },
 
   // Vendor dashboard routes
-  { path: 'dashboard/my-listings', component: MyListings, canActivate: [vendorGuard], title: 'Dashboard: My Listings | Experience NI' },
-  { path: 'dashboard/experience/new', component: ExperienceForm, canActivate: [vendorGuard], title: 'Dashboard: New Experience | Experience NI' },
-  { path: 'dashboard/experience/edit/:id', component: ExperienceForm, canActivate: [vendorGuard], title: 'Dashboard: Edit Experience | Experience NI' },
-  { path: 'dashboard/experience/:id/availability', component: AvailabilityManager, canActivate: [vendorGuard], title: 'Dashboard: Manage Availability | Experience NI' },
-  { path: 'dashboard/profile', component: VendorProfile, canActivate: [vendorGuard], title: 'Dashboard: Vendor Profile | Experience NI' },
-  { path: 'dashboard/requests', component: BookingRequests, canActivate: [vendorGuard], title: 'Dashboard: Booking Requests | Experience NI' },
+  { path: 'dashboard/my-listings', component: MyListings, canActivate: [vendorGuard], title: 'Dashboard: My Listings | NI Experiences' },
+  { path: 'dashboard/experience/new', component: ExperienceForm, canActivate: [vendorGuard], title: 'Dashboard: New Experience | NI Experiences' },
+  { path: 'dashboard/experience/edit/:id', component: ExperienceForm, canActivate: [vendorGuard], title: 'Dashboard: Edit Experience | NI Experiences' },
+  { path: 'dashboard/experience/:id/availability', component: AvailabilityManager, canActivate: [vendorGuard], title: 'Dashboard: Manage Availability | NI Experiences' },
+  { path: 'dashboard/profile', component: VendorProfile, canActivate: [vendorGuard], title: 'Dashboard: Vendor Profile | NI Experiences' },
+  { path: 'dashboard/requests', component: BookingRequests, canActivate: [vendorGuard], title: 'Dashboard: Booking Requests | NI Experiences' },
 ];

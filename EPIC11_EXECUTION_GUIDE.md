@@ -40,7 +40,7 @@ The test validates UI flows and internal logic only.
 ```bash
 # Clone repository
 git clone <repository-url>
-cd explore-ni
+cd niexperiences
 
 # Install API dependencies
 cd api
@@ -57,7 +57,7 @@ npm install
 
 ```bash
 # Navigate to API directory
-cd explore-ni/api
+cd niexperiences/api
 
 # Delete existing database (if any)
 rm database.sqlite
@@ -103,7 +103,7 @@ The API will:
 Open a **NEW terminal window**:
 
 ```bash
-# From explore-ni root directory
+# From niexperiences root directory
 cd ui
 npm start
 ```
@@ -117,7 +117,7 @@ The UI will start on `http://localhost:4200`
 Open a **THIRD terminal window**:
 
 ```bash
-# From explore-ni root directory
+# From niexperiences root directory
 cd ui
 
 # Run Epic 11 regression test
@@ -326,9 +326,9 @@ This test is designed for **Chrome/Chromium** browsers. Other browsers (Firefox,
 ### Test Data Dependencies
 
 This test relies on default seed data from `api/config/seed.js`:
-- Admin user: `admin@exploreni.com`
-- Vendors: `davy@exploreni.com`, `ciaran@exploreni.com`
-- Customers: `mary@exploreni.com`, `paddy@exploreni.com`, `shauna@exploreni.com`
+- Admin user: `admin@niexperiences.co.uk`
+- Vendors: `davy@niexperiences.co.uk`, `ciaran@niexperiences.co.uk`
+- Customers: `mary@niexperiences.co.uk`, `paddy@niexperiences.co.uk`, `shauna@niexperiences.co.uk`
 - Experiences: `City Bike Tour`, `Private Art Class`
 
 If seed data changes, test may need updates.

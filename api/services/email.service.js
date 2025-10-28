@@ -29,7 +29,7 @@ const sendBookingConfirmation = async (bookingDetails) => {
 
     const msg = {
       to: bookingDetails.customerEmail,
-      from: 'noreply@explore-ni.com', // Use your verified sender
+      from: 'noreply@niexperiences.co.uk', // Use your verified sender
       subject: `Booking Confirmed - ${bookingDetails.experienceTitle}`,
       html: `
         <h2>Your Booking is Confirmed!</h2>
@@ -42,7 +42,7 @@ const sendBookingConfirmation = async (bookingDetails) => {
           <li><strong>Total Price:</strong> £${bookingDetails.totalPrice}</li>
           <li><strong>Booking ID:</strong> ${bookingDetails.bookingId}</li>
         </ul>
-        <p>Thank you for choosing Explore NI!</p>
+        <p>Thank you for choosing NI Experiences!</p>
       `,
     };
 
@@ -68,7 +68,7 @@ const sendPaymentReceipt = async (bookingDetails) => {
 
     const msg = {
       to: bookingDetails.customerEmail,
-      from: 'noreply@explore-ni.com', // Use your verified sender
+      from: 'noreply@niexperiences.co.uk', // Use your verified sender
       subject: `Payment Receipt - Booking #${bookingDetails.bookingId}`,
       html: `
         <h2>Payment Receipt</h2>
@@ -108,7 +108,7 @@ const sendVendorNewRequest = async (bookingDetails) => {
 
     const msg = {
       to: bookingDetails.vendorEmail,
-      from: 'noreply@explore-ni.com', // Use your verified sender
+      from: 'noreply@niexperiences.co.uk', // Use your verified sender
       subject: `New Booking Request - ${bookingDetails.experienceTitle}`,
       html: `
         <h2>New Booking Request</h2>
@@ -149,7 +149,7 @@ const sendBookingDeclined = async (bookingDetails) => {
 
     const msg = {
       to: bookingDetails.customerEmail,
-      from: 'noreply@explore-ni.com', // Use your verified sender
+      from: 'noreply@niexperiences.co.uk', // Use your verified sender
       subject: `Booking Declined - ${bookingDetails.experienceTitle}`,
       html: `
         <h2>Booking Declined</h2>
@@ -163,7 +163,7 @@ const sendBookingDeclined = async (bookingDetails) => {
           <li><strong>Booking ID:</strong> ${bookingDetails.bookingId}</li>
         </ul>
         <p>A full refund has been processed and will appear in your account within 5-10 business days.</p>
-        <p>We apologize for any inconvenience. Please browse our other experiences at <a href="${process.env.UI_BASE_URL}">Explore NI</a>.</p>
+        <p>We apologize for any inconvenience. Please browse our other experiences at <a href="${process.env.UI_BASE_URL}">NI Experiences</a>.</p>
       `,
     };
 
@@ -299,7 +299,7 @@ const generateVoucherPDF = async (voucher) => {
     }
 
     // Draw footer
-    page.drawText('Visit explore-ni.com to redeem this voucher', {
+    page.drawText('Visit niexperiences.co.uk to redeem this voucher', {
       x: 50,
       y: 50,
       size: 10,
@@ -341,7 +341,7 @@ const sendVoucherEmail = async (voucher) => {
 
     const msg = {
       to: voucher.recipientEmail,
-      from: 'noreply@explore-ni.com',
+      from: 'noreply@niexperiences.co.uk',
       subject: `You've Received a Gift Voucher from ${voucher.senderName || 'NI Experiences'}!`,
       html: `
         <h2>You've Received a Gift Voucher!</h2>
@@ -354,7 +354,7 @@ const sendVoucherEmail = async (voucher) => {
           <li><strong>Value:</strong> ${valueDescription}</li>
         </ul>
         <p>Your gift voucher is attached to this email as a PDF. You can print it or save it for your records.</p>
-        <p>To redeem your voucher, visit our website at <a href="${process.env.UI_BASE_URL || 'https://explore-ni.com'}">${process.env.UI_BASE_URL || 'explore-ni.com'}</a> and enter your voucher code at checkout.</p>
+        <p>To redeem your voucher, visit our website at <a href="${process.env.UI_BASE_URL || 'https://niexperiences.co.uk'}">${process.env.UI_BASE_URL || 'niexperiences.co.uk'}</a> and enter your voucher code at checkout.</p>
         <p>We hope you enjoy your NI Experience!</p>
         <p>Best regards,<br>The NI Experiences Team</p>
       `,

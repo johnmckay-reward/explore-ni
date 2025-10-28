@@ -1,6 +1,6 @@
 # Epic 7: Gift Vouchers - Implementation Summary
 
-This document summarizes the complete implementation of the gift voucher system for the Explore NI application.
+This document summarizes the complete implementation of the gift voucher system for the NI Experiences application.
 
 ## Overview
 
@@ -319,7 +319,7 @@ Track these metrics post-deployment:
 
 ## Summary
 
-This implementation provides a complete, production-ready gift voucher system that enhances the Explore NI platform with a key revenue feature. The system is secure, user-friendly, and follows best practices for e-commerce gift card functionality.
+This implementation provides a complete, production-ready gift voucher system that enhances the NI Experiences platform with a key revenue feature. The system is secure, user-friendly, and follows best practices for e-commerce gift card functionality.
 
 **Status:** ✓ Complete and Ready for Review
 **Build Status:** ✓ Passing

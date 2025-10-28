@@ -122,9 +122,9 @@ npx cypress run --spec "cypress/e2e/epic11-final-regression.cy.js"
 ## 🎓 Test Data
 
 ### User Accounts
-- **Admin**: admin@exploreni.com / admin123
-- **Vendor**: davy@exploreni.com / vendor123
-- **Customer**: mary@exploreni.com / customer123
+- **Admin**: admin@niexperiences.co.uk / admin123
+- **Vendor**: davy@niexperiences.co.uk / vendor123
+- **Customer**: mary@niexperiences.co.uk / customer123
 
 ### Test Voucher
 - **Code**: EPIC11-TEST-10

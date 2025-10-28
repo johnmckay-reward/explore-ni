@@ -390,4 +390,4 @@ Time:        1.494 s
 
 **Implementation Date**: 2024-01-15  
 **Status**: ✅ COMPLETE & PRODUCTION-READY  
-**Team**: Explore NI Development Team
+**Team**: NI Experiences Development Team

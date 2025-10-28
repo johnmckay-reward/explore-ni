@@ -1,6 +1,6 @@
-# Explore NI UI
+# NI Experiences UI
 
-Frontend application for the Explore NI platform - a marketplace for Northern Ireland experiences.
+Frontend application for the NI Experiences platform - a marketplace for Northern Ireland experiences.
 
 ## Tech Stack
 
@@ -230,7 +230,7 @@ export const environment = {
 // src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://api.explore-ni.com', // Your production API URL
+  apiUrl: 'https://api.niexperiences.co.uk', // Your production API URL
 };
 ```
 
@@ -239,15 +239,15 @@ export const environment = {
 After API seeding, you can log in with:
 
 **Admin:**
-- Email: `admin@exploreni.com`
+- Email: `admin@niexperiences.co.uk`
 - Password: `admin123`
 
 **Vendor:**
-- Email: `davy@exploreni.com`
+- Email: `davy@niexperiences.co.uk`
 - Password: `vendor123`
 
 **Customer:**
-- Email: `mary@exploreni.com`
+- Email: `mary@niexperiences.co.uk`
 - Password: `customer123`
 
 ## Troubleshooting

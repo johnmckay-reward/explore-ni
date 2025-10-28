@@ -51,11 +51,11 @@ async function seedQAData() {
     console.log('Creating test users...');
     
     const [admin] = await User.findOrCreate({
-      where: { email: 'admin@exploreni.com' },
+      where: { email: 'admin@niexperiences.co.uk' },
       defaults: {
         firstName: 'Admin',
         lastName: 'User',
-        email: 'admin@exploreni.com',
+        email: 'admin@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('admin123', 10),
         role: 'admin',
         status: 'active',
@@ -64,11 +64,11 @@ async function seedQAData() {
     console.log('  ✓ Admin user ready');
 
     const [vendorDavy] = await User.findOrCreate({
-      where: { email: 'davy@exploreni.com' },
+      where: { email: 'davy@niexperiences.co.uk' },
       defaults: {
         firstName: 'Davy',
         lastName: 'McWilliams',
-        email: 'davy@exploreni.com',
+        email: 'davy@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('vendor123', 10),
         role: 'vendor',
         status: 'active',
@@ -79,11 +79,11 @@ async function seedQAData() {
     console.log('  ✓ Vendor Davy ready');
 
     const [vendorSiobhan] = await User.findOrCreate({
-      where: { email: 'siobhan@exploreni.com' },
+      where: { email: 'siobhan@niexperiences.co.uk' },
       defaults: {
         firstName: 'Siobhan',
         lastName: 'O\'Neill',
-        email: 'siobhan@exploreni.com',
+        email: 'siobhan@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('vendor123', 10),
         role: 'vendor',
         status: 'active',
@@ -94,11 +94,11 @@ async function seedQAData() {
     console.log('  ✓ Vendor Siobhan ready');
 
     const [pendingVendor] = await User.findOrCreate({
-      where: { email: 'ciaran@exploreni.com' },
+      where: { email: 'ciaran@niexperiences.co.uk' },
       defaults: {
         firstName: 'Ciaran',
         lastName: 'Murphy',
-        email: 'ciaran@exploreni.com',
+        email: 'ciaran@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('vendor123', 10),
         role: 'vendor',
         status: 'pending_vendor'
@@ -107,11 +107,11 @@ async function seedQAData() {
     console.log('  ✓ Pending Vendor Ciaran ready');
 
     const [customerMary] = await User.findOrCreate({
-      where: { email: 'mary@exploreni.com' },
+      where: { email: 'mary@niexperiences.co.uk' },
       defaults: {
         firstName: 'Mary',
         lastName: 'Magee',
-        email: 'mary@exploreni.com',
+        email: 'mary@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('customer123', 10),
         role: 'customer',
         status: 'active'
@@ -120,11 +120,11 @@ async function seedQAData() {
     console.log('  ✓ Customer Mary ready');
 
     const [customerPaddy] = await User.findOrCreate({
-      where: { email: 'paddy@exploreni.com' },
+      where: { email: 'paddy@niexperiences.co.uk' },
       defaults: {
         firstName: 'Paddy',
         lastName: 'Johnston',
-        email: 'paddy@exploreni.com',
+        email: 'paddy@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('customer123', 10),
         role: 'customer',
         status: 'active'
@@ -133,11 +133,11 @@ async function seedQAData() {
     console.log('  ✓ Customer Paddy ready');
 
     const [customerShauna] = await User.findOrCreate({
-      where: { email: 'shauna@exploreni.com' },
+      where: { email: 'shauna@niexperiences.co.uk' },
       defaults: {
         firstName: 'Shauna',
         lastName: 'Kelly',
-        email: 'shauna@exploreni.com',
+        email: 'shauna@niexperiences.co.uk',
         passwordHash: await bcrypt.hash('customer123', 10),
         role: 'customer',
         status: 'active'
@@ -347,13 +347,13 @@ async function seedQAData() {
     console.log('✅ QA Test Data Seeding Complete!\n');
     console.log('═══════════════════════════════════════');
     console.log('Test Accounts:');
-    console.log('  Admin:          admin@exploreni.com / admin123');
-    console.log('  Vendor (Active): davy@exploreni.com / vendor123');
-    console.log('  Vendor (Active): siobhan@exploreni.com / vendor123');
-    console.log('  Vendor (Pending): ciaran@exploreni.com / vendor123');
-    console.log('  Customer:       mary@exploreni.com / customer123');
-    console.log('  Customer:       paddy@exploreni.com / customer123');
-    console.log('  Customer:       shauna@exploreni.com / customer123');
+    console.log('  Admin:          admin@niexperiences.co.uk / admin123');
+    console.log('  Vendor (Active): davy@niexperiences.co.uk / vendor123');
+    console.log('  Vendor (Active): siobhan@niexperiences.co.uk / vendor123');
+    console.log('  Vendor (Pending): ciaran@niexperiences.co.uk / vendor123');
+    console.log('  Customer:       mary@niexperiences.co.uk / customer123');
+    console.log('  Customer:       paddy@niexperiences.co.uk / customer123');
+    console.log('  Customer:       shauna@niexperiences.co.uk / customer123');
     console.log('\nTest Experiences:');
     console.log('  - City Bike Tour (auto-confirm, £100)');
     console.log('  - Private Art Class (manual-confirm, £80)');

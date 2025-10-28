@@ -22,7 +22,7 @@ This document logs the manual execution of the Epic 11 regression test plan with
 
 **Action:** Start the API server
 - ✅ **COMPLETED** - API server started on http://localhost:3000
-- Database seeded with test users (admin@exploreni.com, davy@exploreni.com, ciaran@exploreni.com, mary@exploreni.com, etc.)
+- Database seeded with test users (admin@niexperiences.co.uk, davy@niexperiences.co.uk, ciaran@niexperiences.co.uk, mary@niexperiences.co.uk, etc.)
 
 **Action:** Start the UI server  
 - ✅ **COMPLETED** - UI server started on http://localhost:4200
@@ -30,25 +30,25 @@ This document logs the manual execution of the Epic 11 regression test plan with
 ### Step 3: Users Already Registered
 
 **Note:** The system comes pre-seeded with test users from seed.js:
-- ✅ admin@exploreni.com (admin123)
-- ✅ davy@exploreni.com (vendor123) - approved vendor
-- ✅ siobhan@exploreni.com (vendor123) - approved vendor
-- ✅ ciaran@exploreni.com (vendor123) - pending vendor
-- ✅ mary@exploreni.com (customer123)
-- ✅ paddy@exploreni.com (customer123)
-- ✅ shauna@exploreni.com (customer123)
+- ✅ admin@niexperiences.co.uk (admin123)
+- ✅ davy@niexperiences.co.uk (vendor123) - approved vendor
+- ✅ siobhan@niexperiences.co.uk (vendor123) - approved vendor
+- ✅ ciaran@niexperiences.co.uk (vendor123) - pending vendor
+- ✅ mary@niexperiences.co.uk (customer123)
+- ✅ paddy@niexperiences.co.uk (customer123)
+- ✅ shauna@niexperiences.co.uk (customer123)
 
 ### Step 4-7: Vendor Approval
 
-**Action:** Login as admin@exploreni.com
+**Action:** Login as admin@niexperiences.co.uk
 - ✅ **COMPLETED** - Successfully logged in
 - Toast message shown: "Login successful! Welcome back."
 
 **Action:** Navigate to /admin/vendors
 - ✅ **COMPLETED** - Vendor approval queue loaded
-- [SCREENSHOT 1](https://github.com/user-attachments/assets/f9b84f37-db29-4f7d-b2ef-ae6638ca0477): Admin vendor approval list showing pending vendor (Ciaran Murphy - ciaran@exploreni.com)
+- [SCREENSHOT 1](https://github.com/user-attachments/assets/f9b84f37-db29-4f7d-b2ef-ae6638ca0477): Admin vendor approval list showing pending vendor (Ciaran Murphy - ciaran@niexperiences.co.uk)
 
-**Action:** Approve vendor ciaran@exploreni.com
+**Action:** Approve vendor ciaran@niexperiences.co.uk
 - ✅ **COMPLETED** - Clicked "Approve" button, confirmed dialog
 - Toast message shown: "Vendor approved successfully!"
 - Vendor approval queue now shows: "No pending vendor applications"
@@ -118,7 +118,7 @@ These pre-seeded experiences will be used for testing the booking flow.
 
 ### Error Toast Test
 
-**Action:** Attempt login with incorrect password (mary@exploreni.com / wrongpassword)
+**Action:** Attempt login with incorrect password (mary@niexperiences.co.uk / wrongpassword)
 - ✅ **COMPLETED** - Error alert displayed
 - [SCREENSHOT 5](https://github.com/user-attachments/assets/d49f2baa-ed06-4438-ae4c-c62f66253f02): Login page with "Invalid email or password" error alert
 
@@ -130,7 +130,7 @@ These pre-seeded experiences will be used for testing the booking flow.
 
 ### Success Toast Test
 
-**Action:** Log in successfully as mary@exploreni.com (customer)
+**Action:** Log in successfully as mary@niexperiences.co.uk (customer)
 - ✅ **COMPLETED** - Success toast displayed
 - [SCREENSHOT 6](https://github.com/user-attachments/assets/a1e9d3e3-88b3-452c-a4bf-deed2f950270): Homepage with "Login successful! Welcome back." success toast
 
@@ -148,7 +148,7 @@ These pre-seeded experiences will be used for testing the booking flow.
 
 ### Booking Flow Started
 
-**Action:** As customer (mary@exploreni.com), select "Strangford Lough Sea Kayaking Adventure" (£50)
+**Action:** As customer (mary@niexperiences.co.uk), select "Strangford Lough Sea Kayaking Adventure" (£50)
 - ✅ **COMPLETED** - Experience detail page loaded
 - Shows £50 per person
 - Date picker available (November 4, 2025)
@@ -173,7 +173,7 @@ These pre-seeded experiences will be used for testing the booking flow.
 
 **Next Steps:**
 1. Logout from customer account
-2. Login as davy@exploreni.com (vendor)
+2. Login as davy@niexperiences.co.uk (vendor)
 3. Navigate to /dashboard/my-listings - [SCREENSHOT: Vendor "My Listings" page]
 4. Navigate to /dashboard/requests - [SCREENSHOT: Vendor "Booking Requests" page]
 5. Navigate to /dashboard/profile - [SCREENSHOT: Vendor "Profile" page]
@@ -187,7 +187,7 @@ These pre-seeded experiences will be used for testing the booking flow.
 **Status:** NOT STARTED
 
 **Next Steps:**
-1. Login as admin@exploreni.com
+1. Login as admin@niexperiences.co.uk
 2. Navigate to /admin/settings - [SCREENSHOT: Admin "Settings" page]
 3. Navigate to /admin/vouchers - Verify £10 voucher visible
 4. Test security: Customer blocked from /admin and /dashboard
@@ -214,10 +214,10 @@ Final cleanup and server shutdown.
 - **Status:** Active, unused
 
 ### User Credentials
-- **Admin:** admin@exploreni.com / admin123
-- **Vendor (Approved):** davy@exploreni.com / vendor123
-- **Vendor (Newly Approved):** ciaran@exploreni.com / vendor123
-- **Customer:** mary@exploreni.com / customer123
+- **Admin:** admin@niexperiences.co.uk / admin123
+- **Vendor (Approved):** davy@niexperiences.co.uk / vendor123
+- **Vendor (Newly Approved):** ciaran@niexperiences.co.uk / vendor123
+- **Customer:** mary@niexperiences.co.uk / customer123
 
 ### Experiences (Pre-seeded)
 - City Bike Tour (£100, auto-confirm)

@@ -1,6 +1,6 @@
 # Booking & Payment System - Setup Guide
 
-This guide explains how to set up and use the booking and payment system for Explore NI.
+This guide explains how to set up and use the booking and payment system for NI Experiences.
 
 ## Overview
 

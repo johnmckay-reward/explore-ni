@@ -38,7 +38,7 @@ This guide provides step-by-step instructions for executing the comprehensive QA
 ```bash
 # Clone repository
 git clone <repository-url>
-cd explore-ni
+cd niexperiences
 
 # Install API dependencies
 cd api
@@ -109,7 +109,7 @@ npm start
 
 Then:
 1. Navigate to `http://localhost:4200/login`
-2. Login as admin: `admin@exploreni.com` / `admin123`
+2. Login as admin: `admin@niexperiences.co.uk` / `admin123`
 3. Go to `/admin/settings`
 4. Configure all API keys:
    - **STRIPE_SECRET_KEY**: `sk_test_...` (from Stripe Test Mode)
@@ -161,7 +161,7 @@ Priority: Critical
 
 Steps:
 1. Navigate to http://localhost:4200/login
-2. Enter email: admin@exploreni.com
+2. Enter email: admin@niexperiences.co.uk
 3. Enter password: admin123
 4. Click "Login"
 

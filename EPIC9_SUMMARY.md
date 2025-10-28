@@ -2,7 +2,7 @@
 
 ## Overview
 
-Epic 9 provides comprehensive quality assurance testing infrastructure to verify all features from Epics 1-8 work correctly before production launch. This epic establishes both manual and automated testing frameworks to ensure the Explore NI MVP is production-ready.
+Epic 9 provides comprehensive quality assurance testing infrastructure to verify all features from Epics 1-8 work correctly before production launch. This epic establishes both manual and automated testing frameworks to ensure the NI Experiences MVP is production-ready.
 
 **Status:** ✅ **COMPLETE**
 
@@ -128,10 +128,10 @@ Reusable Cypress commands to simplify test writing:
 Specialized seed script that creates comprehensive test data:
 
 - **7 Test Users:**
-  - 1x Admin: `admin@exploreni.com`
-  - 2x Active Vendors: `davy@exploreni.com`, `siobhan@exploreni.com`
-  - 1x Pending Vendor: `ciaran@exploreni.com`
-  - 3x Customers: `mary@exploreni.com`, `paddy@exploreni.com`, `shauna@exploreni.com`
+  - 1x Admin: `admin@niexperiences.co.uk`
+  - 2x Active Vendors: `davy@niexperiences.co.uk`, `siobhan@niexperiences.co.uk`
+  - 1x Pending Vendor: `ciaran@niexperiences.co.uk`
+  - 3x Customers: `mary@niexperiences.co.uk`, `paddy@niexperiences.co.uk`, `shauna@niexperiences.co.uk`
 
 - **3 Test Experiences:**
   - "City Bike Tour" (auto-confirm, £100)
@@ -277,7 +277,7 @@ node config/seed-qa.js
 ## File Structure
 
 ```
-explore-ni/
+niexperiences/
 ├── QA_TEST_PLAN.md                          # Manual test plan (24 test cases)
 ├── TEST_EXECUTION_GUIDE.md                  # Test execution instructions
 ├── RUNBOOK.md                                # Updated with QA procedures
@@ -488,4 +488,4 @@ npm run cypress:run --record
 
 *Epic 9 Implementation Date: 2025-10-26*  
 *Status: ✅ COMPLETE*  
-*Team: Explore NI Development Team*
+*Team: NI Experiences Development Team*

@@ -24,7 +24,7 @@ This guide provides step-by-step instructions for testing the manual confirmatio
 
 **Steps:**
 1. Log in as a vendor:
-   - Email: `davy@exploreni.com`
+   - Email: `davy@niexperiences.co.uk`
    - Password: `vendor123`
 
 2. Navigate to **My Dashboard** → **Profile Settings** (or go directly to `/dashboard/profile`)
@@ -45,7 +45,7 @@ This guide provides step-by-step instructions for testing the manual confirmatio
 **Objective:** Verify vendors can view pending booking requests.
 
 **Steps:**
-1. Log in as vendor: `davy@exploreni.com` / `vendor123`
+1. Log in as vendor: `davy@niexperiences.co.uk` / `vendor123`
 
 2. Navigate to **My Dashboard** → **Booking Requests** (or go to `/dashboard/requests`)
 
@@ -64,7 +64,7 @@ This guide provides step-by-step instructions for testing the manual confirmatio
 # Login as vendor
 TOKEN=$(curl -s -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"davy@exploreni.com","password":"vendor123"}' | jq -r '.token')
+  -d '{"email":"davy@niexperiences.co.uk","password":"vendor123"}' | jq -r '.token')
 
 # Get first experience ID
 EXPERIENCE_ID=$(curl -s http://localhost:3000/api/experiences \
@@ -87,7 +87,7 @@ UPDATE Experiences SET confirmationMode = 'manual', timeoutBehavior = 'auto-decl
 1. Restart API (to apply database changes if you updated it manually)
 
 2. Log out and log in as a customer:
-   - Email: `mary@exploreni.com`
+   - Email: `mary@niexperiences.co.uk`
    - Password: `customer123`
 
 3. Browse experiences and select one with `confirmationMode = 'manual'`
@@ -107,7 +107,7 @@ UPDATE Experiences SET confirmationMode = 'manual', timeoutBehavior = 'auto-decl
 **Objective:** Verify vendor can confirm a pending booking.
 
 **Steps:**
-1. Log in as vendor: `davy@exploreni.com` / `vendor123`
+1. Log in as vendor: `davy@niexperiences.co.uk` / `vendor123`
 
 2. Navigate to **Booking Requests**
 
@@ -124,7 +124,7 @@ UPDATE Experiences SET confirmationMode = 'manual', timeoutBehavior = 'auto-decl
 ```bash
 TOKEN=$(curl -s -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"davy@exploreni.com","password":"vendor123"}' | jq -r '.token')
+  -d '{"email":"davy@niexperiences.co.uk","password":"vendor123"}' | jq -r '.token')
 
 # Get pending bookings
 curl -s http://localhost:3000/api/bookings/requests \
@@ -143,7 +143,7 @@ curl -s -X PUT http://localhost:3000/api/bookings/BOOKING_ID/confirm \
 **Objective:** Verify vendor can decline a booking with automatic refund.
 
 **Steps:**
-1. Log in as vendor: `davy@exploreni.com` / `vendor123`
+1. Log in as vendor: `davy@niexperiences.co.uk` / `vendor123`
 
 2. Navigate to **Booking Requests**
 
@@ -162,7 +162,7 @@ curl -s -X PUT http://localhost:3000/api/bookings/BOOKING_ID/confirm \
 ```bash
 TOKEN=$(curl -s -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"davy@exploreni.com","password":"vendor123"}' | jq -r '.token')
+  -d '{"email":"davy@niexperiences.co.uk","password":"vendor123"}' | jq -r '.token')
 
 # Decline booking (replace BOOKING_ID)
 curl -s -X PUT http://localhost:3000/api/bookings/BOOKING_ID/decline \

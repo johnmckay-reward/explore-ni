@@ -18,75 +18,75 @@ async function seedDatabase() {
     const admin = await User.create({
       firstName: 'Admin',
       lastName: 'User',
-      email: 'admin@exploreni.com',
+      email: 'admin@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('admin123', 10),
       role: 'admin',
       status: 'active',
     });
-    console.log('  ✓ The Big Boss created (admin@exploreni.com / admin123)');
+    console.log('  ✓ The Big Boss created (admin@niexperiences.co.uk / admin123)');
 
     // Vendor Users
     const vendorDavy = await User.create({
       firstName: 'Davy',
       lastName: 'McWilliams',
-      email: 'davy@exploreni.com',
+      email: 'davy@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('vendor123', 10),
       role: 'vendor',
       status: 'active',
     });
-    console.log('  ✓ Yer man Davy created (davy@exploreni.com / vendor123)');
+    console.log('  ✓ Yer man Davy created (davy@niexperiences.co.uk / vendor123)');
 
     const vendorSiobhan = await User.create({
       firstName: 'Siobhan',
       lastName: 'O\'Neill',
-      email: 'siobhan@exploreni.com',
+      email: 'siobhan@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('vendor123', 10),
       role: 'vendor',
       status: 'active',
     });
-    console.log('  ✓ Yer wan Siobhan created (siobhan@exploreni.com / vendor123)');
+    console.log('  ✓ Yer wan Siobhan created (siobhan@niexperiences.co.uk / vendor123)');
 
     // Pending Vendor (for testing approval flow)
     const pendingVendorCiaran = await User.create({
       firstName: 'Ciaran',
       lastName: 'Murphy',
-      email: 'ciaran@exploreni.com',
+      email: 'ciaran@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('vendor123', 10),
       role: 'vendor',
       status: 'pending_vendor',
     });
-    console.log('  ✓ Wee Ciaran (waiting) created (ciaran@exploreni.com / vendor123)');
+    console.log('  ✓ Wee Ciaran (waiting) created (ciaran@niexperiences.co.uk / vendor123)');
 
     // Customer Users
     const customerMary = await User.create({
       firstName: 'Mary',
       lastName: 'Magee',
-      email: 'mary@exploreni.com',
+      email: 'mary@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('customer123', 10),
       role: 'customer',
       status: 'active',
     });
-    console.log('  ✓ Our Mary created (mary@exploreni.com / customer123)');
+    console.log('  ✓ Our Mary created (mary@niexperiences.co.uk / customer123)');
 
     const customerPaddy = await User.create({
       firstName: 'Paddy',
       lastName: 'Johnston',
-      email: 'paddy@exploreni.com',
+      email: 'paddy@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('customer123', 10),
       role: 'customer',
       status: 'active',
     });
-    console.log('  ✓ Our Paddy created (paddy@exploreni.com / customer123)');
+    console.log('  ✓ Our Paddy created (paddy@niexperiences.co.uk / customer123)');
 
     const customerShauna = await User.create({
       firstName: 'Shauna',
       lastName: 'Kelly',
-      email: 'shauna@exploreni.com',
+      email: 'shauna@niexperiences.co.uk',
       passwordHash: await bcrypt.hash('customer123', 10),
       role: 'customer',
       status: 'active',
     });
-    console.log('  ✓ Our Shauna created (shauna@exploreni.com / customer123)');
+    console.log('  ✓ Our Shauna created (shauna@niexperiences.co.uk / customer123)');
 
     console.log(`  ✓ That's ${await User.count()} eejits in the system now.`);
 
@@ -940,23 +940,23 @@ await Review.create({
     console.log('Test Credentials (Don\'t be tellin\' everyone):');
     console.log('='.repeat(50));
     console.log('Admin (The Big Cheese):');
-    console.log('  Email: admin@exploreni.com');
+    console.log('  Email: admin@niexperiences.co.uk');
     console.log('  Password: admin123');
     console.log('');
     console.log('Vendors (The ones doing the work):');
-    console.log('  Email: davy@exploreni.com');
+    console.log('  Email: davy@niexperiences.co.uk');
     console.log('  Password: vendor123');
-    console.log('  Email: siobhan@exploreni.com');
+    console.log('  Email: siobhan@niexperiences.co.uk');
     console.log('  Password: vendor123');
-    console.log('  Email: ciaran@exploreni.com (Still waitin\', bless him)');
+    console.log('  Email: ciaran@niexperiences.co.uk (Still waitin\', bless him)');
     console.log('  Password: vendor123');
     console.log('');
     console.log('Customers (The Punters):');
-    console.log('  Email: mary@exploreni.com');
+    console.log('  Email: mary@niexperiences.co.uk');
     console.log('  Password: customer123');
-    console.log('  Email: paddy@exploreni.com');
+    console.log('  Email: paddy@niexperiences.co.uk');
     console.log('  Password: customer123');
-    console.log('  Email: shauna@exploreni.com');
+    console.log('  Email: shauna@niexperiences.co.uk');
     console.log('  Password: customer123');
     console.log('='.repeat(50));
     console.log('\nData Summary (The short version):');

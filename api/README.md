@@ -1,6 +1,6 @@
-# Explore NI API
+# NI Experiences API
 
-Backend API for the Explore NI platform - a marketplace for Northern Ireland experiences.
+Backend API for the NI Experiences platform - a marketplace for Northern Ireland experiences.
 
 ## Tech Stack
 
@@ -190,15 +190,15 @@ All 5xx server errors are logged using Winston:
 After seeding, you can log in with:
 
 **Admin:**
-- Email: `admin@exploreni.com`
+- Email: `admin@niexperiences.co.uk`
 - Password: `admin123`
 
 **Vendor:**
-- Email: `davy@exploreni.com`
+- Email: `davy@niexperiences.co.uk`
 - Password: `vendor123`
 
 **Customer:**
-- Email: `mary@exploreni.com`
+- Email: `mary@niexperiences.co.uk`
 - Password: `customer123`
 
 ## Troubleshooting

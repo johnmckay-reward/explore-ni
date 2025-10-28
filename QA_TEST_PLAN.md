@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides a comprehensive QA test plan for the Explore NI MVP application. All features from Epics 1-8 must be tested and verified before launch.
+This document provides a comprehensive QA test plan for the NI Experiences MVP application. All features from Epics 1-8 must be tested and verified before launch.
 
 **Testing Approach:**
 - Manual testing for user flows and integrations
@@ -21,14 +21,14 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
    - All third-party integrations configured (Stripe Test Mode, Twilio, SendGrid)
 
 2. **Test Accounts:**
-   - 1x Admin User: `admin@exploreni.com` / `admin123`
+   - 1x Admin User: `admin@niexperiences.co.uk` / `admin123`
    - 2x Vendor Users:
-     - Active: `davy@exploreni.com` / `vendor123`
-     - Pending: `ciaran@exploreni.com` / `vendor123`
+     - Active: `davy@niexperiences.co.uk` / `vendor123`
+     - Pending: `ciaran@niexperiences.co.uk` / `vendor123`
    - 3x Customer Users:
-     - `mary@exploreni.com` / `customer123`
-     - `paddy@exploreni.com` / `customer123`
-     - `shauna@exploreni.com` / `customer123`
+     - `mary@niexperiences.co.uk` / `customer123`
+     - `paddy@niexperiences.co.uk` / `customer123`
+     - `shauna@niexperiences.co.uk` / `customer123`
 
 3. **Test Data:**
    - See `api/config/seed.js` for seeding development/staging database
@@ -55,7 +55,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
      - `SENDGRID_API_KEY`
 
 3. **Create Test Experiences:**
-   - Login as `davy@exploreni.com`
+   - Login as `davy@niexperiences.co.uk`
    - Create auto-confirm experience: "City Bike Tour" (£100)
    - Create manual-confirm experience: "Private Art Class" (£80)
    - Add availability to both
@@ -71,7 +71,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 
 **Steps:**
 1. Navigate to `/login`
-2. Enter email: `admin@exploreni.com`
+2. Enter email: `admin@niexperiences.co.uk`
 3. Enter password: `admin123`
 4. Click "Login"
 
@@ -91,7 +91,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 **Steps:**
 1. Login as admin
 2. Navigate to `/admin/vendors`
-3. Verify pending vendor `ciaran@exploreni.com` appears in list
+3. Verify pending vendor `ciaran@niexperiences.co.uk` appears in list
 4. Click "Approve" button
 5. Verify status changes to "Active"
 
@@ -194,7 +194,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 
 **Steps:**
 1. Navigate to `/login`
-2. Enter email: `davy@exploreni.com`
+2. Enter email: `davy@niexperiences.co.uk`
 3. Enter password: `vendor123`
 4. Click "Login"
 
@@ -213,7 +213,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 **Priority:** Critical
 
 **Steps:**
-1. Login as vendor `davy@exploreni.com`
+1. Login as vendor `davy@niexperiences.co.uk`
 2. Verify access to `/dashboard` (should succeed)
 3. Attempt to navigate to `/admin` (should fail/redirect)
 4. Attempt to access `/admin/vendors` (should fail/redirect)
@@ -439,7 +439,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 **Priority:** Critical
 
 **Steps:**
-1. Login as customer `mary@exploreni.com`
+1. Login as customer `mary@niexperiences.co.uk`
 2. Navigate to "City Bike Tour" (auto-confirm experience)
 3. Select available date/time, quantity: 2
 4. Proceed to checkout
@@ -458,7 +458,7 @@ This document provides a comprehensive QA test plan for the Explore NI MVP appli
 ```sql
 -- Check booking
 SELECT status, paymentStatus, quantity FROM Bookings 
-WHERE userId = (SELECT id FROM Users WHERE email = 'mary@exploreni.com') 
+WHERE userId = (SELECT id FROM Users WHERE email = 'mary@niexperiences.co.uk') 
 ORDER BY createdAt DESC LIMIT 1;
 
 -- Check availability
@@ -475,7 +475,7 @@ SELECT availableSlots FROM Availabilities WHERE id = <slot_id>;
 
 **Steps:**
 1. **Customer Side:**
-   - Login as customer `paddy@exploreni.com`
+   - Login as customer `paddy@niexperiences.co.uk`
    - Find "Private Art Class" (manual-confirm)
    - Select date/time, quantity: 1
    - Checkout and pay with Stripe test card
@@ -485,7 +485,7 @@ SELECT availableSlots FROM Availabilities WHERE id = <slot_id>;
    - Check customer email for "Booking Pending" message
    
 3. **Vendor Side:**
-   - Login as vendor `davy@exploreni.com`
+   - Login as vendor `davy@niexperiences.co.uk`
    - Navigate to `/dashboard/requests`
    - Verify new booking request appears
    - Click "Confirm"
@@ -513,7 +513,7 @@ SELECT availableSlots FROM Availabilities WHERE id = <slot_id>;
 
 **Steps:**
 1. Repeat booking steps from E2E-002 (create pending booking)
-2. Login as vendor `davy@exploreni.com`
+2. Login as vendor `davy@niexperiences.co.uk`
 3. Navigate to `/dashboard/requests`
 4. Find the new booking request
 5. Click "Decline"
@@ -542,19 +542,19 @@ SELECT availableSlots FROM Availabilities WHERE id = <slot_id>;
 
 **Steps:**
 1. **Purchase:**
-   - Login as customer `mary@exploreni.com`
+   - Login as customer `mary@niexperiences.co.uk`
    - Navigate to `/gift-vouchers`
    - Purchase £50 voucher
-   - Recipient: `paddy@exploreni.com`
+   - Recipient: `paddy@niexperiences.co.uk`
    - Pay with Stripe test card
    
 2. **Receive:**
-   - Check email sent to `paddy@exploreni.com`
+   - Check email sent to `paddy@niexperiences.co.uk`
    - Verify PDF attached with unique code
    - Note the voucher code
    
 3. **Redeem:**
-   - Login as customer `paddy@exploreni.com`
+   - Login as customer `paddy@niexperiences.co.uk`
    - Book experience costing £100
    - On payment page, enter £50 voucher code
    - Click "Apply"
@@ -581,19 +581,19 @@ SELECT availableSlots FROM Availabilities WHERE id = <slot_id>;
 
 **Steps:**
 1. **Purchase:**
-   - Login as customer `mary@exploreni.com`
+   - Login as customer `mary@niexperiences.co.uk`
    - Navigate to "City Bike Tour" (£100)
    - Click "Gift this Experience"
-   - Recipient: `shauna@exploreni.com`
+   - Recipient: `shauna@niexperiences.co.uk`
    - Pay £100
    
 2. **Receive:**
-   - Check email to `shauna@exploreni.com`
+   - Check email to `shauna@niexperiences.co.uk`
    - Verify voucher for "1x City Bike Tour"
    - Note voucher code
    
 3. **Test Wrong Experience:**
-   - Login as `shauna@exploreni.com`
+   - Login as `shauna@niexperiences.co.uk`
    - Book "Private Art Class" (wrong experience)
    - Enter voucher code at payment
    - **Verify error:** "Voucher not valid for this experience"

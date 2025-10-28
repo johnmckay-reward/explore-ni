@@ -2,7 +2,7 @@
 
 ## Overview
 
-This implementation provides a complete manual confirmation workflow for bookings in the Explore NI platform. Vendors can now manage booking requests, set notification preferences, and the system automatically handles timeouts.
+This implementation provides a complete manual confirmation workflow for bookings in the NI Experiences platform. Vendors can now manage booking requests, set notification preferences, and the system automatically handles timeouts.
 
 ## What Was Implemented
 
@@ -232,7 +232,7 @@ cd api && npm start
 # In another terminal, start UI
 cd ui && npm start
 
-# Login as vendor: davy@exploreni.com / vendor123
+# Login as vendor: davy@niexperiences.co.uk / vendor123
 # Navigate to /dashboard/profile
 # Update settings and test
 ```

@@ -12,7 +12,7 @@ const TIMEOUT_BIZ_HOURS = 2 * 60 * 60 * 1000; // 2 hours
 const TIMEOUT_NON_BIZ_HOURS = 12 * 60 * 60 * 1000; // 12 hours
 
 // Admin email for escalations
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@explore-ni.com';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@niexperiences.co.uk';
 
 /**
  * Check if current time is within business hours

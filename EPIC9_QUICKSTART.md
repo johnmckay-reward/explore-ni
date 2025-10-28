@@ -1,6 +1,6 @@
 # Epic 9: QA & Pre-Launch Verification - Quick Start
 
-This guide provides a quick overview of the comprehensive QA testing infrastructure for Explore NI.
+This guide provides a quick overview of the comprehensive QA testing infrastructure for NI Experiences.
 
 ## 📋 What We Built
 
@@ -19,7 +19,7 @@ Epic 9 delivers complete QA testing infrastructure including:
 ```bash
 # Clone and install
 git clone <repository-url>
-cd explore-ni
+cd niexperiences
 
 # Install dependencies
 cd api && npm install
@@ -40,7 +40,7 @@ cd ui && npm start           # Terminal 2
 
 Then:
 1. Navigate to `http://localhost:4200/login`
-2. Login as admin: `admin@exploreni.com` / `admin123`
+2. Login as admin: `admin@niexperiences.co.uk` / `admin123`
 3. Go to `/admin/settings`
 4. Configure Stripe, Twilio, SendGrid test keys
 
@@ -66,7 +66,7 @@ npm run cypress:run
 ## 📁 File Structure
 
 ```
-explore-ni/
+niexperiences/
 ├── QA_TEST_PLAN.md                    # Manual test plan (787 lines)
 ├── TEST_EXECUTION_GUIDE.md            # Test execution guide (446 lines)
 ├── EPIC9_SUMMARY.md                   # Implementation summary (491 lines)
@@ -121,12 +121,12 @@ explore-ni/
 
 | Role | Email | Password |
 |------|-------|----------|
-| Admin | admin@exploreni.com | admin123 |
-| Vendor (Active) | davy@exploreni.com | vendor123 |
-| Vendor (Pending) | ciaran@exploreni.com | vendor123 |
-| Customer | mary@exploreni.com | customer123 |
-| Customer | paddy@exploreni.com | customer123 |
-| Customer | shauna@exploreni.com | customer123 |
+| Admin | admin@niexperiences.co.uk | admin123 |
+| Vendor (Active) | davy@niexperiences.co.uk | vendor123 |
+| Vendor (Pending) | ciaran@niexperiences.co.uk | vendor123 |
+| Customer | mary@niexperiences.co.uk | customer123 |
+| Customer | paddy@niexperiences.co.uk | customer123 |
+| Customer | shauna@niexperiences.co.uk | customer123 |
 
 ## 🧰 Test Data
 

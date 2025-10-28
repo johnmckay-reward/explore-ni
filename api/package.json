@@ -1,5 +1,5 @@
 {
-  "name": "explore-ni-api",
+  "name": "ni-experiences-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

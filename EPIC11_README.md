@@ -2,7 +2,7 @@
 
 ## Quick Start
 
-This is the final sign-off test for the Explore NI MVP. It validates all UI flows and internal logic without requiring live third-party API keys.
+This is the final sign-off test for the NI Experiences MVP. It validates all UI flows and internal logic without requiring live third-party API keys.
 
 ### Run the Test
 

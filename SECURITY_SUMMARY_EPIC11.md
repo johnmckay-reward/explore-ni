@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides a security analysis of the Epic 11 implementation, which includes a comprehensive regression test suite for the Explore NI MVP.
+This document provides a security analysis of the Epic 11 implementation, which includes a comprehensive regression test suite for the NI Experiences MVP.
 
 ## Changes Made
 
@@ -34,9 +34,9 @@ The test was designed to work with the existing Cypress installation that should
 ✅ **PASS**: The implementation does not introduce any new credentials, API keys, or secrets.
 
 All test accounts use well-known dummy credentials that are already present in the seed data:
-- `admin@exploreni.com` / `admin123`
-- `davy@exploreni.com` / `vendor123`
-- `mary@exploreni.com` / `customer123`
+- `admin@niexperiences.co.uk` / `admin123`
+- `davy@niexperiences.co.uk` / `vendor123`
+- `mary@niexperiences.co.uk` / `customer123`
 
 These are clearly test accounts with obvious test passwords.
 
@@ -201,7 +201,7 @@ The regression test includes explicit security validations:
 ✅ **COMPLIANT**: No personal data is processed during the test.
 
 - All test users are fictional
-- Email addresses use test domains (`@exploreni.com`)
+- Email addresses use test domains (`@niexperiences.co.uk`)
 - Phone numbers are test numbers (`+447700900123`)
 - No real user data is accessed or stored
 

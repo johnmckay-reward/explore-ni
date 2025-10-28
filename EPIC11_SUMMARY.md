@@ -140,7 +140,7 @@ These are tested separately in Epic 9 E2E tests with test API keys.
 ## File Structure
 
 ```
-explore-ni/
+niexperiences/
 ├── EPIC11_EXECUTION_GUIDE.md          # Comprehensive execution guide (345 lines)
 ├── EPIC11_SUMMARY.md                  # This file (implementation summary)
 └── ui/

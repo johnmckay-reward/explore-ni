@@ -1,4 +1,4 @@
-# Explore NI - Operations Runbook
+# NI Experiences - Operations Runbook
 
 This runbook provides step-by-step instructions for common administrative and operational tasks.
 
@@ -21,7 +21,7 @@ This runbook provides step-by-step instructions for common administrative and op
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd explore-ni
+   cd niexperiences
    ```
 
 2. **Set up the API:**
@@ -63,7 +63,7 @@ This runbook provides step-by-step instructions for common administrative and op
 
 6. **Log in as admin:**
    - Navigate to `http://localhost:4200/login`
-   - Email: `admin@exploreni.com`
+   - Email: `admin@niexperiences.co.uk`
    - Password: `admin123`
 
 7. **Configure API keys** (see [Updating API Keys](#updating-api-keys))
@@ -327,7 +327,7 @@ This runbook provides step-by-step instructions for common administrative and op
    ```
 
 2. **Configure API Keys:**
-   - Login as admin: `admin@exploreni.com` / `admin123`
+   - Login as admin: `admin@niexperiences.co.uk` / `admin123`
    - Navigate to `/admin/settings`
    - Configure all API keys with **TEST MODE** credentials:
      - Stripe (Test Mode: `sk_test_...`)
@@ -371,18 +371,18 @@ This runbook provides step-by-step instructions for common administrative and op
 ### QA Test Accounts
 
 **Admin:**
-- Email: `admin@exploreni.com`
+- Email: `admin@niexperiences.co.uk`
 - Password: `admin123`
 
 **Vendors:**
-- Active: `davy@exploreni.com` / `vendor123`
-- Active: `siobhan@exploreni.com` / `vendor123`
-- Pending: `ciaran@exploreni.com` / `vendor123`
+- Active: `davy@niexperiences.co.uk` / `vendor123`
+- Active: `siobhan@niexperiences.co.uk` / `vendor123`
+- Pending: `ciaran@niexperiences.co.uk` / `vendor123`
 
 **Customers:**
-- `mary@exploreni.com` / `customer123`
-- `paddy@exploreni.com` / `customer123`
-- `shauna@exploreni.com` / `customer123`
+- `mary@niexperiences.co.uk` / `customer123`
+- `paddy@niexperiences.co.uk` / `customer123`
+- `shauna@niexperiences.co.uk` / `customer123`
 
 ### QA Test Data
 
@@ -532,9 +532,9 @@ mv logs-backup-*.tar.gz /secure/archive/
 
 ## Support Contacts
 
-- **Technical Issues**: tech-support@explore-ni.com
-- **Admin Access**: admin@explore-ni.com
-- **Vendor Support**: vendors@explore-ni.com
+- **Technical Issues**: tech-support@niexperiences.co.uk
+- **Admin Access**: admin@niexperiences.co.uk
+- **Vendor Support**: vendors@niexperiences.co.uk
 
 ---
 
@@ -545,7 +545,7 @@ mv logs-backup-*.tar.gz /secure/archive/
 - UI: `http://localhost:4200`
 
 ### Admin Credentials (Development)
-- Email: `admin@exploreni.com`
+- Email: `admin@niexperiences.co.uk`
 - Password: `admin123`
 
 ### Test Payment Card

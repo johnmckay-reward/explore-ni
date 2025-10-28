@@ -49,30 +49,30 @@ runSeed();
 ## Test Credentials
 
 ### Admin Account
-- **Email**: admin@exploreni.com
+- **Email**: admin@niexperiences.co.uk
 - **Password**: admin123
 - **Use for**: Approving vendors, managing experiences, accessing admin dashboard
 
 ### Vendor Accounts
 - **Active Vendor 1**:
-  - Email: john@exploreni.com
+  - Email: john@niexperiences.co.uk
   - Password: vendor123
   
 - **Active Vendor 2**:
-  - Email: sarah@exploreni.com
+  - Email: sarah@niexperiences.co.uk
   - Password: vendor123
   
 - **Pending Vendor** (for testing approval flow):
-  - Email: pending@exploreni.com
+  - Email: pending@niexperiences.co.uk
   - Password: vendor123
 
 ### Customer Accounts
 - **Customer 1**:
-  - Email: jane@exploreni.com
+  - Email: jane@niexperiences.co.uk
   - Password: customer123
   
 - **Customer 2**:
-  - Email: bob@exploreni.com
+  - Email: bob@niexperiences.co.uk
   - Password: customer123
 
 ## Data Summary
