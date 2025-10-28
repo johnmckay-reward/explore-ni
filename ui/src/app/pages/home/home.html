@@ -11,7 +11,7 @@
         <div class="d-grid gap-2 d-md-flex">
           <a
             class="btn btn-secondary btn-xl"
-            [routerLink]="['/experiences']"
+            (click)="scrollToExperienceList()"
           >
             Browse All Experiences
           </a>
@@ -24,49 +24,116 @@
   </div>
 </div>
 
-<div class="container my-5">
-  @if (categories.length > 0) {
-  <div class="categories-section mb-5">
-    <h2 class="mb-4 text-center">Experience by Category</h2>
-    <div class="row g-4">
-      @for (category of categories; track category.id) {
-      <div class="col-md-4">
-        <div
-          class="card category-card"
-          [routerLink]="['/category', category.slug]"
-        >
-          <div class="card-body text-center p-4">
-            <i class="bi bi-pin-map display-4 text-secondary mb-3"></i>
-            <h5 class="card-title mb-0">{{ category.name }}</h5>
+<div #experienceList class="experience-list-section container my-5">
+  <div class="row">
+
+    <div class="col-md-3">
+      <div class="card filter-sidebar-card">
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0">Filters</h5>
+            <button class="btn btn-link btn-sm p-0" (click)="clearFilters()">Clear All</button>
           </div>
+
+          <div class="mb-3">
+            <label for="location" class="form-label fw-bold">Location</label>
+            <select
+              class="form-select"
+              id="location"
+              [(ngModel)]="location"
+              (ngModelChange)="onFilterChange()"
+            >
+              <option value="">All Locations</option>
+              @for (loc of dynamicLocations; track loc) {
+                <option [value]="loc">{{ loc }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Price Range</label>
+            <div class="row g-2">
+              <div class="col">
+                <select
+                  class="form-select"
+                  [(ngModel)]="minPrice"
+                  (ngModelChange)="onFilterChange()"
+                >
+                  <option [ngValue]="undefined">Min £</option>
+                  @for (price of priceOptions; track price) {
+                    <option [value]="price">£{{ price }}</option>
+                  }
+                </select>
+              </div>
+              <div class="col">
+                <select
+                  class="form-select"
+                  [(ngModel)]="maxPrice"
+                  (ngModelChange)="onFilterChange()"
+                >
+                  <option [ngValue]="undefined">Max £</option>
+                  @for (price of priceOptions; track price) {
+                    <option [value]="price">£{{ price }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold d-block">Minimum Rating</label>
+            <ngb-rating
+              [(rate)]="rating"
+              (rateChange)="onFilterChange()"
+              [max]="5"
+            ></ngb-rating>
+          </div>
+
         </div>
       </div>
+    </div>
+
+    <div class="col-md-9">
+      <h2 class="mb-4">Find Your Next Experience</h2>
+
+      @if (loading) {
+        <div class="text-center py-5">
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      } @else if (error) {
+        <div class="alert alert-danger">{{ error }}</div>
+      } @else if (experiences.length > 0) {
+        <div class="row">
+          @for (experience of experiences; track experience.id) {
+            <div class="col-lg-4 col-md-6 mb-4">
+              <app-experience-card [experience]="experience"></app-experience-card>
+            </div>
+          }
+        </div>
+
+        @if (totalPages > 1) {
+          <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+              </li>
+              @for (pageNum of pageNumbers; track pageNum) {
+                <li class="page-item" [class.active]="pageNum === currentPage">
+                  <a class="page-link" (click)="onPageChange(pageNum)">{{ pageNum }}</a>
+                </li>
+              }
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+              </li>
+            </ul>
+          </nav>
+        }
+      } @else {
+        <div class="alert alert-info">No experiences found matching your criteria.</div>
       }
     </div>
-  </div>
-  }
-
-  <div class="featured-section">
-    <h2 class="mb-4 text-center">Featured Experiences</h2>
-
-    @if (loading) {
-    <div class="text-center py-5">
-      <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-    } @else if (error) {
-    <div class="alert alert-danger">{{ error }}</div>
-    } @else if (featuredExperiences.length > 0) {
-    <div class="row g-4">
-      @for (experience of featuredExperiences; track experience.id) {
-      <div class="col-md-4">
-        <app-experience-card [experience]="experience"></app-experience-card>
-      </div>
-      }
-    </div>
-    } @else {
-    <div class="alert alert-info">No experiences available at the moment.</div>
-    }
   </div>
 </div>

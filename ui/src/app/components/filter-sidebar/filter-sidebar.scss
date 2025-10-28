@@ -1,11 +1,19 @@
-.filter-sidebar {
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// We are now using the global .card style, so no need
+// for background-color or box-shadow here.
 
-  h5 {
-    margin-bottom: 1.5rem;
-    font-weight: bold;
+// Make the "Clear All" button look like a subtle link
+.btn-link {
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
+
+// Ensure form labels have consistent spacing
+.form-label {
+  margin-bottom: 0.5rem;
+}
+
+// Your global styles.scss already styles the ngb-rating stars

@@ -1,50 +1,57 @@
-<div class="filter-sidebar">
-  <h5>Filter Experiences</h5>
+<div class="card filter-sidebar">
+  <div class="card-body">
 
-  <div class="mb-3">
-    <label for="location" class="form-label">Location</label>
-    <input
-      type="text"
-      class="form-control"
-      id="location"
-      [(ngModel)]="location"
-      placeholder="Search by location..."
-    />
-  </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">Filters</h5>
+      <button class="btn btn-link btn-sm p-0" (click)="clearFilters()">Clear All</button>
+    </div>
 
-  <div class="mb-3">
-    <label class="form-label">Price Range</label>
-    <div class="row g-2">
-      <div class="col">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="minPrice"
-          placeholder="Min £"
-          min="0"
-        />
-      </div>
-      <div class="col">
-        <input
-          type="number"
-          class="form-control"
-          [(ngModel)]="maxPrice"
-          placeholder="Max £"
-          min="0"
-        />
+    <div class="mb-3">
+      <label for="location" class="form-label fw-bold">Location</label>
+      <input
+        type="text"
+        class="form-control"
+        id="location"
+        [(ngModel)]="location"
+        (ngModelChange)="onFilterChange()"
+        placeholder="e.g., Belfast"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-bold">Price Range</label>
+      <div class="row g-2">
+        <div class="col">
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="minPrice"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Min £"
+            min="0"
+          />
+        </div>
+        <div class="col">
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="maxPrice"
+            (ngModelChange)="onFilterChange()"
+            placeholder="Max £"
+            min="0"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="mb-3">
-    <label class="form-label">Minimum Rating</label>
-    <div>
-      <ngb-rating [(rate)]="rating" [max]="5"></ngb-rating>
+    <div class="mb-3">
+      <label class="form-label fw-bold d-block">Minimum Rating</label>
+      <ngb-rating
+        [(rate)]="rating"
+        (rateChange)="onRatingChange()"
+        [max]="5"
+      ></ngb-rating>
     </div>
-  </div>
 
-  <div class="d-grid gap-2">
-    <button class="btn btn-primary" (click)="applyFilters()">Apply Filters</button>
-    <button class="btn btn-outline-secondary" (click)="clearFilters()">Clear Filters</button>
   </div>
 </div>

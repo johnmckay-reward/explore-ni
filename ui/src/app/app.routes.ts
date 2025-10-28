@@ -12,7 +12,6 @@ import { ExperienceForm } from './pages/dashboard/experience-form/experience-for
 import { AvailabilityManager } from './pages/dashboard/availability-manager/availability-manager';
 import { VendorProfile } from './pages/dashboard/vendor-profile/vendor-profile';
 import { BookingRequests } from './pages/dashboard/booking-requests/booking-requests';
-import { ExperienceList } from './pages/experience-list/experience-list';
 import { ExperienceDetail } from './pages/experience-detail/experience-detail';
 import { Checkout } from './pages/checkout/checkout';
 import { Payment } from './pages/payment/payment';
@@ -49,9 +48,7 @@ export const routes: Routes = [
   { path: 'privacy', component: Privacy, title: 'Privacy Policy | NI Experiences' },
   { path: 'terms', component: Terms, title: 'Terms of Use | NI Experiences' },
 
-  // Public marketplace routes
-  { path: 'experiences', component: ExperienceList, title: 'All Experiences | NI Experiences' },
-  { path: 'category/:slug', component: ExperienceList, title: 'Browse Category | NI Experiences' }, // Note: Dynamic title needs a TitleStrategy
+  // Public marketplace routeste: Dynamic title needs a TitleStrategy
   { path: 'experience/:id', component: ExperienceDetail, title: 'Experience Details | NI Experiences' }, // Note: Dynamic title needs a TitleStrategy
 
   // Hotel partner landing page

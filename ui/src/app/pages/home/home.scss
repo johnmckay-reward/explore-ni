@@ -1,26 +1,54 @@
 // Import global variables (like $secondary) from styles.scss
 @import '../../../variables';
 
-// 1. New Hero Icon Styling
+// 1. Hero Icon Styling
 .hero-icon {
-  font-size: 12rem; // Make the icon large
-  color: $secondary; // Use the brand's deep green
-  opacity: 0.15; // Make it subtle, like a watermark
-  transform: rotate(-15deg); // Give it a slight angle for visual interest
+  font-size: 12rem;
+  color: $secondary;
+  opacity: 0.15;
+  transform: rotate(-15deg);
 }
 
-// 2. Category Card Specifics
-.category-card {
-  cursor: pointer;
-  // The hover effect is now handled globally in styles.scss
+// 2. Section Spacing
+.experience-list-section {
+  margin-bottom: 3rem;
+}
 
-  .card-title {
-    color: $secondary; // Ensure title uses brand green
-    font-weight: 500;
+// 3. Pagination Link
+.page-link {
+  cursor: pointer;
+}
+
+// 4. Responsive improvements for mobile
+@media (max-width: 767.98px) {
+  .col-md-3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .page-item {
+      margin-bottom: 0.5rem;
+    }
   }
 }
 
-// 3. Section Spacing
-.featured-section {
-  margin-bottom: 3rem; // Keep the extra space at the bottom of the page
+// 5. Merged Filter Styles
+.filter-sidebar-card {
+  // Make the "Clear All" button look like a subtle link
+  .btn-link {
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // Ensure form labels have consistent spacing
+  .form-label {
+    margin-bottom: 0.5rem;
+  }
 }
