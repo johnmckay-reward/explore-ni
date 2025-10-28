@@ -5,6 +5,7 @@ import { NgbCarouselModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience } from '../../services/public-experience.service';
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Booking } from '../../components/booking/booking';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-experience-detail',
@@ -19,7 +20,8 @@ export class ExperienceDetail implements OnInit {
 
   constructor(
     private publicExperienceService: PublicExperienceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {}
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class ExperienceDetail implements OnInit {
     this.publicExperienceService.getExperienceById(id).subscribe({
       next: (experience) => {
         this.experience = experience;
+        this.titleService.setTitle(`${experience.title} | NI Experiences`);
         this.loading = false;
       },
       error: (err) => {
