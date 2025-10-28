@@ -1,54 +1,92 @@
-<div class="section-bg-yellow py-5">
-  <div class="container">
+<div class="hero-section text-white">
+  <div class="container py-5">
     <div class="row align-items-center">
-      <div class="col-lg-7">
-        <h1 class="display-4 fw-bold">Welcome to NI Experiences</h1>
-        <p class="lead my-3">
-          Discover amazing experiences across Northern Ireland. Book unique
-          adventures, from stunning hikes to cultural tours.
+      <div class="col-lg-8">
+        <h1 class="display-3 fw-bold hero-headline">
+          Discover Your Next NI Adventure
+        </h1>
+        <p class="lead hero-subheadline my-4">
+          Book unique, curated experiences across Northern Ireland. From the
+          Causeway Coast to the heart of Belfast, your story starts here.
         </p>
-        <hr class="d-lg-none" />
         <div class="d-grid gap-2 d-md-flex">
           <a
-            class="btn btn-secondary btn-xl"
-            (click)="scrollToExperienceList()"
+            class="btn btn-primary btn-xl"
+            (click)="scrollToExperienceList(true)"
           >
             Browse All Experiences
           </a>
         </div>
       </div>
-      <div class="col-lg-5 d-none d-lg-block text-center">
-        <i class="bi bi-compass hero-icon"></i>
+      </div>
+  </div>
+</div>
+
+<div class="trust-bar-section">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md col-6 trust-item">
+        <i class="bi bi-shield-check trust-icon"></i>
+        <span class="trust-text">Best Price Guarantee</span>
+      </div>
+      <div class="col-md col-6 trust-item">
+        <i class="bi bi-people trust-icon"></i>
+        <span class="trust-text">Run by Local Experts</span>
+      </div>
+      <div class="col-md col-6 trust-item">
+        <i class="bi bi-patch-check trust-icon"></i>
+        <span class="trust-text">Verified Reviews</span>
+      </div>
+      <div class="col-md col-6 trust-item">
+        <i class="bi bi-calendar2-check trust-icon"></i>
+        <span class="trust-text">Flexible Booking</span>
       </div>
     </div>
   </div>
 </div>
 
 <div #experienceList class="experience-list-section container my-5">
-  <div class="row">
 
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="display-5 fw-bold text-center">Top Deals & Experiences</h2>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col">
+      <ul class="nav nav-pills location-tabs justify-content-center">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [class.active]="location === ''"
+            (click)="onLocationTabClick('')"
+            >All</a
+          >
+        </li>
+        @for (loc of topLocations; track loc) {
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [class.active]="location === loc"
+              (click)="onLocationTabClick(loc)"
+              >{{ loc }}</a
+            >
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-3">
       <div class="card filter-sidebar-card">
         <div class="card-body">
-
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="mb-0">Filters</h5>
-            <button class="btn btn-link btn-sm p-0" (click)="clearFilters()">Clear All</button>
-          </div>
-
-          <div class="mb-3">
-            <label for="location" class="form-label fw-bold">Location</label>
-            <select
-              class="form-select"
-              id="location"
-              [(ngModel)]="location"
-              (ngModelChange)="onFilterChange()"
-            >
-              <option value="">All Locations</option>
-              @for (loc of dynamicLocations; track loc) {
-                <option [value]="loc">{{ loc }}</option>
-              }
-            </select>
+            <h5 class="mb-0 filter-title">Filter By</h5>
+            <button class="btn btn-link btn-sm p-0" (click)="clearFilters()">
+              Clear All
+            </button>
           </div>
 
           <div class="mb-3">
@@ -90,15 +128,43 @@
             ></ngb-rating>
           </div>
 
+          <hr />
+          <div class="mb-2">
+            <button
+              type="button"
+              class="btn btn-link p-0 fw-bold advanced-filter-toggle"
+              (click)="isAdvancedFilterCollapsed = !isAdvancedFilterCollapsed"
+              [attr.aria-expanded]="!isAdvancedFilterCollapsed"
+              aria-controls="advancedFilters"
+            >
+              Advanced Filters
+              <i class="bi" [class.bi-chevron-down]="isAdvancedFilterCollapsed" [class.bi-chevron-up]="!isAdvancedFilterCollapsed"></i>
+            </button>
+          </div>
+
+          <div id="advancedFilters" [ngbCollapse]="isAdvancedFilterCollapsed">
+            <div class="mb-3">
+              <label for="location" class="form-label fw-bold">All Locations</label>
+              <select
+                class="form-select"
+                id="location"
+                [(ngModel)]="location"
+                (ngModelChange)="onFilterChange()"
+              >
+                <option value="">All Locations</option>
+                @for (loc of dynamicLocations; track loc) {
+                  <option [value]="loc">{{ loc }}</option>
+                }
+              </select>
+            </div>
+            </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-9">
-      <h2 class="mb-4">Find Your Next Experience</h2>
-
       @if (loading) {
-        <div class="text-center py-5">
+        <div class="loading-state">
           <div class="spinner-border text-secondary" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -109,7 +175,9 @@
         <div class="row">
           @for (experience of experiences; track experience.id) {
             <div class="col-lg-4 col-md-6 mb-4">
-              <app-experience-card [experience]="experience"></app-experience-card>
+              <app-experience-card
+                [experience]="experience"
+              ></app-experience-card>
             </div>
           }
         </div>
@@ -118,21 +186,29 @@
           <nav aria-label="Page navigation" class="mt-4">
             <ul class="pagination justify-content-center">
               <li class="page-item" [class.disabled]="currentPage === 1">
-                <a class="page-link" (click)="onPageChange(currentPage - 1)">Previous</a>
+                <a class="page-link" (click)="onPageChange(currentPage - 1)"
+                  >Previous</a
+                >
               </li>
               @for (pageNum of pageNumbers; track pageNum) {
                 <li class="page-item" [class.active]="pageNum === currentPage">
-                  <a class="page-link" (click)="onPageChange(pageNum)">{{ pageNum }}</a>
+                  <a class="page-link" (click)="onPageChange(pageNum)">{{
+                    pageNum
+                  }}</a>
                 </li>
               }
               <li class="page-item" [class.disabled]="currentPage === totalPages">
-                <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+                <a class="page-link" (click)="onPageChange(currentPage + 1)"
+                  >Next</a
+                >
               </li>
             </ul>
           </nav>
         }
       } @else {
-        <div class="alert alert-info">No experiences found matching your criteria.</div>
+        <div class="alert alert-info text-center">
+          No experiences found matching your criteria. Try widening your search!
+        </div>
       }
     </div>
   </div>

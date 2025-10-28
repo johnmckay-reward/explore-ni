@@ -30,6 +30,7 @@ import { Terms } from './pages/terms/terms';
 import { AccountBookings } from './pages/account/bookings/account-bookings';
 import { AccountProfile } from './pages/account/profile/account-profile';
 import { authGuard, adminGuard, vendorGuard } from './guards/role.guards';
+import { Experiences } from './pages/experiences/experiences';
 
 export const routes: Routes = [
   // Core public routes
@@ -40,6 +41,7 @@ export const routes: Routes = [
 
   // Public informational routes
   { path: 'destinations', component: Destinations, title: 'Destinations | NI Experiences' },
+  { path: 'experiences', component: Experiences, title: 'Experiences | NI Experiences' },
   { path: 'hot-deals', component: HotDeals, title: 'Hot Deals | NI Experiences' },
   { path: 'about', component: About, title: 'About Us | NI Experiences' },
   { path: 'contact', component: Contact, title: 'Contact Us | NI Experiences' },

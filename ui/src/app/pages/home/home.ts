@@ -2,13 +2,14 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience, ExperienceFilters } from '../../services/public-experience.service';
 import { ExperienceCard } from '../../components/experience-card/experience-card';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink, ExperienceCard, FormsModule, NgbRatingModule],
+  // Added NgbCollapseModule for the "Advanced Filters" toggle
+  imports: [CommonModule, RouterLink, ExperienceCard, FormsModule, NgbRatingModule, NgbCollapseModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -33,6 +34,17 @@ export class Home implements OnInit {
   dynamicLocations: string[] = [];
   priceOptions: number[] = [0, 25, 50, 75, 100, 150, 200];
 
+  /**
+   * NEW: Hardcoded list of top locations for the tabbed UI.
+   * In a real app, this might come from the API, but for now, we define it here.
+   */
+  topLocations: string[] = ['Belfast', 'Giant\'s Causeway', 'Derry', 'Mourne Mountains'];
+
+  /**
+   * NEW: For toggling the advanced filter section
+   */
+  isAdvancedFilterCollapsed = true;
+
   private currentFilters: ExperienceFilters = { page: 1, limit: 9 };
 
   constructor(
@@ -46,6 +58,7 @@ export class Home implements OnInit {
 
   /**
    * Loads the visible, paginated list of experiences.
+   * (No changes from original)
    */
   loadExperiences() {
     this.loading = true;
@@ -66,6 +79,7 @@ export class Home implements OnInit {
 
   /**
    * Fetches *all* experiences to build the dynamic filter lists.
+   * (No changes from original)
    */
   loadFilterOptions() {
     this.publicExperienceService.getExperiences({ limit: 9999 }).subscribe({
@@ -73,6 +87,7 @@ export class Home implements OnInit {
         const locations = new Set(
           response.experiences.map(exp => exp.location)
         );
+        // We still load all locations for the advanced filter dropdown
         this.dynamicLocations = Array.from(locations).sort();
       },
       error: (err) => {
@@ -83,7 +98,7 @@ export class Home implements OnInit {
 
   /**
    * Called on any filter selection change.
-   * Gathers all local filter data and re-loads the list.
+   * (No changes from original)
    */
   onFilterChange() {
     const filters: ExperienceFilters = {
@@ -99,29 +114,46 @@ export class Home implements OnInit {
       limit: 9,
     };
     this.loadExperiences();
-    // Smooth scroll on filter change
-    this.scrollToExperienceList();
+    // We scroll on page change, but not on every filter change (can be jarring)
+  }
+
+  /**
+   * NEW: Called when a user clicks one of the top location tabs.
+   * This sets the main location filter and triggers a reload.
+   */
+  onLocationTabClick(selectedLocation: string) {
+    // If clicking the same tab, clear the filter. Otherwise, set it.
+    if (this.location === selectedLocation) {
+      this.location = '';
+    } else {
+      this.location = selectedLocation;
+    }
+    this.onFilterChange();
+    this.scrollToExperienceList(true); // Scroll on tab click
   }
 
   /**
    * Clears all filters and re-loads the list.
+   * (No changes from original)
    */
   clearFilters() {
     this.location = '';
     this.minPrice = undefined;
     this.maxPrice = undefined;
     this.rating = 0;
-    this.onFilterChange(); // Re-run the search with cleared filters
+    this.onFilterChange();
   }
 
+  /**
+   * (No changes from original)
+   */
   onPageChange(page: number) {
     if (page < 1 || page > this.totalPages) {
       return;
     }
     this.currentFilters.page = page;
     this.loadExperiences();
-    // Smooth scroll on page change
-    this.scrollToExperienceList();
+    this.scrollToExperienceList(true); // Scroll on page change
   }
 
   get pageNumbers(): number[] {
@@ -129,11 +161,16 @@ export class Home implements OnInit {
   }
 
   /**
-   * Reusable scroll function for the "Browse" button and filters.
+   * Reusable scroll function.
+   * @param force {boolean} If true, scrolls even if element is partially in view.
    */
-  scrollToExperienceList() {
+  scrollToExperienceList(force: boolean = false) {
     if (this.experienceListElement) {
-      this.experienceListElement.nativeElement.scrollIntoView({ behavior: 'smooth' });
+      const options: ScrollIntoViewOptions = { behavior: 'smooth' };
+      if (!force) {
+        options.block = 'nearest';
+      }
+      this.experienceListElement.nativeElement.scrollIntoView(options);
     }
   }
 }
