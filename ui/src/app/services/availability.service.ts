@@ -15,7 +15,7 @@ export interface Availability {
   providedIn: 'root'
 })
 export class AvailabilityService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://explore-ni.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 

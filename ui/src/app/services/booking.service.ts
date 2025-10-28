@@ -59,7 +59,7 @@ export interface CreatePaymentIntentResponse {
   providedIn: 'root'
 })
 export class BookingService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://explore-ni.onrender.com/api';
 
   constructor(private http: HttpClient) { }
 
@@ -82,7 +82,7 @@ export class BookingService {
    */
   createPaymentIntent(request: CreatePaymentIntentRequest): Observable<CreatePaymentIntentResponse> {
     return this.http.post<CreatePaymentIntentResponse>(
-      `${this.apiUrl}/payments/stripe/create-intent`, 
+      `${this.apiUrl}/payments/stripe/create-intent`,
       request
     );
   }

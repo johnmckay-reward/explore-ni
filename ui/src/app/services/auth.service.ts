@@ -36,11 +36,11 @@ export interface RegisterRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';
-  
+  private apiUrl = 'https://explore-ni.onrender.com/api/auth';
+
   // Signal to track current user
   currentUser = signal<User | null>(null);
-  
+
   // Signal to track authentication token
   private token = signal<string | null>(null);
 
@@ -101,7 +101,7 @@ export class AuthService {
    * Apply to become a vendor
    */
   applyToBeVendor(): Observable<{ message: string; user: User }> {
-    return this.http.post<{ message: string; user: User }>(`http://localhost:3000/api/users/apply-vendor`, {}).pipe(
+    return this.http.post<{ message: string; user: User }>(`https://explore-ni.onrender.com/api/users/apply-vendor`, {}).pipe(
       tap(response => {
         // Update the current user with new role and status
         if (response && response.user) {
@@ -126,7 +126,7 @@ export class AuthService {
   private handleAuthSuccess(response: AuthResponse): void {
     this.currentUser.set(response.user);
     this.token.set(response.token);
-    
+
     // Store in localStorage for persistence
     localStorage.setItem('user', JSON.stringify(response.user));
     localStorage.setItem('token', response.token);
@@ -139,7 +139,7 @@ export class AuthService {
   private loadUserFromStorage(): void {
     const userJson = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    
+
     if (userJson && token) {
       try {
         const user = JSON.parse(userJson);

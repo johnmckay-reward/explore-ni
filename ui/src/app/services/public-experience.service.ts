@@ -55,7 +55,7 @@ export interface ExperiencesResponse {
   providedIn: 'root'
 })
 export class PublicExperienceService {
-  private apiUrl = 'http://localhost:3000/api/public';
+  private apiUrl = 'https://explore-ni.onrender.com/api/public';
 
   constructor(private http: HttpClient) {}
 

@@ -27,7 +27,7 @@ export interface Experience {
   providedIn: 'root'
 })
 export class ExperienceService {
-  private apiUrl = 'http://localhost:3000/api/experiences';
+  private apiUrl = 'https://explore-ni.onrender.com/api/experiences';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

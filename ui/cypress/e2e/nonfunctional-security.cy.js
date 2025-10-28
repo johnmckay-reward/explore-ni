@@ -302,7 +302,7 @@ describe('Non-Functional & Security Tests', () => {
       // Attempt API call without proper headers
       cy.request({
         method: 'PUT',
-        url: 'http://localhost:3000/api/experiences/1',
+        url: 'https://explore-ni.onrender.com/api/experiences/1',
         failOnStatusCode: false,
         body: { title: 'Hacked' }
       }).then(response => {
@@ -326,7 +326,7 @@ describe('Non-Functional & Security Tests', () => {
         // Try to access vendor endpoint
         cy.request({
           method: 'PUT',
-          url: 'http://localhost:3000/api/experiences/1',
+          url: 'https://explore-ni.onrender.com/api/experiences/1',
           failOnStatusCode: false,
           headers: {
             'Authorization': `Bearer ${token}`

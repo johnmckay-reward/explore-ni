@@ -75,7 +75,7 @@ export interface VouchersListResponse {
 })
 export class VoucherService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'https://explore-ni.onrender.com/api';
 
   purchaseFixed(request: VoucherPurchaseFixedRequest): Observable<PaymentIntentResponse> {
     return this.http.post<PaymentIntentResponse>(`${this.apiUrl}/vouchers/purchase-fixed`, request);
