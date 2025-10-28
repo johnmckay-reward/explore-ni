@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm position-relative">
   <div class="container">
 
-    <!--
-      3. Toggler now opens the offcanvas menu
-    -->
     <button
       class="navbar-toggler navbar-toggler-custom"
       type="button"
@@ -16,18 +13,11 @@
       </svg>
     </button>
 
-    <!-- Logo (unchanged) -->
     <a class="navbar-brand mobile-logo-centered" routerLink="/">
       <img src="ni-experiences.png" alt="NI Experiences Logo" class="brand-logo">
     </a>
 
-    <!--
-      4. This is now the DESKTOP menu.
-      - It's hidden on mobile (navbar-expand-lg)
-      - We removed [ngbCollapse]
-    -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Main Nav Links (Desktop) -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
@@ -51,10 +41,8 @@
         </li>
       </ul>
 
-      <!-- Auth Nav Links (Desktop) -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
         @if (currentUser()) {
-          <!-- Vendor Dashboard Dropdown -->
           @if (isVendor()) {
             <li class="nav-item" ngbDropdown>
               <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="vendorDropdown">
@@ -67,7 +55,6 @@
               </div>
             </li>
           }
-          <!-- Admin Links -->
           @if (isAdmin()) {
             <li class="nav-item" ngbDropdown>
               <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="adminDropdown">
@@ -76,16 +63,16 @@
               <div ngbDropdownMenu aria-labelledby="adminDropdown">
                 <a ngbDropdownItem routerLink="/admin/vendors">Vendor Approvals</a>
                 <a ngbDropdownItem routerLink="/admin/experiences">Experience Approvals</a>
+                <a ngbDropdownItem routerLink="/admin/vouchers">Manage Vouchers</a>
+                <a ngbDropdownItem routerLink="/admin/settings">Admin Settings</a>
               </div>
             </li>
           }
-          <!-- Apply to Become Vendor (only for customers) -->
           @if (isCustomer()) {
             <li class="nav-item">
               <a class="nav-link" routerLink="/apply-vendor" routerLinkActive="active">Become a Vendor</a>
             </li>
           }
-          <!-- User Dropdown -->
           <li class="nav-item" ngbDropdown>
             <a class="nav-link dropdown-toggle" role="button" ngbDropdownToggle id="userDropdown">
               Hi, {{ userFirstName() }}
@@ -98,7 +85,6 @@
             </div>
           </li>
         } @else {
-          <!-- Auth Links -->
           <li class="nav-item">
             <a class="btn btn-outline-primary" routerLink="/register" routerLinkActive="active">Sign Up</a>
           </li>
@@ -111,11 +97,6 @@
   </div>
 </nav>
 
-<!--
-  5. Offcanvas Mobile Menu
-  - This is the new slide-in menu.
-  - It contains a copy of the nav links, styled for mobile.
--->
 <ng-template #offcanvasMenu let-offcanvas>
   <div class="offcanvas-header offcanvas-custom">
     <h5 class="offcanvas-title text-white">Menu</h5>
@@ -127,7 +108,6 @@
     ></button>
   </div>
   <div class="offcanvas-body offcanvas-custom">
-    <!-- Mobile Main Nav -->
     <ul class="navbar-nav mb-4">
       <li class="nav-item">
         <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="offcanvas.dismiss()">Home</a>
@@ -153,13 +133,11 @@
 
     <hr class="text-white-50">
 
-    <!-- Mobile Auth Links -->
     <ul class="navbar-nav">
       @if (currentUser()) {
         <li class="nav-item mb-2">
           <span class="navbar-text text-white">Hi, {{ userFirstName() }}</span>
         </li>
-        <!-- Vendor Dashboard Links -->
         @if (isVendor()) {
           <li class="nav-item">
             <a class="nav-link text-white" routerLink="/dashboard/my-listings" (click)="offcanvas.dismiss()">My Listings</a>
@@ -171,7 +149,6 @@
             <a class="nav-link text-white" routerLink="/dashboard/profile" (click)="offcanvas.dismiss()">Profile Settings</a>
           </li>
         }
-        <!-- Admin Links -->
         @if (isAdmin()) {
           <li class="nav-item">
             <a class="nav-link text-white" routerLink="/admin/vendors" (click)="offcanvas.dismiss()">Vendor Approvals</a>
@@ -179,8 +156,13 @@
           <li class="nav-item">
             <a class="nav-link text-white" routerLink="/admin/experiences" (click)="offcanvas.dismiss()">Experience Approvals</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/admin/vouchers" (click)="offcanvas.dismiss()">Manage Vouchers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/admin/settings" (click)="offcanvas.dismiss()">Admin Settings</a>
+          </li>
         }
-        <!-- Apply to Become Vendor (only for customers) -->
         @if (isCustomer()) {
           <li class="nav-item">
             <a class="nav-link text-white" routerLink="/apply-vendor" (click)="offcanvas.dismiss()">Become a Vendor</a>
