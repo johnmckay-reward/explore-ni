@@ -53,31 +53,6 @@
     </div>
   </div>
 
-  <div class="row mb-4">
-    <div class="col">
-      <ul class="nav nav-pills location-tabs justify-content-center">
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            [class.active]="location === ''"
-            (click)="onLocationTabClick('')"
-            >All</a
-          >
-        </li>
-        @for (loc of topLocations; track loc) {
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              [class.active]="location === loc"
-              (click)="onLocationTabClick(loc)"
-              >{{ loc }}</a
-            >
-          </li>
-        }
-      </ul>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-md-3">
       <div class="card filter-sidebar-card">
