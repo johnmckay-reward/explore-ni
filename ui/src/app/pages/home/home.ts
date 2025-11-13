@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgbCollapseModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicExperienceService, PublicExperience, ExperienceFilters } from '../../services/public-experience.service';
@@ -9,7 +8,7 @@ import { ExperienceCard } from '../../components/experience-card/experience-card
 @Component({
   selector: 'app-home',
   // Added NgbCollapseModule for the "Advanced Filters" toggle
-  imports: [CommonModule, RouterLink, ExperienceCard, FormsModule, NgbRatingModule, NgbCollapseModule],
+  imports: [CommonModule, ExperienceCard, FormsModule, NgbRatingModule, NgbCollapseModule],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

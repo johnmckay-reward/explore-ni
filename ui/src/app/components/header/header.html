@@ -33,6 +33,12 @@
             🔥 Hot Deals
           </a>
         </li>
+        <!-- KEEPING THE GIFT VOUCHER LINK HERE (DESKTOP) -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/gift-vouchers" routerLinkActive="active">
+            Gift Vouchers
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
         </li>
@@ -121,6 +127,12 @@
       <li class="nav-item">
         <a class="nav-link text-white" routerLink="/hot-deals" routerLinkActive="active" (click)="offcanvas.dismiss()">
           🔥 Hot Deals
+        </a>
+      </li>
+      <!-- ADDED GIFT VOUCHER LINK HERE (MOBILE/OFFCANVAS) -->
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/gift-vouchers" routerLinkActive="active" (click)="offcanvas.dismiss()">
+          Gift Vouchers
         </a>
       </li>
       <li class="nav-item">

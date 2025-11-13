@@ -1,12 +1,139 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-12">
-      <h1 class="mb-4">Experiences</h1>
-      <p class="lead">Explore amazing experiences across Northern Ireland.</p>
-      <div class="alert alert-info" role="alert">
-        <i class="bi bi-info-circle me-2"></i>
-        This page is under construction. More experiences coming soon!
+      <h1 class="mb-4">Explore All Experiences</h1>
+      <p class="lead">Find your next amazing adventure across Northern Ireland.</p>
+    </div>
+  </div>
+
+  <form class="row g-3 align-items-end mt-3" (submit)="onFilterChange()">
+    <div class="col-md-3 col-sm-6">
+      <label for="experienceSelect" class="form-label fw-bold">1. Experience Type</label>
+      <select class="form-select" id="experienceSelect" aria-label="Select Experience Type">
+        <option selected>All Experience Types</option>
+        <option value="adventure">Adventure</option>
+        <option value="watersports">Watersports</option>
+        <option value="cultural">Cultural</option>
+        <option value="outdoors">Outdoors</option>
+        <option value="rainyday">Rainy Day</option>
+        <option value="familyfriendly">Family Friendly</option>
+        <option value="food">Food</option>
+        <option value="sports">Sports</option>
+        <option value="educational">Educational</option>
+        <option value="indoors">Indoors</option>
+        <option value="museums">Museums</option>
+        <option value="spas">Spas & Wellbeing</option>
+        <option value="tours">Tours</option>
+        <option value="historical">Historical</option>
+        <option value="drinks">Drinks</option>
+        <option value="zoos">Zoos & Wildlife</option>
+        </select>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <label for="destinationSelect" class="form-label fw-bold">2. Select Destination</label>
+      <select class="form-select" id="destinationSelect" aria-label="Select Destination" [(ngModel)]="location" name="location">
+        <option selected value="">All Destinations</option>
+        <option selected>All Destinations</option>
+        <option value="belfast">Belfast</option>
+        <option value="causeway">Causeway Coast</option>
+        <option value="derry">Derry/Londonderry</option>
+        <option value="fermanagh">Fermanagh</option>
+        <option value="down">Down</option>
+        <option value="armagh">Armagh</option>
+        <option value="lisburn">Lisburn</option>
+        <option value="bangor">Bangor</option>
+        <option value="omagh">Omagh</option>
+      </select>
+    </div>
+
+    <div class="col-12 mt-3">
+        <button class="btn btn-link" type="button" (click)="isAdvancedFilterCollapsed = !isAdvancedFilterCollapsed"
+                [attr.aria-expanded]="!isAdvancedFilterCollapsed" aria-controls="advancedFilters">
+            {{ isAdvancedFilterCollapsed ? 'Show Advanced Filters' : 'Hide Advanced Filters' }}
+        </button>
+    </div>
+
+    <div id="advancedFilters" [(ngbCollapse)]="isAdvancedFilterCollapsed" class="col-12">
+      <div class="row g-3">
+        <div class="col-md-3 col-sm-6">
+          <label for="minPrice" class="form-label">Min Price</label>
+          <select class="form-select" id="minPrice" [(ngModel)]="minPrice" name="minPrice">
+            <option [ngValue]="undefined">No Minimum</option>
+            <option *ngFor="let price of priceOptions" [ngValue]="price">£{{ price }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+          <label for="maxPrice" class="form-label">Max Price</label>
+          <select class="form-select" id="maxPrice" [(ngModel)]="maxPrice" name="maxPrice">
+            <option [ngValue]="undefined">No Maximum</option>
+            <option *ngFor="let price of priceOptions" [ngValue]="price">£{{ price }}</option>
+          </select>
+        </div>
+        
+        <div class="col-md-3 col-sm-6 d-flex flex-column align-items-start">
+            <label class="form-label">Minimum Rating</label>
+            <ngb-rating [(ngModel)]="rating" [max]="5" name="rating" [readonly]="false"></ngb-rating>
+        </div>
+
+        <div class="col-md-3 col-sm-6 d-flex align-items-end">
+            <button type="button" class="btn btn-outline-secondary w-100" (click)="clearFilters()">
+                Clear All Filters
+            </button>
+        </div>
       </div>
+    </div>
+
+    <div class="col-12 mt-3 d-flex justify-content-center">
+      <div class="col-md-3"> <button class="btn btn-primary w-100" type="submit">
+          <i class="bi bi-search me-2"></i>Search Experiences
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <hr>
+
+  <div #experienceList class="row mt-5">
+    <div class="col-12 mb-3">
+        <h2>Results ({{ currentPage }} of {{ totalPages }})</h2>
+    </div>
+
+    <div *ngIf="loading" class="col-12 text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading experiences...</p>
+    </div>
+
+    <div *ngIf="error" class="col-12 alert alert-danger">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!loading && experiences.length === 0 && !error" class="col-12 alert alert-warning">
+      No experiences found matching your criteria. Try adjusting your filters.
+    </div>
+
+    <div *ngFor="let experience of experiences" class="col-lg-4 col-md-6 mb-4">
+      <app-experience-card [experience]="experience"></app-experience-card>
+    </div>
+
+    <div *ngIf="totalPages > 1 && !loading" class="col-12 d-flex justify-content-center mt-4">
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a class="page-link" href="#" (click)="onPageChange(currentPage - 1); $event.preventDefault()">Previous</a>
+          </li>
+          <li *ngFor="let page of pageNumbers" class="page-item" [class.active]="page === currentPage">
+            <a class="page-link" href="#" (click)="onPageChange(page); $event.preventDefault()">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a class="page-link" href="#" (click)="onPageChange(currentPage + 1); $event.preventDefault()">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>
