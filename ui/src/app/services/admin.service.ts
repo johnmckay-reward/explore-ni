@@ -5,11 +5,13 @@ import { AuthService } from './auth.service';
 import { User } from './auth.service';
 import { Experience } from './experience.service';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'https://explore-ni.onrender.com/api/admin';
+  private apiUrl = environment.apiUrl + '/admin';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

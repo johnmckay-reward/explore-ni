@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 export interface User {
   id: number;
   firstName: string;
@@ -36,7 +38,7 @@ export interface RegisterRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://explore-ni.onrender.com/api/auth';
+  private apiUrl = environment.apiUrl + '/auth';
 
   // Signal to track current user
   currentUser = signal<User | null>(null);
@@ -101,7 +103,7 @@ export class AuthService {
    * Apply to become a vendor
    */
   applyToBeVendor(): Observable<{ message: string; user: User }> {
-    return this.http.post<{ message: string; user: User }>(`https://explore-ni.onrender.com/api/users/apply-vendor`, {}).pipe(
+    return this.http.post<{ message: string; user: User }>(environment.apiUrl + `/users/apply-vendor`, {}).pipe(
       tap(response => {
         // Update the current user with new role and status
         if (response && response.user) {

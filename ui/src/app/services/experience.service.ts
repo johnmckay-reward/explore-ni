@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
+import { environment } from '../../environments/environment';
+
 export interface Experience {
   id?: number;
   title: string;
@@ -27,7 +29,8 @@ export interface Experience {
   providedIn: 'root'
 })
 export class ExperienceService {
-  private apiUrl = 'https://explore-ni.onrender.com/api/experiences';
+  private apiUrl = environment.apiUrl + '/experiences';
+
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
